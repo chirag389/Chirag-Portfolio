@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick Chat — From Chatbot to Customer Communication Platform</title>
+
+
+
+<script src="./support.js"></script>
+</head>
+<body class="bg-white text-zinc-900 antialiased">
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Inter,-apple-system,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:JetBrains Mono,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0}.left-2{left:.5rem}.right-2{right:.5rem}.top-0{top:0}.top-24{top:6rem}.top-\[calc\(50\%-10px\)\]{top:calc(50% - 10px)}.z-10{z-index:10}.z-40{z-index:40}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-8{margin-top:2rem}.block{display:block}.inline{display:inline}.flex{display:flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-3{height:.75rem}.h-6{height:1.5rem}.h-7{height:1.75rem}.h-9{height:2.25rem}.h-auto{height:auto}.w-3{width:.75rem}.w-6{width:1.5rem}.w-7{width:1.75rem}.w-9{width:2.25rem}.w-\[80\%\]{width:80%}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-\[1360px\]{max-width:1360px}.max-w-xl{max-width:36rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.snap-x{scroll-snap-type:x var(--tw-scroll-snap-strictness)}.snap-mandatory{--tw-scroll-snap-strictness:mandatory}.snap-start{scroll-snap-align:start}.scroll-mt-28{scroll-margin-top:7rem}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.items-stretch{align-items:stretch}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1\.5{gap:.375rem}.gap-10{gap:2.5rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-1\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.375rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.375rem*var(--tw-space-y-reverse))}.space-y-16>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(4rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(4rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.space-y-2\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.625rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.625rem*var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.space-y-5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem*var(--tw-space-y-reverse))}.space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem*var(--tw-space-y-reverse))}.space-y-8>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.scroll-smooth{scroll-behavior:smooth}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-md{border-radius:.375rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-brand-200{--tw-border-opacity:1;border-color:rgb(183 239 211/var(--tw-border-opacity,1))}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235/var(--tw-border-opacity,1))}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219/var(--tw-border-opacity,1))}.bg-brand-100{--tw-bg-opacity:1;background-color:rgb(221 247 234/var(--tw-bg-opacity,1))}.bg-brand-50{--tw-bg-opacity:1;background-color:rgb(234 251 243/var(--tw-bg-opacity,1))}.bg-brand-50\/50{background-color:rgba(234,251,243,.5)}.bg-brand-50\/60{background-color:rgba(234,251,243,.6)}.bg-brand-900{--tw-bg-opacity:1;background-color:rgb(11 168 97/var(--tw-bg-opacity,1))}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity,1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/90{background-color:hsla(0,0%,100%,.9)}.bg-zinc-900{--tw-bg-opacity:1;background-color:rgb(24 24 27/var(--tw-bg-opacity,1))}.bg-gradient-to-t{background-image:linear-gradient(to top,var(--tw-gradient-stops))}.from-zinc-950\/70{--tw-gradient-from:rgba(9,9,11,.7) var(--tw-gradient-from-position);--tw-gradient-to:rgba(9,9,11,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),transparent var(--tw-gradient-via-position),var(--tw-gradient-to)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{-o-object-fit:cover;object-fit:cover}.p-3{padding:.75rem}.p-3\.5{padding:.875rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-3\.5{padding-top:.875rem;padding-bottom:.875rem}.pb-10{padding-bottom:2.5rem}.pb-2{padding-bottom:.5rem}.pb-2\.5{padding-bottom:.625rem}.pb-3{padding-bottom:.75rem}.pl-8{padding-left:2rem}.pt-1{padding-top:.25rem}.pt-10{padding-top:2.5rem}.pt-2{padding-top:.5rem}.pt-3{padding-top:.75rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-\[1\.1\]{line-height:1.1}.leading-relaxed{line-height:1.625}.tracking-tight{letter-spacing:-.025em}.tracking-wider{letter-spacing:.05em}.tracking-widest{letter-spacing:.1em}.text-brand-700{--tw-text-opacity:1;color:rgb(6 112 64/var(--tw-text-opacity,1))}.text-brand-900{--tw-text-opacity:1;color:rgb(11 168 97/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.text-zinc-300{--tw-text-opacity:1;color:rgb(212 212 216/var(--tw-text-opacity,1))}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170/var(--tw-text-opacity,1))}.text-zinc-500{--tw-text-opacity:1;color:rgb(113 113 122/var(--tw-text-opacity,1))}.text-zinc-600{--tw-text-opacity:1;color:rgb(82 82 91/var(--tw-text-opacity,1))}.text-zinc-700{--tw-text-opacity:1;color:rgb(63 63 70/var(--tw-text-opacity,1))}.text-zinc-900{--tw-text-opacity:1;color:rgb(24 24 27/var(--tw-text-opacity,1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-90{opacity:.9}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgba(0,0,0,.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color)}.shadow-2xl,.shadow-md{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.shadow-sm,.shadow-xl{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color),0 8px 10px -6px var(--tw-shadow-color)}.backdrop-blur{--tw-backdrop-blur:blur(8px)}.backdrop-blur,.backdrop-blur-xl{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-xl{--tw-backdrop-blur:blur(24px)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}html{scroll-behavior:smooth}body{font-family:Inter,-apple-system,sans-serif}.font-mono-code{font-family:JetBrains Mono,monospace}.hover\:bg-black:hover{--tw-bg-opacity:1;background-color:rgb(0 0 0/var(--tw-bg-opacity,1))}.hover\:bg-gray-100:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity,1))}.hover\:bg-gray-200\/70:hover{background-color:rgba(229,231,235,.7)}.hover\:bg-white:hover{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.hover\:text-zinc-900:hover{--tw-text-opacity:1;color:rgb(24 24 27/var(--tw-text-opacity,1))}.disabled\:pointer-events-none:disabled{pointer-events:none}.disabled\:opacity-0:disabled{opacity:0}@media (min-width:640px){.sm\:block{display:block}.sm\:inline{display:inline}.sm\:flex{display:flex}.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:flex-row{flex-direction:row}.sm\:gap-3{gap:.75rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-14{padding-top:3.5rem}.sm\:text-left{text-align:left}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}.sm\:text-5xl{font-size:3rem;line-height:1}.sm\:text-sm{font-size:.875rem;line-height:1.25rem}}@media (min-width:768px){.md\:flex{display:flex}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:flex-row{flex-direction:row}}@media (min-width:1024px){.lg\:col-span-3{grid-column:span 3/span 3}.lg\:col-span-9{grid-column:span 9/span 9}.lg\:block{display:block}.lg\:grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}.lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.lg\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:text-6xl{font-size:3.75rem;line-height:1}}
+
+</style>
+</helmet>
+<div class="bg-white text-zinc-900 antialiased">
+
+
+  
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-gray-200">
+    <div class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 16px 0 12px;border-radius:8px;background:#FFFFFF;border:1px solid #D4D4D8;color:#18181B;font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:0;text-transform:none;text-decoration:none;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,.05)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>Back</a>
+        <span class="w-3 h-3 rounded-full bg-brand-900"></span>
+        <div class="hidden md:flex items-center gap-2 text-xs text-zinc-400 font-mono-code">
+          <span class="text-zinc-600">Selected Work</span>
+          <span>/</span>
+          <span class="text-brand-700 font-bold">Quick Chat</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase tracking-widest hidden sm:inline">
+          B2B SaaS · Communication · Automation
+        </span>
+        <a href="#top" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-zinc-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+          Back to Top
+        </a>
+      </div>
+    </div>
+  </header>
+
+  
+  <div id="top" class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14">
+    <div class="space-y-6 pb-10 border-b border-gray-200">
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        <span class="text-xs font-mono-code font-bold px-3 py-1 rounded-full bg-brand-50 text-brand-700 border border-brand-200 uppercase tracking-wider">
+          Quick Chat
+        </span>
+        <span class="text-xs font-mono-code px-3 py-1 rounded-full bg-gray-100 text-zinc-700 border border-gray-200">
+          Product Designer
+        </span>
+        
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <span class="text-3xl" role="img" aria-label="Quick Chat logo">💬</span>
+        <span class="text-2xl font-bold tracking-tight">Quick Chat</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+        From a chatbot to a customer<br class="hidden sm:block">communication platform.
+      </h1>
+
+      <div class="relative rounded-2xl overflow-hidden mt-8 border border-gray-200 shadow-xl" style="background:#F4F4F5">
+        <img src="assets/qc-cs/hero.png" alt="Quick Chat metrics, the chats inbox and the workflow builder" class="block w-full h-auto">
+      </div>
+    </div>
+
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-10">
+      
+      <aside class="hidden lg:block lg:col-span-3">
+        <div class="sticky top-24 space-y-4 p-5 rounded-2xl bg-gray-50 border border-gray-200">
+          <div class="flex items-center gap-2 text-xs font-bold font-mono-code uppercase tracking-wider text-zinc-500 border-b border-gray-200 pb-2.5">
+            <span>📄</span>
+            <span>Case Study Index</span>
+          </div>
+          <nav class="space-y-1" id="toc-nav">
+            <a href="#sec-overview" data-toc-for="sec-overview" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">01. Overview</a>
+            <a href="#sec-problem" data-toc-for="sec-problem" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">02. The Problem</a>
+            <a href="#sec-research" data-toc-for="sec-research" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">03. Research &amp; Discovery</a>
+            <a href="#sec-decision" data-toc-for="sec-decision" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">04. The Product Decision</a>
+            <a href="#sec-improve-bot" data-toc-for="sec-improve-bot" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">06. Improve the Chatbot</a>
+            <a href="#sec-handoff" data-toc-for="sec-handoff" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">06.1 Human Handoff</a>
+            <a href="#sec-continue" data-toc-for="sec-continue" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">07. Continue the Conversation</a>
+            <a href="#sec-broadcast" data-toc-for="sec-broadcast" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">07.1 Broadcast</a>
+            <a href="#sec-workflow" data-toc-for="sec-workflow" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">07.2 Workflow</a>
+            <a href="#sec-review" data-toc-for="sec-review" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">07.3 Design Review</a>
+            <a href="#sec-impact" data-toc-for="sec-impact" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">08. Outcome</a>
+            <a href="#sec-learnings" data-toc-for="sec-learnings" class="block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70">09. Key Learnings</a>
+          </nav>
+        </div>
+      </aside>
+
+      
+      <main class="lg:col-span-9 space-y-16 pb-10">
+
+        
+        <section id="sec-overview" class="space-y-6 scroll-mt-28" data-toc-label="01. Overview">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">01</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Overview</h2>
+          </div>
+          <p class="max-w-3xl text-zinc-600 leading-relaxed">
+            Quick Chat is the customer communication product within Quick Hub, a marketing automation
+            ecosystem. When I joined the project, Quick Chat was primarily a chatbot creation tool where
+            businesses could create, customize, and deploy bots to handle customer conversations. I worked
+            on expanding the product beyond chatbot creation into a broader communication platform, covering
+            chatbot improvements, human handoff, WhatsApp communication, templates, broadcast, and workflow
+            automation.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 space-y-1.5">
+              <span class="text-[11px] font-mono-code text-brand-700 uppercase font-bold block">Role</span>
+              <p class="text-sm text-zinc-700 font-medium">Product Designer</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 space-y-1.5">
+              <span class="text-[11px] font-mono-code text-brand-700 uppercase font-bold block">Scope</span>
+              <p class="text-sm text-zinc-700 font-medium">Discovery → IA → Flows → UI → Prototype → Handoff</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 space-y-1.5">
+              <span class="text-[11px] font-mono-code text-brand-700 uppercase font-bold block">Platform</span>
+              <p class="text-sm text-zinc-700 font-medium">B2B SaaS · Desktop</p>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-problem" class="space-y-6 scroll-mt-28" data-toc-label="02. The Problem">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">02</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">The problem</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">
+            The chatbot could start the conversation. It couldn't manage what happened next.
+          </h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            Quick Chat could automate common customer questions, but some conversations needed human help,
+            another channel, or follow-up later.
+          </p>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">01</span>
+                <h4 class="font-bold text-sm text-zinc-900">The chatbot couldn't handle everything</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed pl-8">
+                The chatbot could answer common questions, but some customers still needed more help or a
+                person to continue the conversation.
+              </p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">02</span>
+                <h4 class="font-bold text-sm text-zinc-900">Conversations moved between channels</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed pl-8">
+                When customers needed more help, conversations continued through different channels, making
+                them harder to manage in one place.
+              </p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">03</span>
+                <h4 class="font-bold text-sm text-zinc-900">Previous context was harder to carry forward</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed pl-8">
+                When a conversation continued elsewhere, the next person had less context about what had
+                already happened.
+              </p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">04</span>
+                <h4 class="font-bold text-sm text-zinc-900">Follow-up work was still manual</h4>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed pl-8">
+                Teams had to handle many follow-ups themselves, repeating the same actions for different
+                customers.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-brand-50/60 border border-brand-200">
+            <p class="text-base font-semibold text-zinc-900">
+              These gaps raised a bigger question: what should happen after the chatbot?
+            </p>
+          </div>
+        </section>
+
+        
+        <section id="sec-research" class="space-y-8 scroll-mt-28" data-toc-label="03. Research &amp; Discovery">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">03</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Research &amp; discovery</h2>
+          </div>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            I looked at what happened when the chatbot could no longer handle the entire conversation. The
+            goal was to understand where customers needed more support and what work businesses were still
+            handling manually.
+          </p>
+
+          
+          <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200 space-y-4">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">03.1 · The Research Question</span>
+            <h3 class="text-xl font-bold">What happens after the chatbot?</h3>
+            <p class="max-w-xl text-sm text-zinc-600 leading-relaxed">
+              I wanted to understand what happened when the chatbot could no longer complete a customer
+              conversation.
+            </p>
+            <div class="grid gap-3 sm:grid-cols-2 pt-2">
+              <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-gray-200 text-xs sm:text-sm text-zinc-700">
+                <span class="font-bold text-brand-700 font-mono-code">01</span>
+                <span class="font-medium">How does the conversation continue?</span>
+              </div>
+              <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-gray-200 text-xs sm:text-sm text-zinc-700">
+                <span class="font-bold text-brand-700 font-mono-code">02</span>
+                <span class="font-medium">When does a human need to step in?</span>
+              </div>
+              <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-gray-200 text-xs sm:text-sm text-zinc-700">
+                <span class="font-bold text-brand-700 font-mono-code">03</span>
+                <span class="font-medium">What follow-up work is created?</span>
+              </div>
+              <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-gray-200 text-xs sm:text-sm text-zinc-700">
+                <span class="font-bold text-brand-700 font-mono-code">04</span>
+                <span class="font-medium">How is customer context preserved?</span>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200 space-y-5">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">03.2 · Constraints &amp; How I Gathered Information</span>
+            <div class="grid gap-6 sm:grid-cols-2" style="display: flex; flex-direction: column; gap: 12px">
+              <div class="p-4 rounded-xl bg-white border border-gray-200 space-y-1.5">
+                <span class="text-[11px] font-mono-code text-zinc-500 uppercase font-bold block">The Constraint</span>
+                <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                  The project timeline limited how much primary research I could conduct. I did not have
+                  access to extensive usage data or enough time for in-depth field research, so some
+                  findings remained qualitative.
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-white border border-gray-200 space-y-1.5">
+                <span class="text-[11px] font-mono-code text-zinc-500 uppercase font-bold block">What I Used Instead</span>
+                <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                  Four sources that were available to me, read together. Each one was weak alone, but they
+                  pointed in the same direction, which is what gave me enough confidence to design from.
+                </p>
+              </div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 pt-1">
+              <div class="p-4 rounded-xl bg-white border border-gray-200 space-y-1">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">01</span>
+                <h5 class="text-xs font-bold mt-1">Existing product</h5>
+                <p class="text-xs text-zinc-600 leading-relaxed">Studied the existing chatbot experience, its interaction patterns and the customer journey through it.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-white border border-gray-200 space-y-1">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">02</span>
+                <h5 class="text-xs font-bold mt-1">Customer &amp; support inputs</h5>
+                <p class="text-xs text-zinc-600 leading-relaxed">Reviewed recurring customer needs and the support problems that came back repeatedly.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-white border border-gray-200 space-y-1">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">03</span>
+                <h5 class="text-xs font-bold mt-1">Business requirements</h5>
+                <p class="text-xs text-zinc-600 leading-relaxed">Worked with the Product Manager and CEO to understand roadmap priorities and release scope.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-white border border-gray-200 space-y-1">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code">04</span>
+                <h5 class="text-xs font-bold mt-1">Competitive &amp; platform research</h5>
+                <p class="text-xs text-zinc-600 leading-relaxed">Studied communication patterns in comparable tools, and Meta's WhatsApp Business Platform documentation for the rules we had to design around.</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="p-6 rounded-2xl bg-gray-50 border border-gray-200 space-y-6">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">03.3 · Findings &amp; Where They Came From</span>
+            <h3 class="text-xl font-bold">Research that shaped the product direction</h3>
+            <p class="max-w-2xl text-sm text-zinc-600 leading-relaxed">
+              Quick Chat was expanding beyond a chatbot into customer communication and automation. I looked
+              at competitive products, the existing experience, and relevant platform documentation to
+              understand the patterns, gaps, and constraints that would shape the next stage of the product.
+            </p>
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div class="p-3.5 rounded-xl bg-white border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">01 · Competitive Research</span>
+                <p class="mt-1 text-xs text-zinc-600">How similar products structure communication and automation.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-white border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">02 · Product Analysis</span>
+                <p class="mt-1 text-xs text-zinc-600">Where Quick Chat needed new capabilities and clearer flows.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-white border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">03 · Platform Research</span>
+                <p class="mt-1 text-xs text-zinc-600">What WhatsApp Business Platform allows and restricts.</p>
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold pt-2">What I found</h3>
+            <p class="text-sm text-zinc-600">Four discoveries changed what Quick Chat needed to become.</p>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <div class="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-200">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code shrink-0">01</span>
+                <div>
+                  <h4 class="font-bold text-sm">The bot needed business context</h4>
+                  <p class="mt-1 text-xs text-zinc-600 leading-relaxed">Businesses needed more than a generic chatbot. They needed to give the bot their own product knowledge, FAQs, and instructions so it could respond in a way that matched their business.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-200">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code shrink-0">02</span>
+                <div>
+                  <h4 class="font-bold text-sm">Some conversations needed a human</h4>
+                  <p class="mt-1 text-xs text-zinc-600 leading-relaxed">When the bot could not resolve a conversation, the customer still needed a way to reach a person without losing the context of what had already been discussed.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-200">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code shrink-0">03</span>
+                <div>
+                  <h4 class="font-bold text-sm">WhatsApp was the natural next channel</h4>
+                  <p class="mt-1 text-xs text-zinc-600 leading-relaxed">Small and medium businesses use WhatsApp as a direct way to communicate with their customers. While researching how to support that behaviour, I looked into the WhatsApp Business Platform and the requirements around business messaging. That research showed that the experience needed to account for platform-specific messaging constraints.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-200">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[11px] font-mono-code shrink-0">04</span>
+                <div>
+                  <h4 class="font-bold text-sm">The work didn't stop at the conversation</h4>
+                  <p class="mt-1 text-xs text-zinc-600 leading-relaxed">Looking beyond the conversation exposed another problem: teams still had to handle follow-ups, updates, tags, and other next steps manually after a customer interaction. That revealed an opportunity to automate what happens before, during, and after a conversation.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-decision" class="space-y-6 scroll-mt-28" data-toc-label="04. The Product Decision">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">04</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">The product decision</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">Quick Chat needed to become more than a chatbot.</h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            Instead of continuing to add isolated features to the chatbot, the product needed to support the
+            broader customer communication journey. That created three product directions, and each one
+            followed from a problem the previous one exposed.
+          </p>
+
+          <div class="grid gap-5 md:grid-cols-3">
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-3">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Stage 01</span>
+              <h4 class="font-bold">Improve the chatbot</h4>
+              <p class="text-xs text-zinc-600">Make the initial automated interaction more effective.</p>
+              <div class="pt-3 border-t border-gray-200 space-y-2">
+                <div>
+                  <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">What the Research Showed</span>
+                  <p class="text-xs text-zinc-600 mt-0.5">The chatbot could not handle every conversation.</p>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">What it Required</span>
+                  <p class="text-xs text-zinc-600 mt-0.5">Better bot knowledge and behaviour, and a way to bring a human in.</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-3">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Stage 02</span>
+              <h4 class="font-bold">Continue the conversation</h4>
+              <p class="text-xs text-zinc-600">Support communication when the conversation moves beyond the chatbot.</p>
+              <div class="pt-3 border-t border-gray-200 space-y-2">
+                <div>
+                  <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">What the Research Showed</span>
+                  <p class="text-xs text-zinc-600 mt-0.5">The conversation continued after automation stopped.</p>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">What it Required</span>
+                  <p class="text-xs text-zinc-600 mt-0.5">Human conversation management, and communication through WhatsApp.</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-3">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Stage 03</span>
+              <h4 class="font-bold">Automate what happens next</h4>
+              <p class="text-xs text-zinc-600">Reduce the repetitive follow-up work created by customer conversations.</p>
+              <div class="pt-3 border-t border-gray-200 space-y-2">
+                <div>
+                  <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">What the Research Showed</span>
+                  <p class="text-xs text-zinc-600 mt-0.5">Continued communication created manual follow-up work.</p>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">What it Required</span>
+                  <p class="text-xs text-zinc-600 mt-0.5">A way to define what should happen after a customer event.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase tracking-widest block mb-4">How the Product Evolved</span>
+            <div class="flex flex-col md:flex-row items-stretch gap-3">
+              <div class="flex-1 p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">Phase 01</span>
+                <h5 class="font-bold text-sm mt-0.5">Chatbot</h5>
+                <div class="mt-2 flex flex-wrap gap-1.5">
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Create</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Customize</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Knowledge</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Behaviour</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Deploy</span>
+                </div>
+              </div>
+              <div class="hidden md:flex items-center text-zinc-300 text-xl">→</div>
+              <div class="flex-1 p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">Phase 02</span>
+                <h5 class="font-bold text-sm mt-0.5">Communicate</h5>
+                <div class="mt-2 flex flex-wrap gap-1.5">
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Human handoff</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Chat management</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">WhatsApp</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Templates</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Broadcast</span>
+                </div>
+              </div>
+              <div class="hidden md:flex items-center text-zinc-300 text-xl">→</div>
+              <div class="flex-1 p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase">Phase 03</span>
+                <h5 class="font-bold text-sm mt-0.5">Automate</h5>
+                <div class="mt-2 flex flex-wrap gap-1.5">
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Triggers</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Conditions</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Actions</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Workflows</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-improve-bot" class="space-y-6 scroll-mt-28" data-toc-label="06. Improve the Chatbot">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">06</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Improve the chatbot</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">Make the bot capable of handling more conversations.</h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            We added Knowledge Base to give the bot better business context and Behaviour to control how it
+            responds.
+          </p>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Knowledge Base</span>
+              <p class="mt-1 text-sm text-zinc-700">Give the bot the information it needs.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Behaviour</span>
+              <p class="mt-1 text-sm text-zinc-700">Control how the bot responds.</p>
+            </div>
+          </div>
+
+          <div class="pt-4 space-y-5">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">A · Configuring the Bot — 5 Screens</span>
+                        <div class="relative">
+              <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2" data-carousel="bot-config">
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">01</span>
+              <h5 class="text-sm font-bold">Bot details &amp; customization</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Identity, domain and widget appearance, with a live preview of what the visitor will see.</p>
+              <img src="assets/qc-cs/img02.png" alt="Bot details and customization" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">02</span>
+              <h5 class="text-sm font-bold">Knowledge sources</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Sources are attached before behaviour is configured, each carrying its own training state.</p>
+              <img src="assets/qc-cs/img05.png" alt="Knowledge source configuration" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">03</span>
+              <h5 class="text-sm font-bold">Behaviour</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Welcome message, tone, response length and fallback behaviour, set before any customer sees the bot.</p>
+              <img src="assets/qc-cs/img01.png" alt="Behaviour settings" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">04</span>
+              <h5 class="text-sm font-bold">Test the chatbot</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">A sandbox inside the flow, so the bot is tried on real questions before it ships.</p>
+              <img src="assets/qc-cs/img06.png" alt="Test chatbot sandbox" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">05</span>
+              <h5 class="text-sm font-bold">Deploy</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">An embed snippet and install steps close the flow — every earlier step stays editable after launch.</p>
+              <img src="assets/qc-cs/img11.png" alt="Deploy bot on website" class="w-full rounded-xl border border-gray-200">
+            </div>
+              </div>
+              <button type="button" class="hidden sm:flex absolute left-2 top-[calc(50%-10px)] -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 backdrop-blur border border-gray-300 text-zinc-700 shadow-md items-center justify-center hover:bg-white disabled:opacity-0 disabled:pointer-events-none transition-all z-10" data-carousel-prev="bot-config" aria-label="Previous">←</button>
+              <button type="button" class="hidden sm:flex absolute right-2 top-[calc(50%-10px)] -translate-y-1/2 w-9 h-9 rounded-full bg-zinc-900 text-white shadow-md items-center justify-center hover:bg-black disabled:opacity-0 disabled:pointer-events-none transition-all z-10" data-carousel-next="bot-config" aria-label="Next">→</button>
+              <div class="mt-3 text-center">
+                <span class="text-xs font-mono-code text-zinc-500" data-carousel-counter="bot-config">1 / 5</span>
+              </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2 p-5 rounded-2xl bg-brand-50/50 border border-brand-200">
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-800 uppercase">Design Decision</span>
+                <p class="mt-1 text-xs sm:text-sm text-zinc-700 leading-relaxed">Non-technical operators needed a path, not a settings page. Each step asks for one kind of input, testing is a step rather than an optional tab, and nothing is locked after launch.</p>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-800 uppercase">Why it Matters Here</span>
+                <p class="mt-1 text-xs sm:text-sm text-zinc-700 leading-relaxed">A bot with the wrong knowledge or tone produces exactly the handoffs this release was trying to reduce.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 space-y-4">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">B · The Knowledge the Bot Answers From</span>
+            <img src="assets/qc-cs/img03.png" alt="Website sources with crawl and training status" class="w-full rounded-2xl border border-gray-200">
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">01</span>
+                <h5 class="text-sm font-bold mt-1">Multiple sources</h5>
+                <p class="text-xs text-zinc-600 mt-0.5">Websites and documents connected as separate, owned entries.</p>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">02</span>
+                <h5 class="text-sm font-bold mt-1">Training status on the row</h5>
+                <p class="text-xs text-zinc-600 mt-0.5">Crawled, trained or still training — a half-trained bot is never a silent one.</p>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">03</span>
+                <h5 class="text-sm font-bold mt-1">Editable after launch</h5>
+                <p class="text-xs text-zinc-600 mt-0.5">Knowledge is maintained over time, not fixed at setup.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-handoff" class="space-y-6 scroll-mt-28" data-toc-label="06.1 Human Handoff">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">06.1</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Automatic handoff &amp; manual transfer</h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2" style="display: flex; flex-direction: column; gap: 12px">
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-2.5">
+              <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">01 · Automatic Handoff</span>
+              <h4 class="font-bold">Automatic handoff keeps the conversation moving</h4>
+              <p class="text-sm text-zinc-600 leading-relaxed">When the bot reaches its limit, the conversation is handed to a human agent with the existing context intact.</p>
+              <img src="assets/qc-cs/handoff-live-chat.png" alt="A chat where the bot transfers the customer to a live agent, with the handoff noted in the customer journey panel" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-2.5">
+              <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">02 · Manual Transfer</span>
+              <h4 class="font-bold">Transfer chats without losing context</h4>
+              <p class="text-sm text-zinc-600 leading-relaxed">Admins or business owners can move a conversation to another agent or team while keeping the conversation history intact.</p>
+              <img src="assets/qc-cs/img14.png" alt="Transfer chat to another agent or team" class="w-full rounded-xl border border-gray-200">
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-continue" class="space-y-6 scroll-mt-28" data-toc-label="07. Continue the Conversation">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">07</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Continue the conversation</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">Customers continued the conversation on WhatsApp</h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            When the chatbot couldn't complete the conversation, communication could continue through
+            WhatsApp. Bringing it into Quick Chat kept the conversation and customer context in one place.
+          </p>
+          <img src="assets/qc-cs/img22.png" alt="Chats inbox in Quick Chat, with conversation view and customer context panel" class="w-full rounded-2xl border border-gray-200">
+          <p class="text-sm text-zinc-600 max-w-2xl">
+            Continue customer conversations through WhatsApp without leaving Quick Chat. The Chats inbox
+            where businesses managed ongoing WhatsApp conversations.
+          </p>
+
+          <h3 class="text-xl font-semibold max-w-2xl pt-4">Designing around WhatsApp's 24-hour messaging window</h3>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Platform Constraint</span>
+              <p class="mt-1 text-xs text-zinc-600 leading-relaxed">WhatsApp allows free-form messaging only inside a 24-hour customer service window. After it closes, an approved template is required to reconnect.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">UX Implication</span>
+              <p class="mt-1 text-xs text-zinc-600 leading-relaxed">The composer cannot behave the same way in both states, and the agent should not have to know the rule to work correctly.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Design Response</span>
+              <p class="mt-1 text-xs text-zinc-600 leading-relaxed">The composer changes with the session state and guides the agent toward an approved template when the window is closed.</p>
+            </div>
+          </div>
+
+                      <div class="relative">
+              <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2" data-carousel="wa-flow">
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">01</span>
+              <h5 class="text-sm font-bold">The conversation window expires</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Once the 24-hour window closes, free-form messaging is no longer available.</p>
+              <img src="assets/qc-cs/wa-01-window.png" alt="The conversation with a banner saying the 24-hour window has closed and a Send Template action" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">02</span>
+              <h5 class="text-sm font-bold">Choose an approved message</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">The agent can select an approved template instead of composing a new message.</p>
+              <img src="assets/qc-cs/wa-02-select.png" alt="The Select Template panel listing approved templates inside the conversation" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">03</span>
+              <h5 class="text-sm font-bold">Personalize before sending</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Variables can be updated and the final message previewed before it is sent.</p>
+              <img src="assets/qc-cs/wa-03-variables.png" alt="The Edit template variable dialog with empty fields beside a live WhatsApp preview" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">04</span>
+              <h5 class="text-sm font-bold">Add media and check the preview</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Filled variables and attached media render in a live WhatsApp preview before sending.</p>
+              <img src="assets/qc-cs/wa-04-media.png" alt="The same dialog with variables filled in, media uploaded, and the preview showing the finished message" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">05</span>
+              <h5 class="text-sm font-bold">The template lands in the same thread</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">The personalized message is delivered in the existing conversation and recorded in the customer journey.</p>
+              <img src="assets/qc-cs/wa-05-sent.png" alt="The personalized template delivered in the conversation with the offer image" class="w-full rounded-xl border border-gray-200">
+            </div>
+              </div>
+              <button type="button" class="hidden sm:flex absolute left-2 top-[calc(50%-10px)] -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 backdrop-blur border border-gray-300 text-zinc-700 shadow-md items-center justify-center hover:bg-white disabled:opacity-0 disabled:pointer-events-none transition-all z-10" data-carousel-prev="wa-flow" aria-label="Previous">←</button>
+              <button type="button" class="hidden sm:flex absolute right-2 top-[calc(50%-10px)] -translate-y-1/2 w-9 h-9 rounded-full bg-zinc-900 text-white shadow-md items-center justify-center hover:bg-black disabled:opacity-0 disabled:pointer-events-none transition-all z-10" data-carousel-next="wa-flow" aria-label="Next">→</button>
+              <div class="mt-3 text-center">
+                <span class="text-xs font-mono-code text-zinc-500" data-carousel-counter="wa-flow">1 / 5</span>
+              </div>
+            </div>
+        </section>
+
+        
+        <section id="sec-broadcast" class="space-y-6 scroll-mt-28" data-toc-label="07.1 Broadcast">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">07.1</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Broadcast</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">From template to broadcast</h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            Once a message was approved, businesses could select an audience, review the message, schedule
+            it, and track what happened after sending.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono-code font-bold text-zinc-500">
+            <span class="px-2.5 py-1 rounded-full bg-gray-100 border border-gray-200">CREATE</span><span>→</span>
+            <span class="px-2.5 py-1 rounded-full bg-gray-100 border border-gray-200">TARGET</span><span>→</span>
+            <span class="px-2.5 py-1 rounded-full bg-gray-100 border border-gray-200">TEST</span><span>→</span>
+            <span class="px-2.5 py-1 rounded-full bg-gray-100 border border-gray-200">SCHEDULE</span><span>→</span>
+            <span class="px-2.5 py-1 rounded-full bg-gray-100 border border-gray-200">MEASURE</span>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-gray-50 border border-gray-200 space-y-4">
+            <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">00 · Templates</span>
+            <h4 class="font-bold">Start with a reusable message</h4>
+            <p class="text-sm text-zinc-600 max-w-xl">Businesses often send similar messages repeatedly. Templates let them create approved messages once and reuse them across broadcasts.</p>
+            <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono-code font-bold text-zinc-500">
+              <span class="px-2.5 py-1 rounded-full bg-white border border-gray-200">CREATE</span><span>→</span>
+              <span class="px-2.5 py-1 rounded-full bg-white border border-gray-200">SUBMIT</span><span>→</span>
+              <span class="px-2.5 py-1 rounded-full bg-white border border-gray-200">APPROVE</span><span>→</span>
+              <span class="px-2.5 py-1 rounded-full bg-white border border-gray-200">REUSE</span>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 pt-1">
+              <div>
+                <img src="assets/qc-cs/img23.png" alt="Template library grouped by category with library, draft, approved and pending states" class="w-full rounded-xl border border-gray-200">
+                <p class="mt-2 text-xs text-zinc-600">A library of message templates, grouped by category and approval state.</p>
+              </div>
+              <div>
+                <img src="assets/qc-cs/img10.png" alt="Creating a message template with variables and preview" class="w-full rounded-xl border border-gray-200">
+                <p class="mt-2 text-xs text-zinc-600">Creating a template once, with variables that adapt it per recipient.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">01–05 · The Broadcast Flow</span>
+                        <div class="relative">
+              <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2" data-carousel="broadcast-flow">
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">01</span>
+              <h5 class="text-sm font-bold">Create the broadcast</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Start with an approved template and turn it into a broadcast.</p>
+              <img src="assets/qc-cs/img08.png" alt="Broadcast details with the selected template and a live WhatsApp preview" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">02</span>
+              <h5 class="text-sm font-bold">Choose who receives it</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Select the audience that should receive the message.</p>
+              <img src="assets/qc-cs/img07.png" alt="Selecting the broadcast audience by tag and segment, with exclusions" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">03</span>
+              <h5 class="text-sm font-bold">Test before sending</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Review the message before it goes out to customers.</p>
+              <img src="assets/qc-cs/img04.png" alt="Sending a test message and reviewing the test dispatch status" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">04</span>
+              <h5 class="text-sm font-bold">Send now or schedule</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">Choose when the broadcast should be sent.</p>
+              <img src="assets/qc-cs/img09.png" alt="Broadcast summary with the option to send now or schedule for later" class="w-full rounded-xl border border-gray-200">
+            </div>
+            <div class="snap-start shrink-0 w-[80%] rounded-2xl bg-gray-50 border border-gray-200 p-4 space-y-2.5">
+              <span class="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center font-bold text-[11px] font-mono-code">05</span>
+              <h5 class="text-sm font-bold">Measure what happened</h5>
+              <p class="text-xs text-zinc-600 leading-relaxed">See delivery, engagement, and failures after sending.</p>
+              <img src="assets/qc-cs/img15.png" alt="Broadcast metrics with sent, delivered, seen, replied, clicks and failed counts" class="w-full rounded-xl border border-gray-200">
+            </div>
+              </div>
+              <button type="button" class="hidden sm:flex absolute left-2 top-[calc(50%-10px)] -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 backdrop-blur border border-gray-300 text-zinc-700 shadow-md items-center justify-center hover:bg-white disabled:opacity-0 disabled:pointer-events-none transition-all z-10" data-carousel-prev="broadcast-flow" aria-label="Previous">←</button>
+              <button type="button" class="hidden sm:flex absolute right-2 top-[calc(50%-10px)] -translate-y-1/2 w-9 h-9 rounded-full bg-zinc-900 text-white shadow-md items-center justify-center hover:bg-black disabled:opacity-0 disabled:pointer-events-none transition-all z-10" data-carousel-next="broadcast-flow" aria-label="Next">→</button>
+              <div class="mt-3 text-center">
+                <span class="text-xs font-mono-code text-zinc-500" data-carousel-counter="broadcast-flow">1 / 5</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-workflow" class="space-y-6 scroll-mt-28" data-toc-label="07.2 Workflow">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">07.2</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Workflow</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">Turn conversations into structured flows</h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            Not every conversation follows the same path. The workflow builder lets businesses define what
+            happens next, from the first trigger to the follow-up action.
+          </p>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">01 · Start with a Trigger</span>
+              <h5 class="text-sm font-bold mt-1">Start with the customer's first interaction</h5>
+              <p class="text-xs text-zinc-600 mt-0.5">An event tells the system when the conversation should start — here, a keyword such as "Hello".</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">02 · Build the Conversation</span>
+              <h5 class="text-sm font-bold mt-1">Build the conversation visually</h5>
+              <p class="text-xs text-zinc-600 mt-0.5">Each step becomes a connected block instead of one long script, so the sequence stays readable.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase">03 · Control What Happens Next</span>
+              <h5 class="text-sm font-bold mt-1">Give every response a next step</h5>
+              <p class="text-xs text-zinc-600 mt-0.5">Conditions, buttons, delays, and tags let the flow branch on what the customer answers.</p>
+            </div>
+          </div>
+
+          <div class="pt-2 space-y-4">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">A · The Shipped Builder</span>
+            <img src="assets/qc-cs/img19.png" alt="Appointment Booking workflow canvas with a keyword trigger, date and time questions, name capture, confirmation, and a reminder sent after a delay" class="w-full rounded-2xl border border-gray-200">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">01 · Keyword Action</span>
+                <p class="text-xs text-zinc-600 mt-1">The trigger. "Hello" or "Hi" starts the flow.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">02 · Ask Question</span>
+                <p class="text-xs text-zinc-600 mt-1">The bot asks for the date, then the time and name.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">03 · Confirm Details</span>
+                <p class="text-xs text-zinc-600 mt-1">Fixed Yes/No buttons check the details before booking.</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">04 · Delayed Reminder</span>
+                <p class="text-xs text-zinc-600 mt-1">A tag, delay, and triggered bot send a reminder later.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 space-y-4">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">B · Building Blocks</span>
+            <h4 class="font-bold">A flow made from simple building blocks</h4>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase block mb-2">Events</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Keyword Action</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Template</span>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase block mb-2">Actions</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Send Message</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Ask Question</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Set Condition</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">List</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Buttons</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Set Delay</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Set Tag</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Trigger Bot</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Template</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Trigger Flow</span>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase block mb-2">Integrations</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Webhook</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Google Spreadsheet</span>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase block mb-2">Catalogue</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Set</span>
+                  <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Products</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-5 rounded-2xl bg-brand-50/50 border border-brand-200">
+              <span class="text-[11px] font-mono-code font-bold text-brand-800 uppercase">Design Insight</span>
+              <p class="mt-1 text-sm text-zinc-700 leading-relaxed">Making the conversation logic visible turns a complex automation into something people can understand, edit, and reason about. The canvas shows not just what the chatbot says, but what happens after the customer responds.</p>
+            </div>
+          </div>
+
+          <div class="pt-2 space-y-3">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">C · Templates to Start Faster</span>
+            <h4 class="font-bold">Prebuilt templates for common use cases</h4>
+            <p class="text-sm text-zinc-600 max-w-2xl leading-relaxed">Not every business wants to start from a blank canvas. A template library covers common scenarios, from appointment booking to ecommerce and restaurant ordering, so a workflow can be adapted instead of built from scratch.</p>
+            <img src="assets/qc-cs/img20.png" alt="Choose Template screen with Build Your Own Workflow option and a grid of templates for use cases like ecommerce, real estate, and appointment booking" class="w-full rounded-2xl border border-gray-200">
+            <p class="text-xs text-zinc-600">Templates are grouped by use case, with a dedicated option to build a workflow from scratch. The Appointment Booking canvas shown above is one such template.</p>
+          </div>
+
+          <div class="pt-2 space-y-3">
+            <span class="text-[11px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">D · Managing Published Workflows</span>
+            <h4 class="font-bold">Tracking what each workflow is doing</h4>
+            <p class="text-sm text-zinc-600 max-w-2xl leading-relaxed">Once published, a workflow needs to be monitored, not just built. A dashboard lists every workflow with how often it triggered, how many steps completed, and how many conversations reached the end, so a business can spot one that is stalling.</p>
+            <img src="assets/qc-cs/img12.png" alt="Published Workflow table with columns for status, triggered, steps finished, completed, and created/modified dates" class="w-full rounded-2xl border border-gray-200">
+            <p class="text-xs text-zinc-600">Each row tracks a workflow from trigger to completion, with a toggle to turn it on or off.</p>
+          </div>
+        </section>
+
+        
+        <section id="sec-review" class="space-y-6 scroll-mt-28" data-toc-label="07.3 Design Review">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">07.3</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Design review &amp; iteration</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">The first structure was too channel-specific</h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            This work was reviewed internally rather than through formal usability testing, so the change
+            below is a design decision made in review, not a tested result.
+          </p>
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Design Review</span>
+              <h5 class="text-sm font-bold mt-1">WhatsApp started as its own product area</h5>
+              <p class="text-xs text-zinc-600 mt-1">The first structure placed WhatsApp beside the chatbot as a separate top-level area, mirroring how the integration works technically.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Issue Identified</span>
+              <h5 class="text-sm font-bold mt-1">The same objects appeared twice</h5>
+              <p class="text-xs text-zinc-600 mt-1">Conversations, customer context and handoff existed in both areas, which meant an agent would learn two versions of the same task depending on the channel.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Change</span>
+              <h5 class="text-sm font-bold mt-1">Channels moved inside the chatbot</h5>
+              <p class="text-xs text-zinc-600 mt-1">Webchat and WhatsApp became channels within the chatbot area, sharing one conversation and customer-context model, with only the channel-specific parts kept separate.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+              <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase">Resulting Design</span>
+              <h5 class="text-sm font-bold mt-1">One conversation model, two channels</h5>
+              <p class="text-xs text-zinc-600 mt-1">Templates and broadcast stay inside WhatsApp because the platform requires them, while everything shared lives in one place. Workflow automation remained a separate branch.</p>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-impact" class="space-y-6 scroll-mt-28" data-toc-label="08. Outcome">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">08</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Outcome</h2>
+          </div>
+          <h3 class="text-xl font-semibold max-w-2xl">The unit of the product changed from a bot to a conversation.</h3>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            Before this work, everything in Quick Chat was organised around the bot: you configured it,
+            deployed it, and the product's job ended there. The structure I shipped is organised around the
+            conversation instead, with the bot, the agent, the channel and the automation all acting on the
+            same object. That is what made handoff, WhatsApp and workflows additions to one model rather than
+            three new products.
+          </p>
+          <p class="max-w-2xl text-sm text-zinc-500 leading-relaxed">
+            I did not have post-launch usage data for this work, so I can only speak to what changed in the
+            product and why, not to what it moved in the business.
+          </p>
+
+          <div class="p-5 rounded-2xl bg-gray-50 border border-gray-200">
+            <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase tracking-widest block mb-3">What Was True After That the Product Couldn't Do Before</span>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">01</span>
+                <h5 class="text-xs font-bold mt-1">A conversation could change hands</h5>
+                <p class="text-xs text-zinc-600 mt-0.5">Bot to agent, agent to agent, without the customer repeating themselves.</p>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">02</span>
+                <h5 class="text-xs font-bold mt-1">A conversation could change channel</h5>
+                <p class="text-xs text-zinc-600 mt-0.5">Webchat and WhatsApp share one inbox and one customer record.</p>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">03</span>
+                <h5 class="text-xs font-bold mt-1">Platform rules became visible work</h5>
+                <p class="text-xs text-zinc-600 mt-0.5">The 24-hour window and template approval appear where they block the agent, not in documentation.</p>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono-code font-bold text-brand-700">04</span>
+                <h5 class="text-xs font-bold mt-1">Follow-up became configurable</h5>
+                <p class="text-xs text-zinc-600 mt-0.5">Work that ran after a conversation could be defined once instead of repeated per customer.</p>
+              </div>
+            </div>
+          </div>
+
+          <span class="text-[11px] font-mono-code font-bold text-zinc-500 uppercase tracking-widest block">Three Decisions That Shaped It</span>
+          <div class="grid gap-4 md:grid-cols-3">
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-2.5">
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">Decision</span>
+                <p class="text-sm font-bold text-zinc-900">Treat WhatsApp as a channel, not a product area.</p>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase tracking-widest block">Why</span>
+                <p class="text-xs text-zinc-600 leading-relaxed">Mirroring the integration would have duplicated conversations, context and handoff, and made agents learn the same task twice.</p>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase tracking-widest block">Result</span>
+                <p class="text-xs text-zinc-600 leading-relaxed">One conversation model with channel-specific parts isolated. Adding a channel later is an extension, not a rebuild.</p>
+              </div>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-2.5">
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">Decision</span>
+                <p class="text-sm font-bold text-zinc-900">Surface messaging limits inside the composer.</p>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase tracking-widest block">Why</span>
+                <p class="text-xs text-zinc-600 leading-relaxed">The 24-hour window is a rule agents cannot negotiate. Explaining it after a failed send would have made the product look broken instead of constrained.</p>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase tracking-widest block">Result</span>
+                <p class="text-xs text-zinc-600 leading-relaxed">The expired window offers approved templates as the next step, so the constraint arrives with a way through it.</p>
+              </div>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-2.5">
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-brand-700 uppercase tracking-widest block">Decision</span>
+                <p class="text-sm font-bold text-zinc-900">Stage bot and workflow creation instead of exposing one configuration surface.</p>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase tracking-widest block">Why</span>
+                <p class="text-xs text-zinc-600 leading-relaxed">Knowledge, behaviour, testing and deployment are separate decisions with different stakes. Collapsing them hides which one you are getting wrong.</p>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono-code font-bold text-zinc-400 uppercase tracking-widest block">Result</span>
+                <p class="text-xs text-zinc-600 leading-relaxed">A sequence with a sandbox before deploy, and every step still editable after launch. The trade-off is more steps up front.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <section id="sec-learnings" class="space-y-6 scroll-mt-28" data-toc-label="09. Key Learnings">
+          <div class="border-b border-gray-200 pb-3">
+            <span class="text-xs font-mono-code font-bold text-brand-700 uppercase tracking-widest block">09</span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">What I learned</h2>
+          </div>
+          <p class="max-w-2xl text-zinc-600 leading-relaxed">
+            I joined this project expecting to design features. Most of the work turned out to be deciding
+            where each feature belonged, and what the product would have to become to hold it.
+          </p>
+          <div class="grid gap-5 md:grid-cols-3">
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xs font-mono-code">01</span>
+              <h5 class="font-bold">Complexity should be staged, not hidden.</h5>
+              <p class="text-sm text-zinc-600 leading-relaxed">My first instinct with bot creation was to reduce the number of steps. That was the wrong goal: the decisions were genuinely separate, and compressing them only made it harder to tell which one had gone wrong. Sequencing them cost more clicks and bought clarity, and I reused the same reasoning when workflow creation raised the same question.</p>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Bot Details</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Knowledge</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Behaviour</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Test</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Deploy</span>
+              </div>
+            </div>
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xs font-mono-code">02</span>
+              <h5 class="font-bold">Platform constraints are product decisions.</h5>
+              <p class="text-sm text-zinc-600 leading-relaxed">WhatsApp's rules were handed to me as technical requirements. Reading the platform documentation myself changed how I designed: the 24-hour window and template approval are not edge cases, they are the shape of the workflow. Once I designed the constraint as the main path rather than an error state, the feature stopped fighting the platform.</p>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">24-hour window</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Template approval</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Messaging limits</span>
+              </div>
+            </div>
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-5 space-y-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xs font-mono-code">03</span>
+              <h5 class="font-bold">In B2B, the structure outlives the screens.</h5>
+              <p class="text-sm text-zinc-600 leading-relaxed">The most consequential decision I made was not a screen. It was refusing to give WhatsApp its own top-level area, because the alternative would have split conversations and context in two. I now start complex B2B work by asking what the objects are and what acts on them, then design screens against that answer.</p>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Chatbot</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">WhatsApp</span>
+                <span class="text-[10px] font-mono-code px-2.5 py-0.5 rounded-full bg-white text-zinc-700 border border-gray-200">Workflow</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        
+        <div class="p-8 rounded-3xl bg-zinc-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div class="space-y-1.5 max-w-xl text-center sm:text-left">
+            <span class="text-[10px] font-mono-code uppercase tracking-widest text-brand-900 font-bold">Thanks for Reading</span>
+            <h3 class="text-2xl font-bold tracking-tight">Quick Chat is one part of the Quick Hub suite.</h3>
+            <p class="text-sm text-zinc-400">Get in touch to talk through the process, the research, or the trade-offs behind any of the decisions above.</p>
+          </div>
+          <a href="#top" class="px-6 py-2.5 rounded-full bg-white text-zinc-900 hover:bg-gray-100 text-xs font-bold uppercase tracking-wider transition-colors shadow-md shrink-0">
+            Back to Top
+          </a>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  componentDidMount() { this.wire(); }
+  componentDidUpdate() { this.wire(); }
+  wire() {
+    if (this._wired) return;
+    const nav = document.getElementById('toc-nav');
+    if (!nav) return;
+    this._wired = true;
+    const navLinks = Array.from(nav.querySelectorAll('a[data-toc-for]'));
+    const sections = navLinks
+      .map((a) => document.getElementById(a.getAttribute('data-toc-for')))
+      .filter(Boolean);
+    const base = 'block w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-all text-zinc-600 hover:text-zinc-900 hover:bg-gray-200/70';
+    const active = 'block w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition-all bg-zinc-900 text-white shadow-sm';
+    const setActive = (id) => navLinks.forEach((a) => { a.className = a.getAttribute('data-toc-for') === id ? active : base; });
+    const scroller = document.scrollingElement || document.documentElement;
+    const onScroll = () => {
+      const pos = (window.scrollY || scroller.scrollTop) + 220;
+      let current = sections[0] && sections[0].id;
+      for (const sec of sections) if (sec.offsetTop <= pos) current = sec.id;
+      if (current) setActive(current);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    document.querySelectorAll('[data-carousel]').forEach((track) => {
+      const id = track.dataset.carousel;
+      const cards = Array.from(track.children);
+      const total = cards.length;
+      const counter = document.querySelector('[data-carousel-counter="' + id + '"]');
+      const prevBtn = document.querySelector('[data-carousel-prev="' + id + '"]');
+      const nextBtn = document.querySelector('[data-carousel-next="' + id + '"]');
+      const currentIndex = () => {
+        const trackLeft = track.getBoundingClientRect().left;
+        let closest = 0, closestDist = Infinity;
+        cards.forEach((card, i) => {
+          const dist = Math.abs(card.getBoundingClientRect().left - trackLeft);
+          if (dist < closestDist) { closestDist = dist; closest = i; }
+        });
+        return closest;
+      };
+      const update = () => {
+        const idx = currentIndex();
+        if (counter) counter.textContent = (idx + 1) + ' / ' + total;
+        if (prevBtn) prevBtn.disabled = idx <= 0;
+        if (nextBtn) nextBtn.disabled = idx >= total - 1;
+      };
+      const goTo = (idx) => {
+        idx = Math.max(0, Math.min(total - 1, idx));
+        track.scrollTo({ left: cards[idx].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      };
+      if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex() - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex() + 1));
+      track.addEventListener('scroll', () => window.requestAnimationFrame(update), { passive: true });
+      update();
+    });
+  }
+  renderVals() { return {}; }
+}
+</script>
+
+
+</body></html>

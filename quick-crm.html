@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Quick CRM — From scattered contact tables to a reusable customer system</title>
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:#fff; color:#18181B; font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#067040; text-decoration:none; }
+  a:hover { color:#0BA861; }
+  h1,h2,h3,h4,h5,p,ul { margin:0; }
+  ul { padding:0; list-style:none; }
+  img { display:block; }
+  ::selection { background:#0BA861; color:#fff; }
+button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:none !important}
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid #E5E7EB">
+  <div style="max-width:1360px;margin:0 auto;padding:14px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 16px 0 12px;border-radius:8px;background:#FFFFFF;border:1px solid #D4D4D8;color:#18181B;font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:600;text-decoration:none;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,.05)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>Back</a>
+      <span style="width:12px;height:12px;border-radius:999px;background:#0BA861"></span>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#A1A1AA;font-family:'JetBrains Mono',monospace">
+        <span style="color:#52525B">Selected Work</span>
+        <span>/</span>
+        <span style="color:#067040;font-weight:700">Quick CRM</span>
+      </div>
+    </div>
+    <a href="#top" style="padding:6px 16px;border-radius:999px;background:#18181B;color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Back to Top</a>
+  </div>
+</header>
+
+<div id="top" data-screen-label="01 Hero" style="max-width:1360px;margin:0 auto;padding:72px 32px 0;background-color:#FFFFFF">
+  <div style="display:flex;flex-direction:column;gap:28px;padding-bottom:56px;border-bottom:1px solid #E5E7EB">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+      <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:4px 12px;border-radius:999px;background:#EAFBF3;color:#067040;border:1px solid #B7EFD3;text-transform:uppercase;letter-spacing:.08em">Product Design</span>
+      <span style="font-size:12px;font-family:'JetBrains Mono',monospace;padding:4px 12px;border-radius:999px;background:#F3F4F6;color:#3F3F46;border:1px solid #E5E7EB">Quick Hub</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-size:24px;font-weight:700;letter-spacing:-.02em;color:#18181B">Quick CRM</span>
+      <h1 style="font-size:60px;font-weight:800;letter-spacing:-.035em;line-height:1.08;max-width:22ch;text-wrap:pretty">From scattered contact tables to a reusable customer system</h1>
+    </div>
+    <p style="max-width:64ch;font-size:16px;color:#52525B;line-height:1.7">A centralized CRM designed to help businesses manage customers, understand their relationship with the business, and reuse customer data across Quick Hub.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+      <sc-for list="{{ meta }}" as="m" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB">
+          <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.08em">{{ m.label }}</span>
+          <span style="font-size:14px;color:#3F3F46;font-weight:500;line-height:1.6">{{ m.value }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="position:relative;margin-top:8px;border-radius:16px;overflow:hidden;background:#18181B;border:1px solid #E5E7EB;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)">
+      <img src="assets/qcrm-cs/img09.png" alt="The Quick CRM dashboard: contact and tag counts, follow-ups due today, an upcoming follow-up table and source distribution" style="width:100%;height:auto;object-fit:cover;opacity:.92">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,11,.70),transparent 55%)"></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:48px;padding-top:56px">
+    <aside>
+      <div style="position:sticky;top:96px;display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB">
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:#71717A;border-bottom:1px solid #E5E7EB;padding-bottom:10px"><span>Case Study Index</span></div>
+        <nav style="display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ toc }}" as="t" hint-placeholder-count="13">
+            <a href="{{ t.href }}" style="{{ t.style }}">{{ t.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+    </aside>
+
+    <main style="display:flex;flex-direction:column;gap:64px;padding-bottom:40px">
+
+      <section id="sec-context" data-screen-label="02 Context" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">02 · Context</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">Creating a centralized customer system</h2>
+        </div>
+        <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:80ch">Quick CRM is the centralized customer management system within the Quick Hub ecosystem. When I started working on this product, there wasn't a proper way to manage customers. Contact information was scattered across Quick Chat, Quick Campaign, and Quick Ads, with each product storing only basic details like name, email, and created date.</p>
+        <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:80ch">There was no shared customer profile, activity history, or reusable customer data. My focus was to build a centralized CRM that brought customer information into one place and later evolve it with segmentation to support campaigns and broadcasts.</p>
+        
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+          <sc-for list="{{ legacyTables }}" as="lt" hint-placeholder-count="3">
+            
+          </sc-for>
+        </div>
+        <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.42;max-width:42ch;color:#18181B;text-wrap:pretty">There were contacts everywhere, but there was no centralized customer system.</p>
+      </section>
+
+      <section id="sec-problem" data-screen-label="03 The problem" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">03 · The Problem</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">The Problem</h2>
+        </div>
+        <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.45;max-width:52ch;color:#18181B;text-wrap:pretty">We had customer records across Quick Hub, but businesses didn't have a connected way to manage and use them.</p>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+          <sc-for list="{{ problemCards }}" as="pc" hint-placeholder-count="4">
+            <div style="padding:20px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:24px;height:24px;flex:0 0 24px;border-radius:999px;background:#DDF7EA;color:#067040;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">{{ pc.num }}</span>
+                <h4 style="font-size:14px;font-weight:700;color:#18181B;line-height:1.4">{{ pc.title }}</h4>
+              </div>
+              <p style="font-size:14px;color:#52525B;line-height:1.7;padding-left:32px">{{ pc.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section id="sec-goal" data-screen-label="04 Goal" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">04 · Goal</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">Goal</h2>
+        </div>
+        <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.45;max-width:52ch;color:#18181B;text-wrap:pretty">Create one connected customer system where businesses can manage, understand, organize, and activate their customer data across Quick Hub.</p>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+          <sc-for list="{{ goalCards }}" as="gc" hint-placeholder-count="4">
+            <div style="padding:24px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:24px;height:24px;flex:0 0 24px;border-radius:999px;background:#DDF7EA;color:#067040;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">{{ gc.num }}</span>
+                <h4 style="font-size:16px;font-weight:700;letter-spacing:-.01em;color:#18181B;line-height:1.35">{{ gc.title }}</h4>
+              </div>
+              <p style="font-size:14px;color:#52525B;line-height:1.7;padding-left:32px">{{ gc.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section id="sec-approach" data-screen-label="05 Approach" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">05 · Approach</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">Approach</h2>
+        </div>
+        <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.4;max-width:48ch;color:#18181B;text-wrap:pretty">Understanding the problem from multiple perspectives</h3>
+        <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">Before designing the CRM, I looked at the problem from both product and business perspectives. I used competitive analysis and insights from business owners, the sales team, and PMs to understand what the CRM needed to solve.</p>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+          <sc-for list="{{ approachInputs }}" as="ai" hint-placeholder-count="4">
+            <div style="padding:24px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:24px;height:24px;flex:0 0 24px;border-radius:999px;background:#DDF7EA;color:#067040;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">{{ ai.num }}</span>
+                <h4 style="font-size:16px;font-weight:700;color:#18181B;line-height:1.35;letter-spacing:-.01em">{{ ai.title }}</h4>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;padding-left:32px">
+                <sc-for list="{{ ai.paras }}" as="para" hint-placeholder-count="2">
+                  <p style="font-size:14px;color:#52525B;line-height:1.75">{{ para }}</p>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;padding-top:20px;border-top:1px solid #E5E7EB">
+          <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.1em">What this helped me define</span>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #E5E7EB">
+            <sc-for list="{{ learnings }}" as="ln" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:24px;padding:20px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
+                <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em">{{ ln.label }}</span>
+                <p style="font-size:16px;color:#3F3F46;line-height:1.7">{{ ln.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-design" data-screen-label="06 Design" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">06 · Design</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">Turning the product decision into the CRM experience</h2>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;letter-spacing:.1em">6.1</span>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25;color:#18181B">Start with an overview</h3>
+          </div>
+          <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">The dashboard gives business owners a quick view of their customer base and what needs attention, before they move into any individual record.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ dashboardItems }}" as="di" hint-placeholder-count="5">
+              <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:7px 14px;border-radius:999px;background:#F9FAFB;color:#3F3F46;border:1px solid #E5E7EB;text-transform:uppercase;letter-spacing:.08em">{{ di }}</span>
+            </sc-for>
+          </div>
+          <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+            <img src="assets/qcrm-cs/img09.png" alt="The Quick CRM dashboard with contact and tag counts, follow-ups and source distribution" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+            <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">Follow-ups sit on the overview rather than only inside each record, because that is the work with a date attached to it.</figcaption>
+          </figure>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;letter-spacing:.1em">6.2</span>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25;color:#18181B">Turn Contacts into a workspace</h3>
+          </div>
+          <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.45;max-width:52ch;color:#18181B;text-wrap:pretty">A basic contact table answers "Can I find this customer?" A CRM should also help users organize groups of customers and take action on them.</p>
+          <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+            <img src="assets/qcrm-cs/img10.png" alt="The Quick CRM contacts screen with search, filters, tags and row selection" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+            <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">Search, filtering, tags, multi-select and bulk actions on the surface where customers are added.</figcaption>
+          </figure>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+            <figure style="margin:0;display:flex;flex-direction:column;gap:10px">
+              <img src="assets/qcrm-cs/img08.png" alt="Adding a contact and tagging it during creation" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+              <figcaption style="font-size:12px;color:#52525B;line-height:1.65">Tags can be applied while the customer is being created.</figcaption>
+            </figure>
+            
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;letter-spacing:.1em">6.3</span>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25;color:#18181B">Make the customer the primary record</h3>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border-top:1px solid #E5E7EB;border-bottom:1px solid #E5E7EB">
+            <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+              <div style="padding:20px 20px 20px 0;display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;letter-spacing:.1em">{{ q.num }}</span>
+                <p style="font-size:15px;font-weight:700;color:#18181B;line-height:1.45;letter-spacing:-.01em">{{ q.text }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">The profile answers those four in a fixed order. Identity and the available actions sit at the top of the left panel, the information the business holds and its tags below them, and everything time-based occupies the main area — so nothing important sits behind navigation.</p>
+          <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+            <img src="assets/qcrm-cs/img04.png" alt="The customer profile panel with details, tags and status" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 20px 50px rgba(0,0,0,.08)">
+            <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">One panel carries who the customer is and what can be done about them.</figcaption>
+          </figure>
+          <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.4;max-width:40ch;color:#18181B;text-wrap:pretty">The customer became the primary unit of the CRM, rather than the contact row.</p>
+          <div style="display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid #E5E7EB">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.1em">Alternative I rejected</span>
+            <span style="font-size:17px;font-weight:700;color:#18181B;letter-spacing:-.015em">Separate channel-specific views</span>
+            <p style="font-size:15px;color:#52525B;line-height:1.75;max-width:70ch">Splitting the record by channel organizes information tidily, but it turns one relationship into several partial ones.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;letter-spacing:.1em">6.4</span>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25;color:#18181B">Give the customer a history, not just a profile</h3>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-top:1px solid #E5E7EB;border-bottom:1px solid #E5E7EB">
+            <div style="padding:22px 22px 22px 0;display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.12em">The profile shows</span>
+              <span style="font-size:17px;font-weight:700;color:#18181B;letter-spacing:-.02em">Who the customer is</span>
+            </div>
+            <div style="padding:22px;display:flex;flex-direction:column;gap:6px;background:rgba(234,251,243,.6)">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.12em">The activity history shows</span>
+              <span style="font-size:17px;font-weight:700;color:#18181B;letter-spacing:-.02em">The relationship with that customer</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ activityTypes }}" as="at" hint-placeholder-count="9">
+              <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:7px 14px;border-radius:999px;background:#F9FAFB;color:#3F3F46;border:1px solid #E5E7EB;text-transform:uppercase;letter-spacing:.08em">{{ at }}</span>
+            </sc-for>
+          </div>
+          <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">All of it lands in one chronological view, but not at the same weight. Communication needs enough context to recognize a conversation; record changes stay compact. Making every event visually equal would have produced a log rather than a relationship.</p>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #E5E7EB">
+            <sc-for list="{{ density }}" as="d" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
+                <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em">{{ d.label }}</span>
+                <p style="font-size:14px;color:#52525B;line-height:1.7">{{ d.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+            <img src="assets/qcrm-cs/act-activity.png" alt="The Quick CRM Activity tab: upcoming scheduled items above a dated timeline of calls, notes and WhatsApp messages" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 20px 50px rgba(0,0,0,.08)">
+            <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">Upcoming items sit above the timeline; past activity is grouped by date with the channel and outcome for each entry.</figcaption>
+          </figure>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;letter-spacing:.1em">6.5</span>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25;color:#18181B">Connect customer context to action</h3>
+          </div>
+          <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">Customer context is useful when it helps the business decide what to do next. I structured each activity around the type of interaction, while keeping follow-ups connected to the same customer context.</p>
+
+          <div style="position:relative;margin-top:6px">
+            <div style="overflow:hidden">
+              <div style="{{ actTrackStyle }}">
+                <sc-for list="{{ actSteps }}" as="ac" hint-placeholder-count="3">
+                  <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
+                    <span style="font-size: 14px; font-family: 'JetBrains Mono',monospace; font-weight: 700; color: #18181B; text-transform: uppercase; letter-spacing: 0em">{{ ac.label }}</span>
+                    <p style="font-size:12px;color:#52525B;line-height:1.65">{{ ac.body }}</p>
+                    <img src="{{ ac.img }}" alt="{{ ac.alt }}" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <button type="button" aria-label="Previous" onClick="{{ actPrev }}" style="position:absolute;top:50%;left:8px;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;background:#fff;color:#3F3F46;border:1px solid #D4D4D8;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.12)">←</button>
+            <button type="button" aria-label="Next" onClick="{{ actNext }}" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;background:#18181B;color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.12)">→</button>
+            <div style="margin-top:12px;text-align:center">
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#71717A">{{ actCounter }}</span>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;margin-top:26px;padding-top:28px;border-top:1px solid #E5E7EB">
+            <h4 style="font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25;color:#18181B;margin:0">From context to action</h4>
+            <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">Customer interactions provide the context needed to decide what happens next. Follow-ups turn that context into scheduled, assigned work without separating the action from the customer record.</p>
+            <figure style="margin:0;display:flex;flex-direction:column;gap:14px">
+              <img src="assets/qcrm-cs/act-followups.png" alt="The Follow-ups tab: upcoming scheduled follow-ups with description, date, time, assignee and Complete or Edit actions, above quieter completed items" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 24px 60px rgba(0,0,0,.09)">
+              <figcaption style="font-size:14px;color:#52525B;line-height:1.75;max-width:70ch">Scheduled follow-ups stay open with the details needed to act. Completed follow-ups become quieter history, while remaining available when the business needs to inspect what was done.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-migration" data-screen-label="07 Data migration" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">07 · Data Migration</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">Making customer data ready for CRM</h2>
+          <p style="font-size:16px;color:#71717A;line-height:1.6;margin-top:10px;max-width:60ch">How do we bring existing customer data into a structured CRM?</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">A centralized CRM still needs existing customers</h3>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">Businesses already had customer information before Quick CRM existed.</p>
+          <p style="font-size:17px;color:#18181B;line-height:1.7;max-width:66ch;font-weight:600">Moving to a centralized CRM meant giving them a practical way to bring that existing data with them.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">Bring existing customer data into CRM</h3>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">Businesses can bring their existing customer list into CRM using a CSV file. The import begins in Contacts, where the customer base already lives.</p>
+          <p style="font-size:17px;color:#18181B;line-height:1.7;max-width:66ch;font-weight:600">Because spreadsheets don't share one structure, each CSV column has to be connected to the right CRM field, and the data has to be checked before any customer records are created.</p>
+          <div style="position:relative">
+            <div style="overflow:hidden">
+              <div style="{{ importTrackStyle }}">
+              <sc-for list="{{ importSteps }}" as="st" hint-placeholder-count="4">
+                <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
+                  <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">{{ st.num }}</span>
+                  <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">{{ st.label }}</h5>
+                  <p style="font-size:12px;color:#52525B;line-height:1.65">{{ st.body }}</p>
+                  <img src="{{ st.img }}" alt="{{ st.alt }}" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                </div>
+              </sc-for>
+              </div>
+            </div>
+            <button type="button" aria-label="Previous" onClick="{{ importPrev }}" style="position:absolute;top:50%;left:8px;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;background:#fff;color:#3F3F46;border:1px solid #D4D4D8;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.12)">←</button>
+            <button type="button" aria-label="Next" onClick="{{ importNext }}" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;background:#18181B;color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.12)">→</button>
+            <div style="margin-top:12px;text-align:center">
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#71717A">{{ importCounter }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding-top:28px;border-top:1px solid #E5E7EB">
+          <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.4;max-width:40ch;color:#18181B;text-wrap:pretty">The result is a safer path from an existing customer spreadsheet to a centralized CRM database.</p>
+        </div>
+      </section>
+
+      <section id="sec-newproblem" data-screen-label="08 A new problem" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">08 · A New Problem</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">Finding customers wasn't enough</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 70ch; padding: 8px 0 32px; padding-bottom: 0px; padding-top: 0px">
+          <p style="font-size:16px;color:#52525B;line-height:1.7">Once customer data was centralized, businesses could search and filter their customers. But they could find a group without being able to keep that group for later.</p>
+          <p style="font-size:17px;color:#18181B;line-height:1.7;font-weight:600">A filter answered a question right now. It didn't create a reusable audience for later.</p>
+        </div>
+      </section>
+
+      <section id="sec-segmentation" data-screen-label="09 Segmentation" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">09 · Segmentation</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">Having all customers in one place wasn't enough</h2>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">Once customer data was centralized, businesses could manage their customers from one place.</p>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">But when running a campaign or broadcast, they often needed to include or exclude a specific group of customers.</p>
+          <div style="border-left:2px solid #067040;padding:6px 0 6px 24px;max-width:52ch">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#71717A;display:block;margin-bottom:10px">For example</span>
+            <span style="font-size:20px;font-weight:600;color:#18181B;line-height:1.5;letter-spacing:-.015em;text-wrap:pretty">Send this campaign to customers who came from WhatsApp, but exclude customers already tagged as VIP.</span>
+          </div>
+          <p style="font-size:17px;color:#18181B;line-height:1.7;max-width:66ch;font-weight:600">The existing way of building this audience involved repeatedly filtering and working through customer lists, making the process lengthy and difficult to reuse.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">Finding a simpler way to define audiences</h3>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">I looked at how CRM and marketing products handle audience selection and segmentation and compared those patterns with the workflow businesses were trying to accomplish in Quick Hub.</p>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">The existing filtering approach could help find customers, but it was not an efficient way to repeatedly build and manage the same audience.</p>
+          <p style="font-size:17px;color:#18181B;line-height:1.7;max-width:66ch;font-weight:600">I introduced Segments to turn audience selection into a reusable system.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:20px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">From filtering customers to defining an audience</h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+            <div style="padding:24px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#71717A">Filter</span>
+              <span style="font-size:18px;font-weight:700;color:#18181B;letter-spacing:-.015em">Find customers</span>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="display:flex;gap:10px;font-size:15px;color:#52525B;line-height:1.7"><span style="color:#A1A1AA">—</span><span>Narrows the customer list for the current task</span></span>
+                <span style="display:flex;gap:10px;font-size:15px;color:#52525B;line-height:1.7"><span style="color:#A1A1AA">—</span><span>Useful when you need to find customers right now</span></span>
+                <span style="display:flex;gap:10px;font-size:15px;color:#52525B;line-height:1.7"><span style="color:#A1A1AA">—</span><span>The criteria are applied to the current view</span></span>
+                <span style="display:flex;gap:10px;font-size:15px;color:#52525B;line-height:1.7"><span style="color:#A1A1AA">—</span><span>You need to repeat the filtering when you need the same audience again</span></span>
+              </div>
+            </div>
+            <div style="padding:24px;border-radius:16px;background:#F4FCF8;border:1px solid #B7EFD3;display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#067040">Segment</span>
+              <span style="font-size:18px;font-weight:700;color:#18181B;letter-spacing:-.015em">Define an audience</span>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="display:flex;gap:10px;font-size:15px;color:#3F3F46;line-height:1.7"><span style="color:#0BA861">—</span><span>Stores the rules that define the audience</span></span>
+                <span style="display:flex;gap:10px;font-size:15px;color:#3F3F46;line-height:1.7"><span style="color:#0BA861">—</span><span>Can be reused across Quick Hub workflows</span></span>
+                <span style="display:flex;gap:10px;font-size:15px;color:#3F3F46;line-height:1.7"><span style="color:#0BA861">—</span><span>Does not require manually maintaining a separate customer list</span></span>
+                <span style="display:flex;gap:10px;font-size:15px;color:#3F3F46;line-height:1.7"><span style="color:#0BA861">—</span><span>Membership changes as customer data changes</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:22px;padding:26px;border-radius:16px;border:1px solid #E5E7EB;margin-top:6px">
+            <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:16px;justify-content:space-between">
+              <span style="font-size:17px;font-weight:700;color:#18181B;letter-spacing:-.015em">Segment · VIP Customers</span>
+              <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#067040">Tag = VIP</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;border-top:1px solid #E5E7EB;padding-top:20px">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#71717A">Today</span>
+                <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#18181B">Customer A</span>
+                <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#18181B">Customer B</span>
+                <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#18181B">Customer C</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#067040">Later</span>
+                <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#71717A">Customer A</span>
+                <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#71717A">Customer B</span>
+                <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#71717A">Customer C</span>
+                <span style="font-size:15px;font-family:'JetBrains Mono',monospace;color:#18181B;font-weight:700">Customer D <span style="color:#067040">receives the VIP tag</span></span>
+                <p style="font-size:15px;color:#3F3F46;line-height:1.7;margin-top:4px">Customer D automatically becomes part of the Segment. If a customer no longer matches the rule, they can automatically leave it.</p>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.4;max-width:34ch;color:#18181B;text-wrap:pretty;padding:8px 0 8px 24px;border-left:2px solid #067040;margin-top:6px">The business defines the rules. CRM keeps the audience updated.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">Building the audience</h3>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">With Segments, businesses can define an audience using information already stored in CRM. The process starts with an empty audience, and as conditions are added the matching customer count shows how large that audience is before it is saved.</p>
+          <div style="position:relative">
+            <div style="overflow:hidden">
+              <div style="{{ segTrackStyle }}">
+              <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">01</span>
+                <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Choose the first rule</h5>
+                <p style="font-size:12px;color:#52525B;line-height:1.65">Pick the customer information that defines membership.</p>
+                <img src="assets/qcrm-cs/img01.png" alt="Create New Segment with a name field and the customer information available for the first condition" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+              </div>
+              <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">02</span>
+                <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Narrow the audience</h5>
+                <p style="font-size:12px;color:#52525B;line-height:1.65">Add a second condition to reach a smaller group.</p>
+                <img src="assets/qcrm-cs/img11.png" alt="Two conditions combined in one segment, including an import date range" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+              </div>
+              <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">03</span>
+                <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Combine conditions</h5>
+                <p style="font-size:12px;color:#52525B;line-height:1.65">A second group gives a different set of conditions a way into the same audience.</p>
+                <img src="assets/qcrm-cs/img06.png" alt="A segment with several conditions in one group and a second group joined by OR" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+              </div>
+              <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">04</span>
+                <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Verify the audience</h5>
+                <p style="font-size:12px;color:#52525B;line-height:1.65">Check the customers the rules currently match before saving.</p>
+                <img src="assets/qcrm-cs/img03.png" alt="The contacts matching the segment conditions, listed for review before saving" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+              </div>
+              </div>
+            </div>
+            <button type="button" aria-label="Previous" onClick="{{ segPrev }}" style="position:absolute;top:50%;left:8px;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;background:#fff;color:#3F3F46;border:1px solid #D4D4D8;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.12)">←</button>
+            <button type="button" aria-label="Next" onClick="{{ segNext }}" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;background:#18181B;color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.12)">→</button>
+            <div style="margin-top:12px;text-align:center">
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#71717A">{{ segCounter }}</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:6px">
+            <div style="padding:20px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#067040">AND</span>
+              <p style="font-size:15px;color:#3F3F46;line-height:1.7">Both conditions must be true for a customer to belong to this group.</p>
+            </div>
+            <div style="padding:20px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#067040">OR</span>
+              <p style="font-size:15px;color:#3F3F46;line-height:1.7">OR lets businesses create alternative ways for a customer to qualify.</p>
+            </div>
+          </div>
+          <div style="max-width:420px;display:flex;flex-direction:column;gap:10px;border-top:1px solid #18181B;padding-top:18px">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#71717A">One audience, built up across the flow</span>
+            <span style="font-size:16px;font-family:'JetBrains Mono',monospace;color:#18181B;line-height:1.9">Tag = Sales Lead<br><span style="color:#067040;font-weight:700;font-size:12px;letter-spacing:.14em">AND</span><br>Import Date = Jun 03 – Jul 21, 2026<br><span style="color:#067040;font-weight:700;font-size:12px;letter-spacing:.14em">AND</span><br>Source = WhatsApp</span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">Save it once, use it again</h3>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">Once the audience is defined, the business can save it as a Segment instead of rebuilding the same customer group each time.</p>
+          <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
+            <img src="assets/qcrm-cs/img02.png" alt="The saved segments list with segment name, total number of contacts, created date and last updated" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+            <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">The audience now exists as a reusable object.</figcaption>
+          </figure>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:7px 14px;border-radius:999px;background:#F9FAFB;color:#3F3F46;border:1px solid #E5E7EB;text-transform:uppercase;letter-spacing:.08em">Segment name</span>
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:7px 14px;border-radius:999px;background:#F9FAFB;color:#3F3F46;border:1px solid #E5E7EB;text-transform:uppercase;letter-spacing:.08em">Total no. of contacts</span>
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:7px 14px;border-radius:999px;background:#F9FAFB;color:#3F3F46;border:1px solid #E5E7EB;text-transform:uppercase;letter-spacing:.08em">Created date</span>
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:7px 14px;border-radius:999px;background:#F9FAFB;color:#3F3F46;border:1px solid #E5E7EB;text-transform:uppercase;letter-spacing:.08em">Last updated</span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:20px;padding-top:28px;border-top:1px solid #E5E7EB">
+          <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">One audience, multiple uses</h3>
+          <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">Once created, the same Segment can be reused wherever a specific customer audience is needed.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));border-top:1px solid #E5E7EB;border-bottom:1px solid #E5E7EB">
+            <div style="padding:24px 40px 24px 0;border-right:1px solid #E5E7EB;display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#067040">Campaigns</span>
+              <span style="font-size:16px;color:#52525B;line-height:1.7">Target a specific group of customers without rebuilding the audience.</span>
+            </div>
+            <div style="padding:24px 0 24px 40px;display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#067040">Broadcasts</span>
+              <span style="font-size:16px;color:#52525B;line-height:1.7">Use the same audience when sending a message to a defined group.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-outcome" data-screen-label="10 Outcome" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">10 · Outcome</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">From scattered contact records to a reusable customer system</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-top:1px solid #E5E7EB;border-bottom:1px solid #E5E7EB">
+          <div style="padding:32px 32px 32px 0;display:flex;flex-direction:column;gap:16px">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.12em">Before</span>
+            <ul style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ before }}" as="b" hint-placeholder-count="6">
+                <li style="font-size:15px;color:#52525B;line-height:1.6">{{ b }}</li>
+              </sc-for>
+            </ul>
+          </div>
+          <div style="padding:32px;display:flex;flex-direction:column;gap:16px;background:rgba(234,251,243,.6)">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.12em">After</span>
+            <ul style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ after }}" as="a" hint-placeholder-count="8">
+                <li style="font-size:15px;color:#3F3F46;line-height:1.6">{{ a }}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </div>
+        <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.45;max-width:50ch;color:#18181B;text-wrap:pretty">Quick CRM gave businesses one place to manage customers, understand their relationship with the business, and turn customer data into reusable audiences across Quick Hub.</p>
+      </section>
+
+      <section id="sec-role" data-screen-label="11 My role" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">11 · My Role</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">What I owned</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;border-top:1px solid #E5E7EB">
+          <sc-for list="{{ ownership }}" as="o" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:24px;padding:20px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em">{{ o.label }}</span>
+              <p style="font-size:15px;color:#52525B;line-height:1.75">{{ o.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section id="sec-reflection" data-screen-label="12 Reflection" style="display:flex;flex-direction:column;gap:24px;scroll-margin-top:112px">
+        <div style="border-bottom:1px solid #E5E7EB;padding-bottom:12px">
+          <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em;display:block">12 · Reflection</span>
+          <h2 style="font-size:30px;font-weight:700;letter-spacing:-.025em;margin-top:6px;line-height:1.2">The problem changed as the product became more useful</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;border-top:1px solid #E5E7EB">
+          <sc-for list="{{ reflection }}" as="r" hint-placeholder-count="3">
+            <div style="display:grid;grid-template-columns:minmax(0,32px) minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
+              <span style="width:24px;height:24px;flex:0 0 24px;border-radius:999px;background:#DDF7EA;color:#067040;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">{{ r.num }}</span>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:16px;color:#71717A;line-height:1.5">{{ r.from }}</span>
+                <span style="font-size:18px;font-weight:700;color:#18181B;letter-spacing:-.015em;line-height:1.45">{{ r.to }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px;padding-top:12px">
+          <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.45;max-width:48ch;color:#18181B;text-wrap:pretty">The important question wasn't only what information should appear on the screen. It was what information needed to become reusable system behavior.</p>
+          <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">That changed how I approached CRM design: not as a collection of screens, but as a system that connects customer information, relationships and actions across the product.</p>
+        </div>
+      </section>
+
+      <div style="border-top:1px solid #E5E7EB;padding-top:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#A1A1AA;text-transform:uppercase;letter-spacing:.12em">Quick CRM · Quick Hub</span>
+          <span style="font-size:16px;font-weight:700;letter-spacing:-.01em">{{ credit }}</span>
+        </div>
+        <a href="#top" style="padding:10px 24px;border-radius:999px;background:#F3F4F6;color:#3F3F46;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border:1px solid #E5E7EB">Back to Top</a>
+      </div>
+
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;credit&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Product Designer&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Case study&quot;}}">
+const TOC = [
+  { id: 'top', label: '01. Hero' },
+  { id: 'sec-context', label: '02. Context' },
+  { id: 'sec-problem', label: '03. The Problem' },
+  { id: 'sec-goal', label: '04. Goal' },
+  { id: 'sec-approach', label: '05. Approach' },
+  { id: 'sec-design', label: '06. Design' },
+  { id: 'sec-migration', label: '07. Data Migration' },
+  { id: 'sec-newproblem', label: '08. A New Problem' },
+  { id: 'sec-segmentation', label: '09. Segmentation' },
+  { id: 'sec-outcome', label: '10. Outcome' },
+  { id: 'sec-role', label: '11. My Role' },
+  { id: 'sec-reflection', label: '12. Reflection' }
+];
+
+const META = [
+  { label: 'Role', value: 'Product Designer' },
+  { label: 'Product', value: 'Quick CRM · Quick Hub' },
+  { label: 'Scope', value: 'Product Strategy · UX · Information Architecture · UI Design · Prototyping' },
+  { label: 'Platform', value: 'Web' }
+];
+
+const HUB_PRODUCTS = ['Quick CRM', 'Quick Chat', 'Quick Campaign', 'Quick Social', 'Quick Ads'];
+
+const PROBLEM_CARDS = [
+  { num: '01', title: 'Customer data was scattered', body: 'Customer records lived across different Quick products, with no single place to manage them.' },
+  { num: '02', title: 'Customer interactions lacked context', body: "Businesses couldn't get a complete view of their interactions and relationship with a customer over time." },
+  { num: '03', title: "Customer data wasn't actionable", body: "Businesses couldn't easily turn their existing contacts into targeted groups for specific business activities." },
+  { num: '04', title: 'Managing customers was inefficient', body: 'Finding, organizing, and working with the right customers became increasingly manual as the customer base grew.' }
+];
+
+const GOAL_CARDS = [
+  { num: '01', title: 'Centralize', body: 'Bring customer records from across Quick Hub into one shared system. Businesses should no longer need to manage the same customers separately across different products.' },
+  { num: '02', title: 'Understand', body: 'Give businesses a clearer view of each customer beyond basic contact details. Customer context and interactions should be easier to understand from one place.' },
+  { num: '03', title: 'Organize', body: 'Make it easier to search, filter, and manage customers as the database grows. Businesses should be able to quickly find the customers they need to work with.' },
+  { num: '04', title: 'Activate', body: 'Make customer data useful beyond the CRM itself. Businesses should be able to use their customers across Quick Hub, particularly for Campaigns and Broadcasts.' }
+];
+
+const APPROACH_INPUTS = [
+  { num: '01', title: 'Competitive analysis', paras: [
+    'I studied established CRMs to understand patterns for customer profiles, activity, filtering, tagging, and segmentation. This helped me identify useful patterns without simply copying another product.' ] },
+  { num: '02', title: 'Business owner insights', paras: [
+    'I spoke with business owners to understand how they manage customers and what information they actually need. This highlighted the need to organize customers, understand interactions, and find the right customers quickly.' ] },
+  { num: '03', title: 'Sales team insights', paras: [
+    'I worked with the sales team to understand how customer information is used in everyday workflows. Their input helped identify the customer context and information needed for follow-ups and customer management.' ] },
+  { num: '04', title: 'PM & product', paras: [
+    'I worked with PMs to understand the existing product structure and how CRM would connect with Quick Chat, Quick Campaign, and Quick Ads. This helped define CRM as a shared customer system across Quick Hub.' ] }
+];
+
+const LEARNINGS = [
+  { label: '01 · Shared customer record', body: 'One central place for customer information.' },
+  { label: '02 · Customer context', body: 'Go beyond basic contact details and understand interactions.' },
+  { label: '03 · Reusable customer data', body: 'Make customer data usable across Quick Hub, especially Campaigns and Broadcasts.' }
+];
+
+const LEGACY_TABLES = [
+  { product: 'Quick Chat', fields: 'Name · Email · Created date' },
+  { product: 'Quick Campaign', fields: 'Name · Email · Created date' },
+  { product: 'Quick Ads', fields: 'Name · Email · Created date' }
+];
+
+const EXPORT_PATH = ['Quick Ads', 'Export', 'Quick Campaign', 'Import'];
+
+const CONSEQUENCES = ['Duplicate records', 'Manual movement', 'Disconnected data', 'Inconsistent information', 'Poor cross-product reuse'];
+
+const RELATIONSHIP_QS = [
+  { num: '01', text: 'Who is this customer?' },
+  { num: '02', text: 'What do we know about them?' },
+  { num: '03', text: 'What has happened with them?' },
+  { num: '04', text: 'What interactions have they had with the business?' },
+  { num: '05', text: 'What does the business need to do next?' }
+];
+
+const PRINCIPLES = [
+  { num: '01', label: 'Centralize', body: 'Create one customer record instead of maintaining separate records across products.' },
+  { num: '02', label: 'Add context', body: 'Make the customer record more useful than basic name and email information.' },
+  { num: '03', label: 'Connect history', body: 'Understand what has happened with the customer over time.' },
+  { num: '04', label: 'Connect action', body: 'Make it possible to act on customer context.' }
+];
+
+const LAYERS = [
+  { label: 'Identity', body: 'Who the customer is.' },
+  { label: 'Context', body: 'Relevant information about the customer.' },
+  { label: 'Activity', body: 'What has happened with the customer.' },
+  { label: 'Action', body: 'What the business can do next.' }
+];
+
+const DASHBOARD_ITEMS = ['Total contacts', 'Total tags', "Today's follow-up", 'Upcoming follow-up', 'Source distribution'];
+
+const QUESTIONS = [
+  { num: '01', text: 'Who is this customer?' },
+  { num: '02', text: 'What do we know about them?' },
+  { num: '03', text: 'What has happened with them?' },
+  { num: '04', text: 'What can we do next?' }
+];
+
+const DENSITY = [
+  { label: 'Communication', body: 'Broadcast and campaign entries carry the most context: the campaign, the template used and enough of the message to recognize it.' },
+  { label: 'Follow-up · Note', body: 'Enough detail to understand what was planned or written, and when, without competing with the messages around it.' },
+  { label: 'Tags · Updates', body: 'Compact single lines. Record changes belong in the history, but they are not what the reader is scanning for.' }
+];
+
+const ACTIVITY_TYPES = ['WhatsApp interactions', 'Broadcasts', 'Campaigns', 'Replies', 'Calls', 'Notes', 'Follow-ups', 'Tags', 'Customer updates'];
+
+const SEG_STEPS = [
+  { num: '01', title: 'Define conditions' },
+  { num: '02', title: 'Preview matching customers' },
+  { num: '03', title: 'Save the segment' },
+  { num: '04', title: 'Keep it dynamic' },
+  { num: '05', title: 'Reuse it in Broadcasts and Campaigns' }
+];
+
+const RULE_EXAMPLES = [
+  { field: 'Single value', rule: 'City is Pune' },
+  { field: 'Tags', rule: 'Tag is any of VIP, Returning' },
+  { field: 'Date', rule: 'Import date is between Jul 03 and Jul 21' }
+];
+
+const resolveAsset = (id, path) => path;
+
+const ACTIVITY_VIEWS = [
+  { label: 'Call', body: 'Understand conversations, outcomes, and recordings.', img: 'assets/qcrm-cs/act-call.png', alt: 'The Call tab of a customer record, showing dated calls with direction, outcome and a recording' },
+  { label: 'Email', body: 'See campaigns, scheduled emails, received emails, and individual messages.', img: 'assets/qcrm-cs/act-email.png', alt: 'The Email tab of a customer record, showing campaigns, scheduled sends, received mail and individual messages' },
+  { label: 'Notes', body: 'Capture internal customer context that may influence the next action.', img: 'assets/qcrm-cs/act-notes.png', alt: 'The Notes tab of a customer record, showing dated internal notes with their author' }
+];
+
+const IMPORT_STEPS = [
+  { num: '01', label: 'Upload', body: 'Select the spreadsheet. The import starts from Contacts, where the customer base already lives.', id: 'importUpload', img: 'assets/qcrm-cs/img14.png', alt: 'The Upload CSV File dialog with a drag-and-drop area over the contacts list' },
+  { num: '02', label: 'Map', body: 'Map spreadsheet columns to CRM fields, with a default mapping proposed and the required fields marked.', id: 'importMapping', img: 'assets/qcrm-cs/img13.png', alt: 'Mapping Properties: CSV columns matched to CRM properties, each marked as mapped, with an assign-tag field' },
+  { num: '03', label: 'Review', body: 'Identify incorrect or duplicate records before importing. They are named, and offered as a CSV to fix outside the product.', id: 'importValidation', img: 'assets/qcrm-cs/img15.png', alt: 'The Import Contact review step with Incorrect Contacts and Duplicate Contacts tabs and a list of detected duplicates' },
+  { num: '04', label: 'Import', body: 'Create the customer records only after review, with the progress state showing how many are being added.', id: 'importProgress', img: 'assets/qcrm-cs/img12.png', alt: 'The import running, showing how many contacts are being imported and the progress' }
+];
+
+const BEFORE = ['Separate contact tables in Quick Chat, Campaign and Ads', 'Basic contact information', 'Duplicate records', 'Export and import between products', 'No shared customer context', 'Limited organization'];
+const AFTER = ['Centralized customer records', 'Reusable across Quick Hub', 'Customer profile and context', 'Interaction history', 'Follow-ups', 'Tags and filtering', 'Dynamic segmentation', 'Reusable audiences in Campaigns and Broadcasts'];
+
+const OWNERSHIP = [
+  { label: 'Product thinking', body: 'Defined the role of CRM within the Quick Hub ecosystem and considered cross-product customer data.' },
+  { label: 'Information architecture', body: 'Structured the customer experience around information, context, activity and action.' },
+  { label: 'UX', body: 'Worked across contact management, customer profiles, history, follow-ups, bulk import, filtering and segmentation.' },
+  { label: 'UI', body: 'Designed interface hierarchy, interactions, states, components and detailed product UI.' },
+  { label: 'Prototyping', body: 'Used prototypes to explore and communicate the product experience.' }
+];
+
+const REFLECTION = [
+  { num: '01', from: 'Fragmented contacts', to: 'Centralized customer system' },
+  { num: '02', from: 'Customer records lacked relationship context', to: 'Customer history, follow-up and action' },
+  { num: '03', from: "Finding customers wasn't enough", to: 'Dynamic segmentation and reusable audiences' }
+];
+
+class Component extends DCLogic {
+  state = { activeSection: 'top', importIndex: 0, segIndex: 0, actIndex: 0 };
+
+  componentDidMount() {
+    this.onScroll = () => {
+      let current = TOC[0].id;
+      for (const t of TOC) {
+        const el = document.getElementById(t.id);
+        if (el && el.getBoundingClientRect().top <= 220) current = t.id;
+      }
+      if (current !== this.state.activeSection) this.setState({ activeSection: current });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
+    this.tocTimer = setInterval(this.onScroll, 250);
+    this.onScroll();
+
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    document.removeEventListener('scroll', this.onScroll, true);
+    clearInterval(this.tocTimer);
+  }
+
+  tocStyle(isActive) {
+    const base = { display: 'block', width: '100%', padding: '7px 12px', borderRadius: '10px', fontSize: '12px', textDecoration: 'none', transition: 'all .2s ease' };
+    return isActive
+      ? Object.assign({}, base, { background: '#18181B', color: '#fff', fontWeight: 700 })
+      : Object.assign({}, base, { color: '#52525B', fontWeight: 500 });
+  }
+
+  pathStyle(label, i) {
+    const isProduct = i % 2 === 0;
+    return {
+      fontSize: '13px', fontFamily: "'JetBrains Mono',monospace", fontWeight: 700,
+      padding: '8px 14px', borderRadius: '8px',
+      background: isProduct ? '#fff' : 'transparent',
+      color: isProduct ? '#18181B' : '#71717A',
+      border: isProduct ? '1px solid #E5E7EB' : '1px dashed #D4D4D8',
+      textTransform: isProduct ? 'none' : 'uppercase',
+      letterSpacing: isProduct ? '0' : '.08em'
+    };
+  }
+
+  track(idx) {
+    return { display: 'flex', gap: '20px', paddingBottom: '8px', transform: 'translateX(calc(' + (-idx * 80) + '% - ' + (idx * 20) + 'px))', transition: 'transform .45s cubic-bezier(.22,.61,.36,1)' };
+  }
+
+  step(key, dir, len) {
+    return () => this.setState({ [key]: Math.max(0, Math.min(len - 1, this.state[key] + dir)) });
+  }
+
+  railButtonStyle(side, disabled) {
+    return {
+      position: 'absolute', top: 'calc(50% - 10px)', transform: 'translateY(-50%)',
+      [side]: '8px', width: '36px', height: '36px', borderRadius: '999px',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontSize: '14px', cursor: 'pointer', zIndex: 10,
+      transition: 'all .2s ease',
+      boxShadow: '0 4px 12px rgba(0,0,0,.12)',
+      background: side === 'right' ? '#18181B' : 'rgba(255,255,255,.9)',
+      backdropFilter: side === 'right' ? 'none' : 'blur(8px)',
+      color: side === 'right' ? '#fff' : '#3F3F46',
+      border: side === 'right' ? '1px solid #18181B' : '1px solid #D4D4D8',
+      opacity: disabled ? 0 : 1,
+      pointerEvents: disabled ? 'none' : 'auto'
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    return {
+      toc: TOC.map((t) => ({ label: t.label, href: '#' + t.id, style: this.tocStyle(t.id === s.activeSection) })),
+      meta: META,
+      legacyTables: LEGACY_TABLES,
+      approachInputs: APPROACH_INPUTS,
+      learnings: LEARNINGS,
+      problemCards: PROBLEM_CARDS,
+      goalCards: GOAL_CARDS,
+      hubProducts: HUB_PRODUCTS,
+      exportPath: EXPORT_PATH.map((label, i) => ({ label: label, style: this.pathStyle(label, i) })),
+      consequences: CONSEQUENCES,
+      relationshipQs: RELATIONSHIP_QS,
+      principles: PRINCIPLES,
+      layers: LAYERS,
+      dashboardItems: DASHBOARD_ITEMS,
+      questions: QUESTIONS,
+      density: DENSITY,
+      activityTypes: ACTIVITY_TYPES,
+      segSteps: SEG_STEPS,
+      ruleExamples: RULE_EXAMPLES,
+      importSteps: IMPORT_STEPS.map(i => Object.assign({}, i, { img: resolveAsset(i.id, i.img) })),
+      actSteps: ACTIVITY_VIEWS,
+      actTrackStyle: this.track(s.actIndex),
+      actPrev: this.step('actIndex', -1, ACTIVITY_VIEWS.length),
+      actNext: this.step('actIndex', 1, ACTIVITY_VIEWS.length),
+      actCounter: (s.actIndex + 1) + ' / ' + ACTIVITY_VIEWS.length,
+      importTrackStyle: this.track(s.importIndex),
+      importPrev: this.step('importIndex', -1, IMPORT_STEPS.length),
+      importNext: this.step('importIndex', 1, IMPORT_STEPS.length),
+      importCounter: (s.importIndex + 1) + ' / ' + IMPORT_STEPS.length,
+      segTrackStyle: this.track(s.segIndex),
+      segPrev: this.step('segIndex', -1, 4),
+      segNext: this.step('segIndex', 1, 4),
+      segCounter: (s.segIndex + 1) + ' / 4',
+      segAtStart: s.segIndex <= 0,
+      segAtEnd: s.segIndex >= 3,
+      before: BEFORE,
+      after: AFTER,
+      ownership: OWNERSHIP,
+      reflection: REFLECTION,
+      credit: this.props.credit ?? 'Product Designer'
+    };
+  }
+}
+</script>
+
+
+</body></html>
