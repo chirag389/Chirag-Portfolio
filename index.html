@@ -27,6 +27,13 @@
   @keyframes pingdot { 0% { transform:scale(1); opacity:1; } 75%,100% { transform:scale(2); opacity:0; } }
   @keyframes spin { to { transform:rotate(360deg); } }
   @keyframes pulsedot { 50% { opacity:.4; } }
+  @keyframes caretBlink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
+  @keyframes heroRise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+  @keyframes gridPan { to { background-position:40px 40px, 40px 40px; } }
+  @keyframes blobA { 0%,100% { transform:translate(-50%,-50%) scale(1); } 50% { transform:translate(-46%,-54%) scale(1.14); } }
+  @keyframes blobB { 0%,100% { transform:translate(0,0) scale(1); opacity:.55; } 50% { transform:translate(60px,40px) scale(1.2); opacity:.85; } }
+  @keyframes blobC { 0%,100% { transform:translate(0,0) scale(1.1); opacity:.5; } 50% { transform:translate(-70px,30px) scale(.9); opacity:.8; } }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; } }
 </style>
 </helmet>
 
@@ -78,17 +85,19 @@
 
 <main id="top">
 
-  <section style="position:relative;padding:clamp(122px,14vw,156px) 0 clamp(78px,10vw,104px);overflow:hidden;background-color:#F8F9FA;background-size:40px 40px;background-image:linear-gradient(to right,rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,0,0,.035) 1px,transparent 1px)">
-    <div style="position:absolute;top:33%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:rgba(99,102,241,.1);border-radius:999px;filter:blur(140px);pointer-events:none"></div>
+  <section style="position:relative;padding:clamp(122px,14vw,156px) 0 clamp(78px,10vw,104px);overflow:hidden;background-color:#F8F9FA;background-size:40px 40px;background-image:linear-gradient(to right,rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,0,0,.035) 1px,transparent 1px);background-position:0 0,0 0;animation:gridPan 24s linear infinite">
+    <div style="position:absolute;top:33%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:rgba(99,102,241,.1);border-radius:999px;filter:blur(140px);pointer-events:none;animation:blobA 18s ease-in-out infinite"></div>
+    <div style="position:absolute;top:6%;left:8%;width:420px;height:320px;background:rgba(129,140,248,.16);border-radius:999px;filter:blur(120px);pointer-events:none;animation:blobB 22s ease-in-out infinite"></div>
+    <div style="position:absolute;bottom:-8%;right:4%;width:460px;height:340px;background:rgba(45,212,191,.13);border-radius:999px;filter:blur(130px);pointer-events:none;animation:blobC 26s ease-in-out infinite"></div>
     <div style="position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 clamp(24px,6vw,48px);display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
-      <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:#EEF2FF;border:1px solid #C7D2FE;color:#4338CA;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Product Designer</div>
-      <h1 style="font-size:clamp(36px,5.6vw,64px);font-weight:800;color:#18181B;letter-spacing:-.03em;line-height:1.12;margin:0;max-width:20ch;text-wrap:pretty">I design products that make complexity feel simple.</h1>
-      <p style="font-size:19px;color:#52525B;line-height:1.7;margin:0;max-width:46ch;text-wrap:pretty">I'm Chirag Mahajan, a Product Designer who turns complex problems into clear, useful and scalable digital experiences.</p>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding-top:4px">
+      <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:#EEF2FF;border:1px solid #C7D2FE;color:#4338CA;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;animation:heroRise .7s cubic-bezier(.2,.7,.2,1) both .05s">Product Designer</div>
+      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(36px,5.6vw,64px);font-weight:800;color:#18181B;letter-spacing:-.015em;text-transform:uppercase;line-height:1;margin:0;max-width:20ch;text-wrap:pretty;min-height:3em">{{ typedHead }}<span style="{{ caretStyle }}"></span></h1>
+      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s;font-size:19px;color:#52525B;line-height:1.7;margin:0;max-width:46ch;text-wrap:pretty">I'm Chirag Mahajan, a Product Designer who turns complex problems into clear, useful and scalable digital experiences.</p>
+      <div style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .44s;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding-top:4px">
         <a href="#work" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:#18181B;color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;box-shadow:0 12px 30px rgba(24,24,27,.12);text-decoration:none">View my work ↓</a>
         <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:#fff;color:#18181B;border:1px solid #D4D4D8;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none">Get in touch →</a>
       </div>
-      <p style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:#71717A;margin:6px 0 0;text-wrap:balance">Product thinking · UX · Interaction · UI · Design Systems</p>
+      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .58s;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:#71717A;margin:6px 0 0;text-wrap:balance">Product thinking · UX · Interaction · UI · Design Systems</p>
     </div>
   </section>
 
@@ -149,8 +158,8 @@
             <span style="align-self:flex-start;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#3F3F46;background:#F4F4F5;border:1px solid #E5E7EB;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Case study in progress</span>
             <h3 style="font-size:clamp(22px,2.6vw,30px);font-weight:700;color:#18181B;letter-spacing:-.02em;line-height:1.25;margin:0;text-wrap:pretty">Making social publishing easier to plan, create and manage.</h3>
           </div>
-          <div style="position:relative;overflow:hidden;border-radius:20px;background:#FAFAFA;border:1px dashed #D4D4D8;aspect-ratio:16/6;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:32px;text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
-            <div style="display:flex;align-items:flex-end;gap:10px;opacity:.55" aria-hidden="true">
+          <div style="position:relative;overflow:hidden;border-radius:20px;background:#FAFAFA;border:1px dashed #D4D4D8;min-height:clamp(210px,22vw,300px);height:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,32px);text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px;max-width:100%;opacity:.55" aria-hidden="true">
               <div style="width:74px;height:52px;border-radius:8px;border:1px solid #D4D4D8;background:#fff;display:flex;flex-direction:column;gap:5px;padding:8px">
                 <div style="height:5px;width:70%;border-radius:999px;background:#E4E4E7"></div>
                 <div style="height:5px;width:45%;border-radius:999px;background:#E4E4E7"></div>
@@ -194,8 +203,8 @@
             <span style="align-self:flex-start;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#3F3F46;background:#F4F4F5;border:1px solid #E5E7EB;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Case study in progress</span>
             <h3 style="font-size:clamp(22px,2.6vw,30px);font-weight:700;color:#18181B;letter-spacing:-.02em;line-height:1.25;margin:0;text-wrap:pretty">Designing a clearer way to create and activate campaigns.</h3>
           </div>
-          <div style="position:relative;overflow:hidden;border-radius:20px;background:#FAFAFA;border:1px dashed #D4D4D8;aspect-ratio:16/6;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:32px;text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
-            <div style="display:flex;align-items:flex-end;gap:10px;opacity:.55" aria-hidden="true">
+          <div style="position:relative;overflow:hidden;border-radius:20px;background:#FAFAFA;border:1px dashed #D4D4D8;min-height:clamp(210px,22vw,300px);height:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,32px);text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px;max-width:100%;opacity:.55" aria-hidden="true">
               <div style="width:74px;height:52px;border-radius:8px;border:1px solid #D4D4D8;background:#fff;display:flex;flex-direction:column;gap:5px;padding:8px">
                 <div style="height:5px;width:70%;border-radius:999px;background:#E4E4E7"></div>
                 <div style="height:5px;width:45%;border-radius:999px;background:#E4E4E7"></div>
@@ -354,7 +363,7 @@ const MONO = "'JetBrains Mono', monospace";
 const EMAIL = 'your.email@example.com';
 
 class Component extends DCLogic {
-  state = { activeNav: '',
+  state = { activeNav: '', typed: '', typing: true,
     scrolled: false, active: 'work',
     skillsTab: null, dsTab: 'tokens',
     baseFont: 16, ratio: 1.25, copied: false,
@@ -376,6 +385,21 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    const HEAD = 'I design products that make complexity feel simple.';
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.setState({ typed: HEAD, typing: false });
+    } else {
+      const CPS = 30, start = performance.now() + 260;
+      let shown = 0;
+      const tick = (t) => {
+        const n = Math.min(HEAD.length, Math.max(0, Math.floor((t - start) / 1000 * CPS)));
+        if (n !== shown) { shown = n; this.setState({ typed: HEAD.slice(0, n) }); }
+        if (n < HEAD.length) this.raf = requestAnimationFrame(tick);
+        else this.setState({ typing: false });
+      };
+      this.raf = requestAnimationFrame(tick);
+    }
+
     this.onScroll = () => {
       const ids = ['work', 'about', 'contact'];
       let current = '';
@@ -505,6 +529,8 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state;
     const set = (patch) => () => this.setState(patch);
+    const typedHead = s.typed;
+    const caretStyle = { display: 'inline-block', width: '3px', height: '.9em', marginLeft: '.06em', verticalAlign: '-.06em', background: '#4F46E5', borderRadius: '2px', animation: 'caretBlink 1s steps(1) infinite', opacity: s.typing ? 1 : 0, transition: 'opacity .4s .6s' };
     const skillsTab = s.skillsTab || this.props.skillsDefaultTab || 'Key UX/UI Skills';
     const tab = skillsTab === 'Tool Proficiency' ? 'tools' : skillsTab === 'Domain Matrix' ? 'matrix' : 'skills';
 
@@ -533,6 +559,7 @@ class Component extends DCLogic {
     const gutter = s.vw >= 1280 ? '140px' : s.vw >= 1024 ? '48px' : '24px';
 
     return {
+      typedHead: typedHead, caretStyle: caretStyle,
       isDesktop: isDesktop, isMobile: !isDesktop,
       drawerOpen: s.drawerOpen && !isDesktop,
       toggleDrawer: () => this.setState({ drawerOpen: !this.state.drawerOpen }),
