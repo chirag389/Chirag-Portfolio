@@ -13,20 +13,47 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
-  html { scroll-behavior:smooth; }
+  :root {
+    --c-bg:#F8F9FA; --c-surface:#FFFFFF; --c-subtle:#F9FAFB; --c-nav:rgba(255,255,255,.92);
+    --c-line:#E5E7EB; --c-line-2:#D4D4D8; --c-grid:rgba(0,0,0,.035);
+    --c-ink:#18181B; --c-ink-1:#27272A; --c-ink-2:#3F3F46; --c-ink-3:#52525B; --c-ink-4:#71717A; --c-ink-5:#A1A1AA;
+    --c-accent:#4F46E5; --c-accent-text:#4338CA; --c-accent-soft:#EEF2FF; --c-accent-line:#C7D2FE;
+  }
+  html[data-theme="dark"] {
+    --c-bg:#09090B; --c-surface:#131316; --c-subtle:#191920; --c-nav:rgba(12,12,14,.88);
+    --c-line:#27272E; --c-line-2:#3A3A43; --c-grid:rgba(255,255,255,.045);
+    --c-ink:#F5F5F7; --c-ink-1:#E4E4E7; --c-ink-2:#C9C9D1; --c-ink-3:#A6A6B0; --c-ink-4:#8B8B96; --c-ink-5:#6F6F7A;
+    --c-accent:#6366F1; --c-accent-text:#A5B4FC; --c-accent-soft:#1C1C33; --c-accent-line:#35357A;
+  }
+  html, body { transition:background-color .3s ease, color .3s ease; }
+  html { scroll-behavior:smooth; background:var(--c-bg); }
   section[id] { scroll-margin-top:96px; }
-  body { margin:0; background:#F8F9FA; color:#18181B; font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  body { margin:0; background:var(--c-bg); color:var(--c-ink); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
-  a { color:#4338CA; text-decoration:none; }
-  a:hover { color:#312E81; }
+  a { color:var(--c-accent-text); text-decoration:none; }
+  a:hover { color:var(--c-accent-text); }
   h1,h2,h3,h4,h5,p,ul { margin:0; }
   ul { padding:0; list-style:none; }
   button { font-family:inherit; }
   input,select,textarea { font-family:inherit; }
-  ::selection { background:#6366F1; color:#fff; }
+  ::selection { background:var(--c-accent); color:var(--c-surface); }
   @keyframes pingdot { 0% { transform:scale(1); opacity:1; } 75%,100% { transform:scale(2); opacity:0; } }
   @keyframes spin { to { transform:rotate(360deg); } }
+  @keyframes flicker { 0%,100% { transform:scale(1) translateY(0); opacity:1; } 45% { transform:scale(1.12) translateY(-.6px); opacity:.88; } 70% { transform:scale(.96) translateY(.3px); opacity:1; } }
+  @keyframes glowpulse { 0%,100% { opacity:.22; transform:scale(1); } 50% { opacity:.5; transform:scale(1.18); } }
+  @keyframes ember { 0%,100% { filter:brightness(1); } 45% { filter:brightness(1.45); } 70% { filter:brightness(.9); } }
+  @keyframes rub { 0%,100% { transform:rotate(0deg); } 22% { transform:rotate(-11deg); } 55% { transform:rotate(8deg); } 80% { transform:rotate(-4deg); } }
+  @keyframes smoke { 0% { transform:translate(0,0) scale(.4); opacity:0; } 22% { opacity:.5; } 100% { transform:translate(-7px,-17px) scale(1.7); opacity:0; } }
+  @keyframes gleam { 0% { transform:translateX(-160%) skewX(-18deg); } 100% { transform:translateX(340%) skewX(-18deg); } }
   @keyframes pulsedot { 50% { opacity:.4; } }
+  [data-spot] { will-change:transform; }
+  article:hover [data-spot] { transform:translateY(-6px); box-shadow:0 34px 70px rgba(24,24,27,.16); }
+  [data-spot] img { transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+  article:hover [data-spot] img { transform:scale(1.025); }
+  [data-bcard] { transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s ease, border-color .25s ease; }
+  [data-bcard]:hover { transform:translateY(-6px); border-color:var(--c-accent-line); box-shadow:0 24px 50px rgba(24,24,27,.12); }
+  [data-bcard] img { transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+  [data-bcard]:hover img { transform:scale(1.05); }
   @keyframes caretBlink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
   @keyframes heroRise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
   @keyframes gridPan { to { background-position:40px 40px, 40px 40px; } }
@@ -37,34 +64,26 @@
 </style>
 </helmet>
 
-<header style="position:fixed;top:0;left:0;right:0;z-index:40;padding:14px 0;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid #E5E7EB">
+<header style="position:fixed;top:0;left:0;right:0;z-index:40;padding:14px 0;background:var(--c-nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--c-line)">
   <div style="max-width:1280px;margin:0 auto;padding:0 clamp(24px,6vw,140px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
-    <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none">
-      <div style="width:32px;height:32px;border-radius:10px;background:#4F46E5;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:12px;box-shadow:0 4px 10px rgba(79,70,229,.2)">C</div>
-      <div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-weight:700;font-size:16px;color:#18181B;letter-spacing:-.01em">CHIRAG</span>
-          <sc-if value="{{ showAvailability }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;padding:2px 8px;border-radius:999px;background:#ECFDF5;color:#047857;border:1px solid #A7F3D0;letter-spacing:.1em;text-transform:uppercase">
-            <span style="width:6px;height:6px;border-radius:999px;background:#10B981;animation:pingdot 1.4s cubic-bezier(0,0,.2,1) infinite"></span>
-            Available
-          </span></sc-if>
-        </div>
-        <p style="font-size:10px;color:#71717A;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em">Product Designer</p>
-      </div>
+    <a href="#top" style="display:flex;align-items:center;gap:9px;text-decoration:none">
+      <svg width="34" height="24" viewBox="0 0 34 24" fill="none" aria-hidden="true" onMouseEnter="{{ lampOn }}" onMouseLeave="{{ lampOff }}" style="{{ lampStyle }}"><circle cx="5.2" cy="7" r="6" fill="#F59E0B" style="{{ lampGlowStyle }}"></circle><g style="{{ lampFlameScale }}"><g style="{{ lampFlameStyle }}"><path d="M5.2 3.2c1.8 1.9 2.6 3.2 2.6 4.5 0 1.5-1.16 2.6-2.6 2.6S2.6 9.2 2.6 7.7c0-1.3.8-2.6 2.6-4.5z" fill="#F59E0B"></path><path d="M5.2 6.1c.86.95 1.2 1.6 1.2 2.2 0 .72-.54 1.25-1.2 1.25S4 9.02 4 8.3c0-.6.34-1.25 1.2-2.2z" fill="#FDE68A"></path></g></g><sc-if value="{{ lampHot }}" hint-placeholder-val="{{ false }}"><g fill="var(--c-ink-4)"><circle cx="5.2" cy="1.8" r="1.5" style="transform-origin:5.2px 1.8px;animation:smoke 1.5s ease-out infinite"></circle><circle cx="6.4" cy="2.4" r="1.1" style="transform-origin:6.4px 2.4px;animation:smoke 1.5s ease-out .5s infinite"></circle><circle cx="4.2" cy="2.2" r="0.9" style="transform-origin:4.2px 2.2px;animation:smoke 1.5s ease-out .95s infinite"></circle></g></sc-if><path d="M10.6 14.6 4.2 9.4l1.5-1.9 6.6 4.7z" fill="var(--c-ink)"></path><path d="M26.4 14.6c3.4-.4 4.4 4.6.6 5.4" stroke="var(--c-ink)" stroke-width="1.7" stroke-linecap="round"></path><rect x="15.8" y="10.2" width="3.6" height="2.6" rx="1.1" fill="var(--c-ink)"></rect><path d="M8.6 12.6h18.2c0 4-4.1 6.4-9.1 6.4s-9.1-2.4-9.1-6.4z" fill="var(--c-ink)"></path><path d="M12.4 20.4h10.4" stroke="var(--c-ink)" stroke-width="1.7" stroke-linecap="round"></path></svg>
+      <span style="position:relative;display:inline-block;font-size:17px;font-weight:800;color:var(--c-ink);letter-spacing:-.025em;white-space:nowrap;overflow:hidden;transition:letter-spacing .35s cubic-bezier(.2,.8,.2,1)" style-hover="letter-spacing:.005em"><span ref="{{ markWordRef }}" style="{{ markWordStyle }}"><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">C</span><span style="{{ markReveal }}"><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">h</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">i</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">r</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">a</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">g</span></span><span data-ltr="1" style="display:inline-block;margin-left:.3em;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">M</span><span style="{{ markReveal }}"><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">a</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">h</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">a</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">j</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">a</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">n</span></span></span><sc-if value="{{ markShine }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;top:-20%;bottom:-20%;left:0;width:38%;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.9) 45%,rgba(255,255,255,0) 100%);opacity:.3;mix-blend-mode:plus-lighter;filter:blur(2px);animation:gleam 1.3s cubic-bezier(.4,0,.2,1) infinite"></span></sc-if></span>
     </a>
 
     <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
-      <nav style="display:flex;align-items:center;flex-wrap:wrap;min-width:0;gap:4px;background:rgba(243,244,246,.9);border:1px solid #E5E7EB;border-radius:999px;padding:6px 12px">
-        <a href="#work" style="{{ navWorkStyle }}" style-hover="color:#18181B">Work</a>
-        <a href="#about" style="{{ navAboutStyle }}" style-hover="color:#18181B">About</a>
+      <nav style="display:flex;align-items:center;flex-wrap:wrap;min-width:0;gap:4px;background:var(--c-subtle);border:1px solid var(--c-line);border-radius:999px;padding:6px 12px">
+        <a href="#work" style="{{ navWorkStyle }}" style-hover="color:var(--c-ink)">Work</a>
+        <a href="#about" style="{{ navAboutStyle }}" style-hover="color:var(--c-ink)">About</a>
         <button onClick="{{ openResume }}" style="{{ navResumeStyle }}">Resume</button>
-        <a href="#contact" style="{{ navContactStyle }}" style-hover="color:#18181B">Contact</a>
+        <a href="#contact" style="{{ navContactStyle }}" style-hover="color:var(--c-ink)">Contact</a>
+        <button onClick="{{ toggleTheme }}" aria-label="Toggle dark mode" title="Toggle dark mode" style="margin-left:4px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--c-surface);border:1px solid var(--c-line);color:var(--c-ink-3);cursor:pointer;padding:0;transition:color .2s ease,border-color .2s ease" style-hover="color:var(--c-accent);border-color:var(--c-accent-line)">{{ themeIcon }}</button>
       </nav>
       
     </sc-if>
 
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-      <button onClick="{{ toggleDrawer }}" aria-label="Toggle navigation menu" style="padding:8px 10px;color:#3F3F46;background:#fff;border:1px solid #E5E7EB;border-radius:8px;cursor:pointer;flex-shrink:0;line-height:1">
+      <button onClick="{{ toggleDrawer }}" aria-label="Toggle navigation menu" style="padding:8px 10px;color:var(--c-ink-2);background:var(--c-surface);border:1px solid var(--c-line);border-radius:8px;cursor:pointer;flex-shrink:0;line-height:1">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{ iconOpenStyle }}"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{ iconCloseStyle }}"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
@@ -73,172 +92,198 @@
 </header>
 
 <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
-  <div style="position:fixed;left:0;right:0;top:70px;z-index:39;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid #E5E7EB;padding:24px;box-shadow:0 20px 40px rgba(0,0,0,.08)">
+  <div style="position:fixed;left:0;right:0;top:70px;z-index:39;background:var(--c-nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--c-line);padding:24px;box-shadow:0 20px 40px rgba(0,0,0,.08)">
     <div style="display:flex;flex-direction:column;gap:12px">
-      <a href="#work" onClick="{{ closeDrawer }}" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:12px;background:#F9FAFB;border:1px solid #E5E7EB;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#27272A">Work</a>
-      <a href="#about" onClick="{{ closeDrawer }}" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:12px;background:#F9FAFB;border:1px solid #E5E7EB;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#27272A">About</a>
-      <button onClick="{{ openResumeFromDrawer }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:12px;background:#F9FAFB;border:1px solid #E5E7EB;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#27272A;cursor:pointer">Resume</button>
-      <a href="#contact" onClick="{{ closeDrawer }}" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;margin-top:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:#18181B;color:#fff;border-radius:999px">Contact</a>
+      <a href="#work" onClick="{{ closeDrawer }}" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:12px;background:var(--c-subtle);border:1px solid var(--c-line);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-1)">Work</a>
+      <a href="#about" onClick="{{ closeDrawer }}" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:12px;background:var(--c-subtle);border:1px solid var(--c-line);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-1)">About</a>
+      <button onClick="{{ openResumeFromDrawer }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:12px;background:var(--c-subtle);border:1px solid var(--c-line);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-1);cursor:pointer">Resume</button>
+      <button onClick="{{ toggleTheme }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:12px;background:var(--c-subtle);border:1px solid var(--c-line);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-1);cursor:pointer">{{ themeLabel }}<span>{{ themeIcon }}</span></button>
+      <a href="#contact" onClick="{{ closeDrawer }}" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;margin-top:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:var(--c-ink);color:var(--c-surface);border-radius:999px">Contact</a>
     </div>
   </div>
 </sc-if>
 
 <main id="top">
 
-  <section style="position:relative;padding:clamp(122px,14vw,156px) 0 clamp(78px,10vw,104px);overflow:hidden;background-color:#F8F9FA;background-size:40px 40px;background-image:linear-gradient(to right,rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,0,0,.035) 1px,transparent 1px);background-position:0 0,0 0;animation:gridPan 24s linear infinite">
-    <div style="position:absolute;top:33%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:rgba(99,102,241,.1);border-radius:999px;filter:blur(140px);pointer-events:none;animation:blobA 18s ease-in-out infinite"></div>
-    <div style="position:absolute;top:6%;left:8%;width:420px;height:320px;background:rgba(129,140,248,.16);border-radius:999px;filter:blur(120px);pointer-events:none;animation:blobB 22s ease-in-out infinite"></div>
-    <div style="position:absolute;bottom:-8%;right:4%;width:460px;height:340px;background:rgba(45,212,191,.13);border-radius:999px;filter:blur(130px);pointer-events:none;animation:blobC 26s ease-in-out infinite"></div>
-    <div style="position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 clamp(24px,6vw,48px);display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
-      <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:#EEF2FF;border:1px solid #C7D2FE;color:#4338CA;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;animation:heroRise .7s cubic-bezier(.2,.7,.2,1) both .05s">Product Designer</div>
-      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(36px,5.6vw,64px);font-weight:800;color:#18181B;letter-spacing:-.015em;text-transform:uppercase;line-height:1;margin:0;max-width:20ch;text-wrap:pretty;min-height:3em">{{ typedHead }}<span style="{{ caretStyle }}"></span></h1>
-      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s;font-size:19px;color:#52525B;line-height:1.7;margin:0;max-width:46ch;text-wrap:pretty">I'm Chirag Mahajan, a Product Designer who turns complex problems into clear, useful and scalable digital experiences.</p>
+  <section style="position:relative;padding:clamp(122px,14vw,156px) 0 clamp(78px,10vw,104px);overflow:hidden;background-color:var(--c-bg);background-size:40px 40px;background-image:linear-gradient(to right,var(--c-grid) 1px,transparent 1px),linear-gradient(to bottom,var(--c-grid) 1px,transparent 1px);background-position:0 0,0 0;animation:gridPan 24s linear infinite" ref="{{ heroRef }}">
+    <canvas ref="{{ heroCanvasRef }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas>
+    <div ref="{{ orb1Ref }}" style="position:absolute;top:33%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:rgba(99,102,241,.1);border-radius:999px;filter:blur(140px);pointer-events:none;animation:blobA 18s ease-in-out infinite"></div>
+    <div ref="{{ orb2Ref }}" style="position:absolute;top:6%;left:8%;width:420px;height:320px;background:rgba(129,140,248,.16);border-radius:999px;filter:blur(120px);pointer-events:none;animation:blobB 22s ease-in-out infinite"></div>
+    <div ref="{{ orb3Ref }}" style="position:absolute;bottom:-8%;right:4%;width:460px;height:340px;background:rgba(45,212,191,.13);border-radius:999px;filter:blur(130px);pointer-events:none;animation:blobC 26s ease-in-out infinite"></div>
+    <div ref="{{ heroContentRef }}" style="position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 clamp(24px,6vw,48px);display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
+      <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);color:var(--c-accent-text);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;animation:heroRise .7s cubic-bezier(.2,.7,.2,1) both .05s">Product Designer</div>
+      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(36px,5.6vw,64px);font-weight:800;color:var(--c-ink);letter-spacing:-.015em;text-transform:uppercase;line-height:1;margin:0;max-width:20ch;text-wrap:pretty;min-height:3em">{{ typedHead }}<span style="{{ caretStyle }}"></span></h1>
+      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s;font-size:19px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:46ch;text-wrap:pretty">I'm Chirag Mahajan, a Product Designer who turns complex problems into clear, useful and scalable digital experiences.</p>
       <div style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .44s;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding-top:4px">
-        <a href="#work" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:#18181B;color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;box-shadow:0 12px 30px rgba(24,24,27,.12);text-decoration:none">View my work ↓</a>
-        <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:#fff;color:#18181B;border:1px solid #D4D4D8;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none">Get in touch →</a>
+        <a href="#work" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--c-ink);color:var(--c-surface);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;box-shadow:0 12px 30px rgba(24,24,27,.12);text-decoration:none">View my work ↓</a>
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--c-surface);color:var(--c-ink);border:1px solid var(--c-line-2);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none">Get in touch →</a>
       </div>
-      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .58s;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:#71717A;margin:6px 0 0;text-wrap:balance">Product thinking · UX · Interaction · UI · Design Systems</p>
+      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .58s;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--c-ink-4);margin:6px 0 0;text-wrap:balance">Product thinking · UX · Interaction · UI · Design Systems</p>
     </div>
   </section>
 
-  <section id="work" style="padding:clamp(64px,9vw,104px) 0;background:#fff">
+  <section id="work" style="padding:clamp(64px,9vw,104px) 0;background:var(--c-surface)">
     <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px)">
       <div style="max-width:640px;margin-bottom:56px;display:flex;flex-direction:column;gap:14px">
-        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:999px;color:#4338CA;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Selected Work</div>
-        <h2 style="font-size:clamp(30px,4vw,44px);font-weight:800;color:#18181B;letter-spacing:-.03em;line-height:1.15;margin:0">Products I've designed.<br>Problems I've solved.</h2>
-        <p style="font-size:17px;color:#52525B;line-height:1.7;margin:0;text-wrap:pretty">A selection of products where I worked across product thinking, UX, interaction design and UI to turn complex problems into usable experiences.</p>
+        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Selected Work</div>
+        <h2 style="font-size:clamp(30px,4vw,44px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:0">Products I've designed.<br>Problems I've solved.</h2>
+        <p style="font-size:17px;color:var(--c-ink-3);line-height:1.7;margin:0;text-wrap:pretty">A selection of products where I worked across product thinking, UX, interaction design and UI to turn complex problems into usable experiences.</p>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:56px">
-        <article style="display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid #E5E7EB">
-          <div style="display:flex;flex-direction:column;gap:14px;max-width:70ch">
-            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#4338CA;text-transform:uppercase;letter-spacing:.14em">01 — Quick Chat</span>
-            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:#18181B;letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">Designing a unified communication experience.</h3>
-            <p style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#71717A;text-transform:uppercase;letter-spacing:.1em;margin:0">Product Design · Communication · Automation</p>
+        <article style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line)">
+          <a href="quick-chat.html" aria-label="Open the Quick Chat case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;max-width:70ch">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">01 — Quick Chat</span>
+            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">Designing a unified communication experience.</h3>
+            <p style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em;margin:0">Product Design · Communication · Automation</p>
           </div>
-          <div style="border-radius:20px;background:#F4F4F5;border:1px solid #E5E7EB;padding:clamp(10px,1.6vw,18px);box-shadow:0 20px 50px rgba(24,24,27,.09)">
-            <img src="assets/qc-cs/card-hero.png" alt="Quick Chat metrics behind the chats inbox and the workflow builder" style="display:block;width:100%;height:auto;border-radius:12px">
-          </div>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+          <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
             <div style="display:flex;flex-direction:column;gap:6px">
-              <span style="font-size:14px;font-weight:700;color:#18181B">Product Designer</span>
-              <span style="font-size:12px;color:#52525B">UX · Interaction · UI · Workflows</span>
+              <span style="font-size:14px;font-weight:700;color:var(--c-ink)">Product Designer</span>
+              <span style="font-size:12px;color:var(--c-ink-3)">UX · Interaction · UI · Workflows</span>
             </div>
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
-              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Shipped</span>
-              <a href="quick-chat.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:999px;background:#18181B;color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none">View case study →</a>
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-ink-3);background:var(--c-subtle);border:1px solid var(--c-line);padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;flex-shrink:0">Shipped</span>
             </div>
           </div>
-        </article>
-
-        <article style="display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid #E5E7EB">
-          <div style="display:flex;flex-direction:column;gap:14px;max-width:70ch">
-            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#4338CA;text-transform:uppercase;letter-spacing:.14em">02 — Quick CRM</span>
-            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:#18181B;letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">From scattered contact records to a reusable customer system.</h3>
-            <p style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#71717A;text-transform:uppercase;letter-spacing:.1em;margin:0">Product Design · 0→1 · Customer Systems</p>
-          </div>
-          <div style="border-radius:20px;background:#F4F4F5;border:1px solid #E5E7EB;padding:clamp(10px,1.6vw,18px);box-shadow:0 20px 50px rgba(24,24,27,.09)">
-            <img src="assets/qcrm-cs/card-hero.png" alt="The Quick CRM dashboard behind a customer record's activity view" style="display:block;width:100%;height:auto;border-radius:12px">
-          </div>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <span style="font-size:14px;font-weight:700;color:#18181B">Product Designer</span>
-              <span style="font-size:12px;color:#52525B">Product thinking · IA · UX · Interaction · UI</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
-              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Shipped</span>
-              <a href="quick-crm.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:999px;background:#18181B;color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none">View case study →</a>
-            </div>
-          </div>
-        </article>
-
-        <article style="display:flex;flex-direction:column;gap:20px;padding-top:40px;border-top:1px solid #E5E7EB">
-          <div style="display:flex;flex-direction:column;gap:12px;max-width:66ch">
-            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#4338CA;text-transform:uppercase;letter-spacing:.14em">03 — Quick Social</span>
-            <span style="align-self:flex-start;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#3F3F46;background:#F4F4F5;border:1px solid #E5E7EB;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Case study in progress</span>
-            <h3 style="font-size:clamp(22px,2.6vw,30px);font-weight:700;color:#18181B;letter-spacing:-.02em;line-height:1.25;margin:0;text-wrap:pretty">Making social publishing easier to plan, create and manage.</h3>
-          </div>
-          <div style="position:relative;overflow:hidden;border-radius:20px;background:#FAFAFA;border:1px dashed #D4D4D8;min-height:clamp(210px,22vw,300px);height:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,32px);text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
-            <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px;max-width:100%;opacity:.55" aria-hidden="true">
-              <div style="width:74px;height:52px;border-radius:8px;border:1px solid #D4D4D8;background:#fff;display:flex;flex-direction:column;gap:5px;padding:8px">
-                <div style="height:5px;width:70%;border-radius:999px;background:#E4E4E7"></div>
-                <div style="height:5px;width:45%;border-radius:999px;background:#E4E4E7"></div>
-                <div style="margin-top:auto;height:12px;border-radius:4px;background:#F1F1F3"></div>
+          <div data-spot="1" style="position:relative;z-index:1;transition:transform .22s ease,box-shadow .22s ease;border-radius:20px;overflow:hidden;border:1px solid var(--c-line);background:linear-gradient(160deg,var(--c-accent-soft) 0%,var(--c-accent-soft) 55%,var(--c-subtle) 100%);box-shadow:0 20px 50px rgba(24,24,27,.09);display:flex;flex-direction:column;gap:clamp(14px,2vw,22px);padding:clamp(18px,2.6vw,30px)"><div data-spot-layer="1" aria-hidden="true" style="position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;opacity:0;transition:opacity .35s ease"></div><div data-spot-cta="1" aria-hidden="true" style="position:absolute;left:50%;top:50%;z-index:6;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.94);transition:opacity .25s ease,transform .25s cubic-bezier(.2,.8,.2,1);display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;background:var(--c-ink);color:var(--c-surface);font-size:13px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;box-shadow:0 14px 34px rgba(24,24,27,.28)">View case study <span style="font-size:14px">↗</span></div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <img src="assets/logo-quick-chat.png" alt="" style="width:34px;height:34px;border-radius:9px;object-fit:contain;background:var(--c-surface);border:1px solid var(--c-line);padding:4px">
+                <span style="display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:15px;font-weight:800;color:var(--c-ink);letter-spacing:-.01em">Quick Chat</span>
+                  <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">Unified inbox · Automation</span>
+                </span>
               </div>
-              <div style="width:96px;height:70px;border-radius:8px;border:1px solid #C7D2FE;background:#fff;display:flex;flex-direction:column;gap:6px;padding:9px">
-                <div style="height:6px;width:55%;border-radius:999px;background:#C7D2FE"></div>
-                <div style="height:6px;width:80%;border-radius:999px;background:#E4E4E7"></div>
-                <div style="height:6px;width:64%;border-radius:999px;background:#E4E4E7"></div>
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);background:var(--c-surface);border:1px solid var(--c-accent-line);padding:6px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;flex-shrink:0">Case study</span>
+            </div>
+            <div style="border-radius:12px;overflow:hidden;background:var(--c-surface);border:1px solid var(--c-line);box-shadow:0 12px 30px rgba(24,24,27,.08)">
+              <img src="assets/qc-cs/card-hero.png" alt="Quick Chat metrics, the chats inbox and the workflow builder" style="display:block;width:100%;height:auto">
+            </div>
+          </div>
+</article>
+
+        <article style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line)">
+          <a href="quick-crm.html" aria-label="Open the Quick CRM case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;max-width:70ch">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">02 — Quick CRM</span>
+            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">From scattered contact records to a reusable customer system.</h3>
+            <p style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em;margin:0">Product Design · 0→1 · Customer Systems</p>
+          </div>
+          <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:14px;font-weight:700;color:var(--c-ink)">Product Designer</span>
+              <span style="font-size:12px;color:var(--c-ink-3)">Product thinking · IA · UX · Interaction · UI</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-ink-3);background:var(--c-subtle);border:1px solid var(--c-line);padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;flex-shrink:0">Shipped</span>
+            </div>
+          </div>
+          <div data-spot="1" style="position:relative;z-index:1;transition:transform .22s ease,box-shadow .22s ease;border-radius:20px;overflow:hidden;border:1px solid var(--c-line);background:linear-gradient(160deg,var(--c-accent-soft) 0%,var(--c-accent-soft) 55%,var(--c-subtle) 100%);box-shadow:0 20px 50px rgba(24,24,27,.09);display:flex;flex-direction:column;gap:clamp(14px,2vw,22px);padding:clamp(18px,2.6vw,30px)"><div data-spot-layer="1" aria-hidden="true" style="position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;opacity:0;transition:opacity .35s ease"></div><div data-spot-cta="1" aria-hidden="true" style="position:absolute;left:50%;top:50%;z-index:6;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.94);transition:opacity .25s ease,transform .25s cubic-bezier(.2,.8,.2,1);display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;background:var(--c-ink);color:var(--c-surface);font-size:13px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;box-shadow:0 14px 34px rgba(24,24,27,.28)">View case study <span style="font-size:14px">↗</span></div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <img src="assets/logo-quick-crm.png" alt="" style="width:34px;height:34px;border-radius:9px;object-fit:contain;background:var(--c-surface);border:1px solid var(--c-line);padding:4px">
+                <span style="display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:15px;font-weight:800;color:var(--c-ink);letter-spacing:-.01em">Quick CRM</span>
+                  <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">Customer records · Activity</span>
+                </span>
+              </div>
+              <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);background:var(--c-surface);border:1px solid var(--c-accent-line);padding:6px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;flex-shrink:0">Case study</span>
+            </div>
+            <div style="border-radius:12px;overflow:hidden;background:var(--c-surface);border:1px solid var(--c-line);box-shadow:0 12px 30px rgba(24,24,27,.08)">
+              <img src="assets/qcrm-cs/card-hero.png" alt="The Quick CRM dashboard with the contacts list and a customer record" style="display:block;width:100%;height:auto">
+            </div>
+          </div>
+</article>
+
+        <article style="display:flex;flex-direction:column;gap:20px;padding-top:40px;border-top:1px solid var(--c-line)">
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:66ch">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">03 — Quick Social</span>
+            <span style="align-self:flex-start;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Case study in progress</span>
+            <h3 style="font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--c-ink);letter-spacing:-.02em;line-height:1.25;margin:0;text-wrap:pretty">Making social publishing easier to plan, create and manage.</h3>
+          </div>
+          <div style="position:relative;overflow:hidden;border-radius:20px;background:var(--c-bg);border:1px dashed var(--c-line-2);min-height:clamp(210px,22vw,300px);height:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,32px);text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px;max-width:100%;opacity:.55" aria-hidden="true">
+              <div style="width:74px;height:52px;border-radius:8px;border:1px solid var(--c-line-2);background:var(--c-surface);display:flex;flex-direction:column;gap:5px;padding:8px">
+                <div style="height:5px;width:70%;border-radius:999px;background:var(--c-line)"></div>
+                <div style="height:5px;width:45%;border-radius:999px;background:var(--c-line)"></div>
+                <div style="margin-top:auto;height:12px;border-radius:4px;background:var(--c-subtle)"></div>
+              </div>
+              <div style="width:96px;height:70px;border-radius:8px;border:1px solid var(--c-accent-line);background:var(--c-surface);display:flex;flex-direction:column;gap:6px;padding:9px">
+                <div style="height:6px;width:55%;border-radius:999px;background:var(--c-accent-line)"></div>
+                <div style="height:6px;width:80%;border-radius:999px;background:var(--c-line)"></div>
+                <div style="height:6px;width:64%;border-radius:999px;background:var(--c-line)"></div>
                 <div style="margin-top:auto;display:flex;gap:5px">
-                  <div style="height:14px;flex:1;border-radius:4px;background:#F1F1F3"></div>
-                  <div style="height:14px;width:26px;border-radius:4px;background:#EEF2FF"></div>
+                  <div style="height:14px;flex:1;border-radius:4px;background:var(--c-subtle)"></div>
+                  <div style="height:14px;width:26px;border-radius:4px;background:var(--c-accent-soft)"></div>
                 </div>
               </div>
-              <div style="width:74px;height:52px;border-radius:8px;border:1px solid #D4D4D8;background:#fff;display:flex;flex-direction:column;gap:5px;padding:8px">
-                <div style="height:5px;width:60%;border-radius:999px;background:#E4E4E7"></div>
+              <div style="width:74px;height:52px;border-radius:8px;border:1px solid var(--c-line-2);background:var(--c-surface);display:flex;flex-direction:column;gap:5px;padding:8px">
+                <div style="height:5px;width:60%;border-radius:999px;background:var(--c-line)"></div>
                 <div style="margin-top:auto;display:flex;gap:4px;align-items:flex-end;height:22px">
-                  <div style="flex:1;height:40%;border-radius:2px;background:#F1F1F3"></div>
-                  <div style="flex:1;height:70%;border-radius:2px;background:#F1F1F3"></div>
-                  <div style="flex:1;height:100%;border-radius:2px;background:#E4E4E7"></div>
+                  <div style="flex:1;height:40%;border-radius:2px;background:var(--c-subtle)"></div>
+                  <div style="flex:1;height:70%;border-radius:2px;background:var(--c-subtle)"></div>
+                  <div style="flex:1;height:100%;border-radius:2px;background:var(--c-line)"></div>
                 </div>
               </div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-              <span style="display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid #E5E7EB;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.14em">
-                <span style="width:6px;height:6px;border-radius:999px;background:#A1A1AA;animation:pulsedot 1.8s ease-in-out infinite"></span>
+              <span style="display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:var(--c-surface);border:1px solid var(--c-line);font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.14em">
+                <span style="width:6px;height:6px;border-radius:999px;background:var(--c-ink-5);animation:pulsedot 1.8s ease-in-out infinite"></span>
                 Coming soon
               </span>
-              <span style="font-size:13px;color:#52525B;line-height:1.6;max-width:36ch">Screens for this project are still under construction.</span>
+              <span style="font-size:13px;color:var(--c-ink-3);line-height:1.6;max-width:36ch">Screens for this project are still under construction.</span>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
-            <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#71717A;text-transform:uppercase;letter-spacing:.1em">Product Design · Content · Publishing</span>
-            <span style="font-size:13px;color:#71717A">Documentation coming soon</span>
+            <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em">Product Design · Content · Publishing</span>
+            <span style="font-size:13px;color:var(--c-ink-4)">Documentation coming soon</span>
           </div>
         </article>
 
-        <article style="display:flex;flex-direction:column;gap:20px;padding-top:40px;border-top:1px solid #E5E7EB">
+        <article style="display:flex;flex-direction:column;gap:20px;padding-top:40px;border-top:1px solid var(--c-line)">
           <div style="display:flex;flex-direction:column;gap:12px;max-width:66ch">
-            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#4338CA;text-transform:uppercase;letter-spacing:.14em">04 — Quick Campaign</span>
-            <span style="align-self:flex-start;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#3F3F46;background:#F4F4F5;border:1px solid #E5E7EB;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Case study in progress</span>
-            <h3 style="font-size:clamp(22px,2.6vw,30px);font-weight:700;color:#18181B;letter-spacing:-.02em;line-height:1.25;margin:0;text-wrap:pretty">Designing a clearer way to create and activate campaigns.</h3>
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">04 — Quick Campaign</span>
+            <span style="align-self:flex-start;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.12em">Case study in progress</span>
+            <h3 style="font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--c-ink);letter-spacing:-.02em;line-height:1.25;margin:0;text-wrap:pretty">Designing a clearer way to create and activate campaigns.</h3>
           </div>
-          <div style="position:relative;overflow:hidden;border-radius:20px;background:#FAFAFA;border:1px dashed #D4D4D8;min-height:clamp(210px,22vw,300px);height:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,32px);text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
+          <div style="position:relative;overflow:hidden;border-radius:20px;background:var(--c-bg);border:1px dashed var(--c-line-2);min-height:clamp(210px,22vw,300px);height:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:clamp(20px,4vw,32px);text-align:center;background-image:repeating-linear-gradient(45deg,rgba(24,24,27,.028) 0 10px,transparent 10px 20px)">
             <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px;max-width:100%;opacity:.55" aria-hidden="true">
-              <div style="width:74px;height:52px;border-radius:8px;border:1px solid #D4D4D8;background:#fff;display:flex;flex-direction:column;gap:5px;padding:8px">
-                <div style="height:5px;width:70%;border-radius:999px;background:#E4E4E7"></div>
-                <div style="height:5px;width:45%;border-radius:999px;background:#E4E4E7"></div>
-                <div style="margin-top:auto;height:12px;border-radius:4px;background:#F1F1F3"></div>
+              <div style="width:74px;height:52px;border-radius:8px;border:1px solid var(--c-line-2);background:var(--c-surface);display:flex;flex-direction:column;gap:5px;padding:8px">
+                <div style="height:5px;width:70%;border-radius:999px;background:var(--c-line)"></div>
+                <div style="height:5px;width:45%;border-radius:999px;background:var(--c-line)"></div>
+                <div style="margin-top:auto;height:12px;border-radius:4px;background:var(--c-subtle)"></div>
               </div>
-              <div style="width:96px;height:70px;border-radius:8px;border:1px solid #C7D2FE;background:#fff;display:flex;flex-direction:column;gap:6px;padding:9px">
-                <div style="height:6px;width:55%;border-radius:999px;background:#C7D2FE"></div>
-                <div style="height:6px;width:80%;border-radius:999px;background:#E4E4E7"></div>
-                <div style="height:6px;width:64%;border-radius:999px;background:#E4E4E7"></div>
+              <div style="width:96px;height:70px;border-radius:8px;border:1px solid var(--c-accent-line);background:var(--c-surface);display:flex;flex-direction:column;gap:6px;padding:9px">
+                <div style="height:6px;width:55%;border-radius:999px;background:var(--c-accent-line)"></div>
+                <div style="height:6px;width:80%;border-radius:999px;background:var(--c-line)"></div>
+                <div style="height:6px;width:64%;border-radius:999px;background:var(--c-line)"></div>
                 <div style="margin-top:auto;display:flex;gap:5px">
-                  <div style="height:14px;flex:1;border-radius:4px;background:#F1F1F3"></div>
-                  <div style="height:14px;width:26px;border-radius:4px;background:#EEF2FF"></div>
+                  <div style="height:14px;flex:1;border-radius:4px;background:var(--c-subtle)"></div>
+                  <div style="height:14px;width:26px;border-radius:4px;background:var(--c-accent-soft)"></div>
                 </div>
               </div>
-              <div style="width:74px;height:52px;border-radius:8px;border:1px solid #D4D4D8;background:#fff;display:flex;flex-direction:column;gap:5px;padding:8px">
-                <div style="height:5px;width:60%;border-radius:999px;background:#E4E4E7"></div>
+              <div style="width:74px;height:52px;border-radius:8px;border:1px solid var(--c-line-2);background:var(--c-surface);display:flex;flex-direction:column;gap:5px;padding:8px">
+                <div style="height:5px;width:60%;border-radius:999px;background:var(--c-line)"></div>
                 <div style="margin-top:auto;display:flex;gap:4px;align-items:flex-end;height:22px">
-                  <div style="flex:1;height:40%;border-radius:2px;background:#F1F1F3"></div>
-                  <div style="flex:1;height:70%;border-radius:2px;background:#F1F1F3"></div>
-                  <div style="flex:1;height:100%;border-radius:2px;background:#E4E4E7"></div>
+                  <div style="flex:1;height:40%;border-radius:2px;background:var(--c-subtle)"></div>
+                  <div style="flex:1;height:70%;border-radius:2px;background:var(--c-subtle)"></div>
+                  <div style="flex:1;height:100%;border-radius:2px;background:var(--c-line)"></div>
                 </div>
               </div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-              <span style="display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid #E5E7EB;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.14em">
-                <span style="width:6px;height:6px;border-radius:999px;background:#A1A1AA;animation:pulsedot 1.8s ease-in-out infinite"></span>
+              <span style="display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:var(--c-surface);border:1px solid var(--c-line);font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.14em">
+                <span style="width:6px;height:6px;border-radius:999px;background:var(--c-ink-5);animation:pulsedot 1.8s ease-in-out infinite"></span>
                 Coming soon
               </span>
-              <span style="font-size:13px;color:#52525B;line-height:1.6;max-width:36ch">Screens for this project are still under construction.</span>
+              <span style="font-size:13px;color:var(--c-ink-3);line-height:1.6;max-width:36ch">Screens for this project are still under construction.</span>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
-            <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#71717A;text-transform:uppercase;letter-spacing:.1em">Product Design · Campaigns · Marketing</span>
-            <span style="font-size:13px;color:#71717A">Documentation coming soon</span>
+            <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em">Product Design · Campaigns · Marketing</span>
+            <span style="font-size:13px;color:var(--c-ink-4)">Documentation coming soon</span>
           </div>
         </article>
 
@@ -246,114 +291,162 @@
     </div>
   </section>
 
-  <section id="about" style="padding:clamp(64px,9vw,104px) 0;background:#F8F9FA;border-top:1px solid #E5E7EB">
+  <section id="behance" style="padding:clamp(56px,8vw,88px) 0;background:var(--c-surface);border-top:1px solid var(--c-line)">
+    <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px);display:flex;flex-direction:column;gap:clamp(24px,3.5vw,36px)">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em">Behance</div>
+          <h2 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:0">Earlier explorations</h2>
+          <p style="font-size:16px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:52ch;text-wrap:pretty">Self-initiated case studies and client work published on Behance.</p>
+        </div>
+        <a href="https://www.behance.net/chiragmahajan1" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:var(--c-surface);color:var(--c-ink);border:1px solid var(--c-line-2);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;transition:border-color .18s ease,background .18s ease" style-hover="border-color:var(--c-ink-5);background:var(--c-subtle)">View full profile ↗</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+        <a data-bcard="1" href="https://www.behance.net/gallery/192967485/Fithaul-AI-Fitness-App" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:18px;background:var(--c-subtle);border:1px solid var(--c-line);text-decoration:none;transition:background .18s ease,border-color .18s ease,transform .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line);transform:translateY(-3px)">
+          <div style="aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--c-subtle);border:1px solid var(--c-line)">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/710fc4192967485.Y3JvcCwxNDI4LDExMTcsMTQ4LDA.png" alt="Fithaul AI Fitness App" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Mobile App · AI</span>
+            <span style="font-size:15px;font-weight:700;color:var(--c-ink);line-height:1.35">Fithaul AI Fitness App</span>
+          </div>
+        </a>
+        <a data-bcard="1" href="https://www.behance.net/gallery/198671799/AI-Nexus-One-Stop-AI-solution-Dashboard" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:18px;background:var(--c-subtle);border:1px solid var(--c-line);text-decoration:none;transition:background .18s ease,border-color .18s ease,transform .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line);transform:translateY(-3px)">
+          <div style="aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--c-subtle);border:1px solid var(--c-line)">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/af09ba198671799.Y3JvcCwxMzk5LDEwOTUsMCww.png" alt="AI Nexus dashboard" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Dashboard · SaaS</span>
+            <span style="font-size:15px;font-weight:700;color:var(--c-ink);line-height:1.35">AI Nexus — One Stop AI Solution Dashboard</span>
+          </div>
+        </a>
+        <a data-bcard="1" href="https://www.behance.net/gallery/150579433/Karuna-Aadhar-Foundation-NGO-website-UIUX-design" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:18px;background:var(--c-subtle);border:1px solid var(--c-line);text-decoration:none;transition:background .18s ease,border-color .18s ease,transform .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line);transform:translateY(-3px)">
+          <div style="aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--c-subtle);border:1px solid var(--c-line)">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/9e7a93150579433.Y3JvcCwzMTY0LDI0NzUsNyww.png" alt="Karuna Aadhar Foundation website" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Website · Non-profit</span>
+            <span style="font-size:15px;font-weight:700;color:var(--c-ink);line-height:1.35">Karuna Aadhar Foundation NGO Website</span>
+          </div>
+        </a>
+        <a data-bcard="1" href="https://www.behance.net/gallery/138003807/Swiggy-MessTiffin-Service-UX-case-study" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:18px;background:var(--c-subtle);border:1px solid var(--c-line);text-decoration:none;transition:background .18s ease,border-color .18s ease,transform .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line);transform:translateY(-3px)">
+          <div style="aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--c-subtle);border:1px solid var(--c-line)">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/f6ddfb138003807.Y3JvcCw5MjAsNzIwLDE4MCww.jpg" alt="Swiggy Mess tiffin service case study" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">UX Case Study · Concept</span>
+            <span style="font-size:15px;font-weight:700;color:var(--c-ink);line-height:1.35">Swiggy Mess / Tiffin Service</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="padding:clamp(64px,9vw,104px) 0;background:var(--c-bg);border-top:1px solid var(--c-line)">
     <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px);display:flex;flex-direction:column;gap:clamp(28px,4vw,44px);align-items:stretch">
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:999px;color:#4338CA;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">About Me</div>
-        <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;color:#18181B;letter-spacing:-.03em;line-height:1.15;margin:0;text-wrap:pretty">I like solving complicated product problems.</h2>
+        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">About Me</div>
+        
       </div>
       <div style="display:flex;flex-direction:column;gap:32px">
-        <div style="display:flex;flex-direction:column;gap:22px;max-width:64ch">
-          <p style="font-size:18px;color:#27272A;line-height:1.8;margin:0;text-wrap:pretty">I'm a Product Designer who enjoys working on products where the problem isn't immediately obvious. I work across product thinking, UX, information architecture, interaction design, UI and design systems to turn ambiguous requirements and complex workflows into clear product experiences — across customer systems, communication, automation, content and marketing products. The domain can change. What interests me is understanding the problem, finding the right structure, and designing something that makes sense for the people using it.</p>
+        <div style="display:flex;flex-direction:column;gap:22px;max-width:88ch">
+          <div style="font-size: 20px; color: var(--c-ink); line-height: 1.7; margin: 0; text-wrap: pretty; font-weight: 500; letter-spacing: -.01em"><p data-start="128" data-end="265" class="PDq2pG_selectionAnchorContainer"><strong data-start="128" data-end="265" style="font-weight: 500">Hi, I’m Chirag Mahajan, a Product Designer with 3+ years of experience working on B2B SaaS, AI-powered products, and marketing tools.</strong><span aria-hidden="true" class="PDq2pG_selectionAnchor"></span></p>
+<p data-start="270" data-end="494">I like working on products where the problem isn’t always clear at the beginning. I enjoy understanding the problem, figuring out how things should work, and turning complex workflows into simple and easy-to-use experiences.</p>
+<p data-start="499" data-end="785">I work across UX, UI, information architecture, interaction design, and design systems, and I usually stay involved from the early product thinking to the final design. I also work closely with product and engineering teams to make sure what I design actually works in the real product.&nbsp;<span style="letter-spacing: -0.2px;">I’ve worked across customer management, communication, automation, content, and marketing products. Different domains, same thing I enjoy: </span><strong data-start="929" data-end="992" style="letter-spacing: -0.2px;">figuring out the problem and making the product make sense.</strong></p>
+</div>
+          
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid #E5E7EB">
-          <span style="font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.16em;padding:18px 0 6px">What I work across</span>
-          <div style="display:flex;flex-wrap:wrap;gap:6px 24px;padding:16px 0;border-top:1px solid #E5E7EB">
-            <span style="flex:0 0 180px;font-size:15px;font-weight:700;color:#18181B;letter-spacing:-.01em">Product Thinking</span>
-            <p style="flex:1 1 240px;min-width:0;font-size:14px;color:#52525B;line-height:1.7;margin:0;text-wrap:pretty">Problem framing · Product decisions · Feature definition</p>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px 24px;padding:16px 0;border-top:1px solid #E5E7EB">
-            <span style="flex:0 0 180px;font-size:15px;font-weight:700;color:#18181B;letter-spacing:-.01em">Experience Design</span>
-            <p style="flex:1 1 240px;min-width:0;font-size:14px;color:#52525B;line-height:1.7;margin:0;text-wrap:pretty">UX · Information architecture · User flows · Interaction design</p>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px 24px;padding:16px 0;border-top:1px solid #E5E7EB">
-            <span style="flex:0 0 180px;font-size:15px;font-weight:700;color:#18181B;letter-spacing:-.01em">Interface Design</span>
-            <p style="flex:1 1 240px;min-width:0;font-size:14px;color:#52525B;line-height:1.7;margin:0;text-wrap:pretty">UI · Design systems · Responsive experiences</p>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px 24px;padding:16px 0;border-top:1px solid #E5E7EB;border-bottom:1px solid #E5E7EB">
-            <span style="flex:0 0 180px;font-size:15px;font-weight:700;color:#18181B;letter-spacing:-.01em">Product Systems</span>
-            <p style="flex:1 1 240px;min-width:0;font-size:14px;color:#52525B;line-height:1.7;margin:0;text-wrap:pretty">Complex workflows · Cross-product experiences · Scalable patterns</p>
-          </div>
-        </div>
+        
 
-        <p style="font-size:19px;font-weight:600;color:#18181B;line-height:1.55;margin:0;max-width:44ch;text-wrap:pretty;border-left:2px solid #4338CA;padding:4px 0 4px 20px">I care less about following a design process and more about finding the right way to solve the problem.</p>
+        
       </div>
     </div>
   </section>
 
-  <section id="contact" style="padding:clamp(64px,9vw,104px) 0;background:#fff;border-top:1px solid #E5E7EB">
+  <section id="contact" style="padding:clamp(64px,9vw,104px) 0;background:var(--c-surface);border-top:1px solid var(--c-line)">
     <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:start">
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:999px;color:#4338CA;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Get In Touch</div>
-        <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:800;color:#18181B;letter-spacing:-.03em;line-height:1.15;margin:0">Let's build something useful.</h2>
-        <p style="font-size:17px;color:#52525B;line-height:1.7;margin:0;max-width:42ch;text-wrap:pretty">I'm open to Product Design opportunities and interesting product problems.</p>
+        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Get In Touch</div>
+        <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:0">Let's build something useful.</h2>
+        <p style="font-size:17px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:42ch;text-wrap:pretty">I'm open to Product Design opportunities and interesting product problems.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <a href="mailto:chiragmahajan700@gmail.com" style="padding:20px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:#fff;border-color:#C7D2FE">
+        <a href="mailto:chiragmahajan700@gmail.com" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
           <span style="display:flex;flex-direction:column;gap:4px">
-            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#71717A;text-transform:uppercase;letter-spacing:.12em">Email</span>
-            <span style="font-size:14px;font-weight:600;color:#18181B">chiragmahajan700@gmail.com</span>
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Email</span>
+            <span style="font-size:14px;font-weight:600;color:var(--c-ink)">chiragmahajan700@gmail.com</span>
           </span>
-          <span style="font-size:14px;color:#4338CA">↗</span>
+          <span style="font-size:14px;color:var(--c-accent-text)">↗</span>
         </a>
-        <a href="https://www.linkedin.com/in/chirag-mahajan-713106228" target="_blank" rel="noopener" style="padding:20px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:#fff;border-color:#C7D2FE">
+        <a href="https://www.linkedin.com/in/chirag-mahajan-713106228" target="_blank" rel="noopener" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
           <span style="display:flex;flex-direction:column;gap:4px">
-            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#71717A;text-transform:uppercase;letter-spacing:.12em">LinkedIn</span>
-            <span style="font-size:14px;font-weight:600;color:#18181B">linkedin.com/in/chirag-mahajan</span>
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">LinkedIn</span>
+            <span style="font-size:14px;font-weight:600;color:var(--c-ink)">linkedin.com/in/chirag-mahajan</span>
           </span>
-          <span style="font-size:14px;color:#4338CA">↗</span>
+          <span style="font-size:14px;color:var(--c-accent-text)">↗</span>
+        </a>
+        <a href="https://www.behance.net/chiragmahajan1" target="_blank" rel="noopener" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
+          <span style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Behance</span>
+            <span style="font-size:14px;font-weight:600;color:var(--c-ink)">behance.net/chiragmahajan1</span>
+          </span>
+          <span style="font-size:14px;color:var(--c-accent-text)">↗</span>
         </a>
       </div>
     </div>
   </section>
 </main>
 
-<footer style="background:#fff;border-top:1px solid #E5E7EB;color:#71717A;font-size:12px;padding:48px 0">
+<footer style="background:var(--c-surface);border-top:1px solid var(--c-line);color:var(--c-ink-4);font-size:12px;padding:48px 0">
   <div style="max-width:1280px;margin:0 auto;padding:0 clamp(24px,6vw,140px);display:flex;flex-direction:column;gap:24px">
-    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding-bottom:24px;border-bottom:1px solid #F3F4F6">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding-bottom:24px;border-bottom:1px solid var(--c-subtle)">
       <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:32px;height:32px;border-radius:12px;background:#EEF2FF;border:1px solid #C7D2FE;display:flex;align-items:center;justify-content:center;font-weight:700;color:#4338CA;font-size:12px">CM</div>
+        <div style="width:32px;height:32px;border-radius:12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--c-accent-text);font-size:12px">CM</div>
         <div>
-          <span style="display:block;font-weight:700;color:#18181B;font-size:14px">Chirag Mahajan</span>
-          <span style="font-size:11px;color:#71717A;text-transform:uppercase;letter-spacing:.1em;font-family:'JetBrains Mono',monospace">Product Designer</span>
+          <span style="display:block;font-weight:700;color:var(--c-ink);font-size:14px">Chirag Mahajan</span>
+          <span style="font-size:11px;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em;font-family:'JetBrains Mono',monospace">Product Designer</span>
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">
-        <a href="#work" style="color:#52525B" style-hover="color:#18181B">Work</a>
-        <a href="#about" style="color:#52525B" style-hover="color:#18181B">About</a>
-        <button onClick="{{ openResume }}" style="background:none;border:none;color:#52525B;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;padding:0;font-family:inherit" style-hover="color:#18181B">Resume</button>
-        <a href="#contact" style="color:#52525B" style-hover="color:#18181B">Contact</a>
+        <a href="#work" style="color:var(--c-ink-3)" style-hover="color:var(--c-ink)">Work</a>
+        <a href="#about" style="color:var(--c-ink-3)" style-hover="color:var(--c-ink)">About</a>
+        <button onClick="{{ openResume }}" style="background:none;border:none;color:var(--c-ink-3);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;padding:0;font-family:inherit" style-hover="color:var(--c-ink)">Resume</button>
+        <a href="#contact" style="color:var(--c-ink-3)" style-hover="color:var(--c-ink)">Contact</a>
+        <a href="https://www.behance.net/chiragmahajan1" target="_blank" rel="noopener" style="color:var(--c-ink-3)" style-hover="color:var(--c-ink)">Behance</a>
       </div>
-      <a href="#top" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:#F9FAFB;color:#3F3F46;border:1px solid #E5E7EB;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Back to Top ↑</a>
+      <a href="#top" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:var(--c-subtle);color:var(--c-ink-2);border:1px solid var(--c-line);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em">Back to Top ↑</a>
     </div>
-    <div style="font-size:11px;color:#71717A;font-family:'JetBrains Mono',monospace">© 2026 Chirag Mahajan</div>
+    <div style="font-size:11px;color:var(--c-ink-4);font-family:'JetBrains Mono',monospace">© 2026 Chirag Mahajan</div>
   </div>
 </footer>
 
 <sc-if value="{{ resumeOpen }}" hint-placeholder-val="{{ false }}">
   <div style="position:fixed;inset:0;z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto;background:rgba(24,24,27,.6);backdrop-filter:blur(4px)">
-    <div style="position:relative;width:100%;max-width:896px;max-height:90vh;overflow-y:auto;border-radius:16px;background:#fff;border:1px solid #E5E7EB;box-shadow:0 25px 50px rgba(0,0,0,.25);color:#27272A">
-      <div style="position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;border-bottom:1px solid #E5E7EB;background:rgba(255,255,255,.97)">
+    <div style="position:relative;width:100%;max-width:896px;max-height:90vh;overflow-y:auto;border-radius:16px;background:var(--c-surface);border:1px solid var(--c-line);box-shadow:0 25px 50px rgba(0,0,0,.25);color:var(--c-ink-1)">
+      <div style="position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;border-bottom:1px solid var(--c-line);background:var(--c-nav)">
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:36px;height:36px;border-radius:12px;background:#EEF2FF;border:1px solid #C7D2FE;display:flex;align-items:center;justify-content:center;color:#4338CA;font-weight:700;font-size:14px">CM</div>
+          <div style="width:36px;height:36px;border-radius:12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);display:flex;align-items:center;justify-content:center;color:var(--c-accent-text);font-weight:700;font-size:14px">CM</div>
           <div>
-            <h3 style="font-weight:600;color:#18181B;font-size:16px">Chirag Mahajan — Resume</h3>
-            <p style="font-size:12px;color:#71717A">Product Designer • QuickHub, CloudPeak Technologies</p>
+            <h3 style="font-weight:600;color:var(--c-ink);font-size:16px">Chirag Mahajan — Resume</h3>
+            <p style="font-size:12px;color:var(--c-ink-4)">Product Designer • QuickHub, CloudPeak Technologies</p>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <a href="assets/Chirag-Mahajan-Resume.pdf" download="Chirag Mahajan Ux Designer CV.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#3F3F46;background:#F3F4F6;border-radius:999px;border:1px solid #E5E7EB;text-decoration:none"><span style="color:#4F46E5">⇩</span><span>Save as PDF</span></a>
-          <button onClick="{{ closeModals }}" style="padding:6px 10px;color:#A1A1AA;background:none;border:none;border-radius:8px;cursor:pointer;font-size:14px">✕</button>
+          <a href="assets/Chirag-Mahajan-Resume.pdf" download="Chirag Mahajan Ux Designer CV.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-2);background:var(--c-subtle);border-radius:999px;border:1px solid var(--c-line);text-decoration:none"><span style="color:var(--c-accent)">⇩</span><span>Save as PDF</span></a>
+          <button onClick="{{ closeModals }}" style="padding:6px 10px;color:var(--c-ink-5);background:none;border:none;border-radius:8px;cursor:pointer;font-size:14px">✕</button>
         </div>
       </div>
       <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
-        <iframe src="assets/Chirag-Mahajan-Resume.pdf#view=FitH" title="Chirag Mahajan resume" style="width:100%;height:min(78vh,1000px);border:1px solid #E5E7EB;border-radius:12px;background:#F9FAFB"></iframe>
-        <p style="font-size:12px;color:#71717A;line-height:1.6;margin:0">If the preview does not load, <a href="assets/Chirag-Mahajan-Resume.pdf" target="_blank" rel="noopener" style="color:#4338CA;font-weight:600">open the resume in a new tab</a>.</p>
+        <iframe src="assets/Chirag-Mahajan-Resume.pdf#view=FitH" title="Chirag Mahajan resume" style="width:100%;height:min(78vh,1000px);border:1px solid var(--c-line);border-radius:12px;background:var(--c-subtle)"></iframe>
+        <p style="font-size:12px;color:var(--c-ink-4);line-height:1.6;margin:0">If the preview does not load, <a href="assets/Chirag-Mahajan-Resume.pdf" target="_blank" rel="noopener" style="color:var(--c-accent-text);font-weight:600">open the resume in a new tab</a>.</p>
       </div>
     </div>
   </div>
 </sc-if>
+
+
+<div ref="{{ cursorRingRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:999px;border:1px solid rgba(161,161,170,.45);pointer-events:none;z-index:9999;opacity:0;transition:width .2s ease,height .2s ease,margin .2s ease,border-color .2s ease,background-color .2s ease,opacity .2s ease;will-change:transform"></div>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showProcess&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showAvailability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
@@ -363,7 +456,7 @@ const MONO = "'JetBrains Mono', monospace";
 const EMAIL = 'your.email@example.com';
 
 class Component extends DCLogic {
-  state = { activeNav: '', typed: '', typing: true,
+  state = { theme: 'light', activeNav: '', typed: '', typing: true,
     scrolled: false, active: 'work',
     skillsTab: null, dsTab: 'tokens',
     baseFont: 16, ratio: 1.25, copied: false,
@@ -380,24 +473,314 @@ class Component extends DCLogic {
   navStyle(isActive) {
     const base = { padding: '4px 14px', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.08em', borderRadius: '999px', textDecoration: 'none', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'background .2s ease, color .2s ease' };
     return isActive
-      ? Object.assign({}, base, { background: '#18181B', color: '#fff', fontWeight: 700 })
-      : Object.assign({}, base, { color: '#52525B' });
+      ? Object.assign({}, base, { background: 'var(--c-ink)', color: 'var(--c-surface)', fontWeight: 700 })
+      : Object.assign({}, base, { color: 'var(--c-ink-3)' });
+  }
+
+  heroRef = React.createRef();
+  cursorRingRef = React.createRef();
+  cursorDotRef = React.createRef();
+
+  applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('cm-portfolio-theme', theme); } catch (e) {}
+  }
+
+  startCursor() {
+    if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+    const ring = this.cursorRingRef.current, dot = this.cursorDotRef.current;
+    if (!ring || !dot) return;
+    let mx = -100, my = -100, rx = -100, ry = -100, raf = 0, shown = false, hovered = false, down = false;
+    const setRing = () => {
+      const size = hovered ? 52 : 32, s = down ? .85 : 1;
+      ring.style.width = size + 'px'; ring.style.height = size + 'px';
+      ring.style.margin = (-size / 2 * s) + 'px 0 0 ' + (-size / 2 * s) + 'px';
+      ring.style.borderColor = hovered ? 'rgba(99,102,241,.75)' : 'rgba(161,161,170,.45)';
+      ring.style.background = hovered ? 'rgba(99,102,241,.08)' : 'transparent';
+      dot.style.transform = 'scale(' + (down ? .6 : hovered ? 1.5 : 1) + ')';
+    };
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      rx += (mx - rx) * .22; ry += (my - ry) * .22;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    };
+    this.onCursorMove = (e) => {
+      mx = e.clientX; my = e.clientY;
+      if (!shown) { shown = true; ring.style.opacity = '1'; dot.style.opacity = '1'; rx = mx; ry = my; }
+      const el = e.target && e.target.closest ? e.target.closest('a,button,[role="button"],input,textarea,select,[data-spot]') : null;
+      const h = !!el;
+      if (h !== hovered) { hovered = h; setRing(); }
+    };
+    this.onCursorDown = () => { down = true; setRing(); };
+    this.onCursorUp = () => { down = false; setRing(); };
+    this.onCursorOut = () => { shown = false; ring.style.opacity = '0'; dot.style.opacity = '0'; };
+    window.addEventListener('mousemove', this.onCursorMove, { passive: true });
+    window.addEventListener('mousedown', this.onCursorDown);
+    window.addEventListener('mouseup', this.onCursorUp);
+    document.documentElement.addEventListener('mouseleave', this.onCursorOut);
+    setRing(); loop();
+    this.stopCursor = () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', this.onCursorMove);
+      window.removeEventListener('mousedown', this.onCursorDown);
+      window.removeEventListener('mouseup', this.onCursorUp);
+      document.documentElement.removeEventListener('mouseleave', this.onCursorOut);
+    };
+  }
+
+  markWordRef = React.createRef();
+
+  resetBurn() {
+    (this.burnTimers || []).forEach(clearTimeout);
+    this.burnTimers = [];
+    const w = this.markWordRef.current;
+    if (!w) return;
+    w.style.filter = 'none'; w.style.transform = 'scale(1)'; w.style.opacity = '1';
+    w.querySelectorAll('[data-ltr]').forEach((el) => { el.style.animation = 'none'; el.style.filter = 'none'; el.style.color = ''; el.style.textShadow = ''; el.style.transform = ''; el.style.opacity = '1'; });
+  }
+
+  runBurn() {
+    this.resetBurn();
+    const w = this.markWordRef.current;
+    if (!w) return;
+    const ls = Array.prototype.slice.call(w.querySelectorAll('[data-ltr]'));
+    const T = (fn, ms) => this.burnTimers.push(setTimeout(fn, ms));
+    const STEP = 95, START = 260;
+    ls.forEach((el, i) => {
+      const t = START + i * STEP, jig = (i % 3 - 1) * 0.6;
+      el.style.transition = 'color .22s ease, text-shadow .22s ease, transform .22s ease, opacity .3s ease, filter .3s ease';
+      // 1. chars / darkens at the edge
+      T(() => {
+        el.style.color = '#5B3A1B';
+        el.style.textShadow = '0 0 5px rgba(120,53,15,.5)';
+        el.style.transform = 'translateY(0.5px) rotate(' + jig + 'deg)';
+      }, t);
+      // 2. catches fire
+      T(() => {
+        el.style.color = '#EA580C';
+        el.style.textShadow = '0 -2px 9px rgba(249,115,22,.9), 0 0 20px rgba(234,88,12,.55)';
+        el.style.animation = 'ember .4s ease-in-out infinite';
+        el.style.transform = 'translateY(-1px) rotate(' + (jig * 1.6) + 'deg)';
+      }, t + 150);
+      // 3. white-hot
+      T(() => {
+        el.style.color = '#FDE68A';
+        el.style.textShadow = '0 -3px 12px rgba(253,230,138,.95), 0 0 26px rgba(245,158,11,.6)';
+      }, t + 330);
+      // 4. burns away upward as ash
+      T(() => {
+        el.style.transition = 'opacity .45s ease, transform .55s cubic-bezier(.3,.7,.2,1), filter .45s ease';
+        el.style.opacity = '0';
+        el.style.filter = 'blur(4px)';
+        el.style.transform = 'translateY(-9px) translateX(' + (jig * 3) + 'px) rotate(' + (jig * 8) + 'deg) scale(1.12)';
+      }, t + 520);
+    });
+    const back = START + ls.length * STEP + 760;
+    ls.forEach((el, i) => T(() => {
+      el.style.animation = 'none';
+      el.style.transition = 'opacity .4s ease, transform .45s cubic-bezier(.2,.8,.2,1), color .5s ease, text-shadow .5s ease, filter .4s ease';
+      el.style.filter = 'none';
+      el.style.color = '';
+      el.style.textShadow = '';
+      el.style.transform = 'translateY(0) rotate(0deg)';
+      el.style.opacity = '1';
+    }, back + i * 55));
+  }
+
+  startSpotlight() {
+    let last = null;
+    const layerOf = (el) => el.querySelector('[data-spot-layer]');
+    const ctaOf = (el) => el.querySelector('[data-spot-cta]');
+    this.onSpotMove = (e) => {
+      let el = e.target && e.target.closest ? e.target.closest('[data-spot]') : null;
+      if (!el) {
+        const panels = document.querySelectorAll('[data-spot]');
+        for (let i = 0; i < panels.length; i++) {
+          const b = panels[i].getBoundingClientRect();
+          if (e.clientX >= b.left && e.clientX <= b.right && e.clientY >= b.top && e.clientY <= b.bottom) { el = panels[i]; break; }
+        }
+      }
+      const hide = (t) => { const l = layerOf(t); if (l) l.style.opacity = '0'; const c = ctaOf(t); if (c) { c.style.opacity = '0'; c.style.transform = 'translate(-50%,-50%) scale(.94)'; } };
+      if (last && last !== el) { hide(last); last = null; }
+      if (!el) return;
+      const layer = layerOf(el);
+      if (!layer) return;
+      const c = ctaOf(el);
+      if (c) { c.style.transform = 'translate(-50%,-50%) scale(1)'; c.style.opacity = '1'; }
+      layer.style.background = 'rgba(24,24,27,.34)';
+      layer.style.opacity = '1';
+      last = el;
+    };
+    document.addEventListener('mousemove', this.onSpotMove, { passive: true });
+    this.stopSpotlight = () => document.removeEventListener('mousemove', this.onSpotMove);
+  }
+
+  heroCanvasRef = React.createRef();
+  heroContentRef = React.createRef();
+  orb1Ref = React.createRef();
+  orb2Ref = React.createRef();
+  orb3Ref = React.createRef();
+
+  startConstellation() {
+    const canvas = this.heroCanvasRef.current;
+    if (!canvas) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+    const host = canvas.parentElement;
+    let w = 0, h = 0, parts = [], raf = 0, visible = true;
+    const mouse = { x: -9999, y: -9999, inside: false };
+
+    const init = () => {
+      const count = Math.floor(Math.min((w * h) / 12000, 75));
+      parts = [];
+      for (let i = 0; i < count; i++) {
+        const r = Math.random();
+        parts.push({
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - .5) * .45, vy: (Math.random() - .5) * .45,
+          radius: Math.random() * 1.5 + 1, alpha: Math.random() * .4 + .2,
+          type: r < .5 ? 'indigo' : r < .8 ? 'teal' : 'zinc'
+        });
+      }
+    };
+    const size = () => {
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = rect.width; h = rect.height;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      if (ctx.resetTransform) ctx.resetTransform();
+      ctx.scale(dpr, dpr);
+      init();
+    };
+    const onMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; mouse.inside = true;
+    };
+    const onLeave = () => { mouse.inside = false; mouse.x = -9999; mouse.y = -9999; };
+    host.addEventListener('mousemove', onMove);
+    host.addEventListener('mouseleave', onLeave);
+
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: .02 });
+    io.observe(canvas);
+    size();
+    const ro = new ResizeObserver(() => size());
+    ro.observe(canvas);
+
+    const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+    const fillFor = (t, a, dark) => dark
+      ? (t === 'indigo' ? 'rgba(165,180,252,' + a + ')' : t === 'teal' ? 'rgba(125,211,252,' + (a * .9) + ')' : 'rgba(228,228,231,' + (a * .6) + ')')
+      : (t === 'indigo' ? 'rgba(79,70,229,' + (a * .85) + ')' : t === 'teal' ? 'rgba(13,148,136,' + (a * .7) + ')' : 'rgba(82,82,91,' + (a * .45) + ')');
+
+    const render = () => {
+      raf = requestAnimationFrame(render);
+      if (!visible || !w) return;
+      ctx.clearRect(0, 0, w, h);
+      const dark = isDark();
+      const lineRGB = dark ? '147,197,253' : '99,102,241';
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) { p.x = 0; p.vx *= -1; } else if (p.x > w) { p.x = w; p.vx *= -1; }
+        if (p.y < 0) { p.y = 0; p.vy *= -1; } else if (p.y > h) { p.y = h; p.vy *= -1; }
+        if (mouse.inside) {
+          const dx = mouse.x - p.x, dy = mouse.y - p.y, d = Math.sqrt(dx * dx + dy * dy), max = 140;
+          if (d < max && d > 0) {
+            const f = (1 - d / max) * 1.5;
+            p.x -= (dx / d) * f; p.y -= (dy / d) * f;
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - d / max) * (dark ? .35 : .25)) + ')';
+            ctx.lineWidth = .8; ctx.stroke();
+          }
+        }
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = fillFor(p.type, p.alpha, dark); ctx.fill();
+        for (let j = i + 1; j < parts.length; j++) {
+          const q = parts[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 95) {
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - d / 95) * (dark ? .18 : .12)) + ')';
+            ctx.lineWidth = .6; ctx.stroke();
+          }
+        }
+      }
+    };
+    render();
+    this.stopConstellation = () => {
+      cancelAnimationFrame(raf); io.disconnect(); ro.disconnect();
+      host.removeEventListener('mousemove', onMove);
+      host.removeEventListener('mouseleave', onLeave);
+    };
+  }
+
+  startHeroParallax() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0, queued = false;
+    const apply = () => {
+      queued = false;
+      const hero = this.heroRef.current;
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height)));
+      const set = (ref, y, sc) => {
+        const el = ref.current; if (!el) return;
+        el.style.translate = '0 ' + y + 'px';
+        el.style.scale = String(sc);
+      };
+      const content = this.heroContentRef.current;
+      if (content) {
+        content.style.transform = 'translate3d(0,' + (-55 * p) + 'px,0) scale(' + (1 - .035 * p) + ')';
+        content.style.opacity = String(p < .75 ? 1 - p * .33 : Math.max(0, (1 - p) * 3));
+        content.style.willChange = 'transform,opacity';
+      }
+      set(this.orb1Ref, 110 * p, 1 + .2 * p);
+      set(this.orb2Ref, 80 * p, 1 + .18 * p);
+      set(this.orb3Ref, 60 * p, 1 + .14 * p);
+    };
+    this.onHeroScroll = () => { if (!queued) { queued = true; raf = requestAnimationFrame(apply); } };
+    window.addEventListener('scroll', this.onHeroScroll, { passive: true });
+    document.addEventListener('scroll', this.onHeroScroll, { passive: true, capture: true });
+    apply();
+    this.stopHeroParallax = () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', this.onHeroScroll);
+      document.removeEventListener('scroll', this.onHeroScroll, true);
+    };
   }
 
   componentDidMount() {
+    let saved = null;
+    try { saved = localStorage.getItem('cm-portfolio-theme'); } catch (e) {}
+    const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+    this.applyTheme(theme);
+    this.setState({ theme: theme });
+    this.startConstellation();
+    this.startHeroParallax();
+    this.startCursor();
+    this.startSpotlight();
+    this.markTimer = setTimeout(() => this.setState({ markOpen: true }), 850);
+    this.shineTimer = setTimeout(() => this.setState({ markShine: true }), 1650);
+    this.shineOffTimer = setTimeout(() => this.setState({ markShine: false }), 2900);
     const HEAD = 'I design products that make complexity feel simple.';
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       this.setState({ typed: HEAD, typing: false });
     } else {
-      const CPS = 30, start = performance.now() + 260;
-      let shown = 0;
-      const tick = (t) => {
-        const n = Math.min(HEAD.length, Math.max(0, Math.floor((t - start) / 1000 * CPS)));
-        if (n !== shown) { shown = n; this.setState({ typed: HEAD.slice(0, n) }); }
-        if (n < HEAD.length) this.raf = requestAnimationFrame(tick);
-        else this.setState({ typing: false });
+      const CPS = 18, LOOP = 30000;
+      const runType = () => {
+        const start = Date.now() + 260;
+        let shown = -1;
+        this.setState({ typed: '', typing: true });
+        clearInterval(this.typeTimer);
+        this.typeTimer = setInterval(() => {
+          const n = Math.min(HEAD.length, Math.max(0, Math.round((Date.now() - start) / 1000 * CPS)));
+          if (n !== shown) { shown = n; this.setState({ typed: HEAD.slice(0, n) }); }
+          if (n >= HEAD.length) { clearInterval(this.typeTimer); this.setState({ typing: false }); }
+        }, 1000 / 60);
       };
-      this.raf = requestAnimationFrame(tick);
+      runType();
+      this.typeLoop = setInterval(runType, LOOP);
     }
 
     this.onScroll = () => {
@@ -423,89 +806,96 @@ class Component extends DCLogic {
     this.onResize();
   }
   componentWillUnmount() {
+    if (this.stopConstellation) this.stopConstellation();
+    if (this.stopCursor) this.stopCursor();
+    if (this.stopSpotlight) this.stopSpotlight();
+    (this.burnTimers || []).forEach(clearTimeout);
+    clearInterval(this.typeLoop);
+    clearTimeout(this.markTimer); clearTimeout(this.shineTimer); clearTimeout(this.shineOffTimer);
+    if (this.stopHeroParallax) this.stopHeroParallax();
     window.removeEventListener('resize', this.onResize);
     window.removeEventListener('scroll', this.onScroll);
     document.removeEventListener('scroll', this.onScroll, true);
     clearInterval(this.navTimer);
   }
 
-  bar(level) { return { height: '100%', width: level + '%', background: '#18181B', borderRadius: '999px' }; }
+  bar(level) { return { height: '100%', width: level + '%', background: 'var(--c-ink)', borderRadius: '999px' }; }
 
   pill(isActive) {
     const base = { padding: '7px 16px', borderRadius: '999px', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.08em', cursor: 'pointer' };
     return isActive
-      ? Object.assign({}, base, { background: '#fff', color: '#18181B', border: '1px solid #E5E7EB' })
-      : Object.assign({}, base, { background: 'transparent', color: '#71717A', border: '1px solid transparent' });
+      ? Object.assign({}, base, { background: 'var(--c-surface)', color: 'var(--c-ink)', border: '1px solid var(--c-line)' })
+      : Object.assign({}, base, { background: 'transparent', color: 'var(--c-ink-4)', border: '1px solid transparent' });
   }
 
   dsPill(isActive) {
     const base = { display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '7px 14px', borderRadius: '999px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.08em', fontSize: '11px', border: 'none', cursor: 'pointer' };
     return isActive
-      ? Object.assign({}, base, { background: '#18181B', color: '#fff' })
-      : Object.assign({}, base, { background: 'transparent', color: '#52525B' });
+      ? Object.assign({}, base, { background: 'var(--c-ink)', color: 'var(--c-surface)' })
+      : Object.assign({}, base, { background: 'transparent', color: 'var(--c-ink-3)' });
   }
 
   chip(isActive) {
     const base = { padding: '5px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 500, cursor: 'pointer' };
     return isActive
-      ? Object.assign({}, base, { background: '#4F46E5', color: '#fff', border: '1px solid #4F46E5' })
-      : Object.assign({}, base, { background: '#fff', color: '#52525B', border: '1px solid #E5E7EB' });
+      ? Object.assign({}, base, { background: 'var(--c-accent)', color: 'var(--c-surface)', border: '1px solid var(--c-accent)' })
+      : Object.assign({}, base, { background: 'var(--c-surface)', color: 'var(--c-ink-3)', border: '1px solid var(--c-line)' });
   }
 
   ratioChip(isActive) {
     const base = { flex: 1, padding: '5px 0', borderRadius: '4px', fontSize: '11px', fontFamily: MONO, fontWeight: 600, cursor: 'pointer' };
     return isActive
-      ? Object.assign({}, base, { background: '#4F46E5', color: '#fff', border: '1px solid #4F46E5' })
-      : Object.assign({}, base, { background: '#fff', color: '#52525B', border: '1px solid #E5E7EB' });
+      ? Object.assign({}, base, { background: 'var(--c-accent)', color: 'var(--c-surface)', border: '1px solid var(--c-accent)' })
+      : Object.assign({}, base, { background: 'var(--c-surface)', color: 'var(--c-ink-3)', border: '1px solid var(--c-line)' });
   }
 
   auditPill(isActive) {
     const base = { padding: '7px 14px', borderRadius: '999px', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.08em', cursor: 'pointer' };
     return isActive
-      ? Object.assign({}, base, { background: '#18181B', color: '#fff', border: '1px solid #18181B' })
-      : Object.assign({}, base, { background: '#F3F4F6', color: '#52525B', border: '1px solid #E5E7EB' });
+      ? Object.assign({}, base, { background: 'var(--c-ink)', color: 'var(--c-surface)', border: '1px solid var(--c-ink)' })
+      : Object.assign({}, base, { background: 'var(--c-subtle)', color: 'var(--c-ink-3)', border: '1px solid var(--c-line)' });
   }
 
   navLink(isActive) {
     const base = { padding: '4px 14px', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.08em', borderRadius: '999px', textDecoration: 'none' };
     return isActive
-      ? Object.assign({}, base, { background: '#fff', color: '#18181B', border: '1px solid #E5E7EB', fontWeight: 700 })
-      : Object.assign({}, base, { color: '#52525B' });
+      ? Object.assign({}, base, { background: 'var(--c-surface)', color: 'var(--c-ink)', border: '1px solid var(--c-line)', fontWeight: 700 })
+      : Object.assign({}, base, { color: 'var(--c-ink-3)' });
   }
 
   selectCard(isActive) {
     const base = { width: '100%', textAlign: 'left', padding: '20px', borderRadius: '16px', cursor: 'pointer' };
     return isActive
-      ? Object.assign({}, base, { background: 'rgba(238,242,255,.7)', border: '1px solid #C7D2FE' })
-      : Object.assign({}, base, { background: '#F9FAFB', border: '1px solid #E5E7EB' });
+      ? Object.assign({}, base, { background: 'var(--c-accent-soft)', border: '1px solid var(--c-accent-line)' })
+      : Object.assign({}, base, { background: 'var(--c-subtle)', border: '1px solid var(--c-line)' });
   }
 
   optionCard(isActive, pad) {
     const base = { padding: pad, borderRadius: '16px', textAlign: 'left', cursor: 'pointer' };
     return isActive
-      ? Object.assign({}, base, { background: 'rgba(238,242,255,.7)', border: '1px solid #C7D2FE' })
-      : Object.assign({}, base, { background: '#F9FAFB', border: '1px solid #E5E7EB' });
+      ? Object.assign({}, base, { background: 'var(--c-accent-soft)', border: '1px solid var(--c-accent-line)' })
+      : Object.assign({}, base, { background: 'var(--c-subtle)', border: '1px solid var(--c-line)' });
   }
 
   stepCard(i) {
     const active = this.state.stepIdx === i;
     return Object.assign({ padding: '16px', borderRadius: '16px', textAlign: 'left', cursor: 'pointer' },
-      active ? { background: 'rgba(238,242,255,.7)', border: '1px solid #C7D2FE' } : { background: '#F9FAFB', border: '1px solid #E5E7EB' });
+      active ? { background: 'var(--c-accent-soft)', border: '1px solid var(--c-accent-line)' } : { background: 'var(--c-subtle)', border: '1px solid var(--c-line)' });
   }
   stepNum(i) {
-    return { fontSize: '12px', fontFamily: MONO, fontWeight: 700, color: this.state.stepIdx === i ? '#4338CA' : '#A1A1AA' };
+    return { fontSize: '12px', fontFamily: MONO, fontWeight: 700, color: this.state.stepIdx === i ? 'var(--c-accent-text)' : 'var(--c-ink-5)' };
   }
   stepTitle(i) {
-    return { margin: 0, fontSize: '12px', fontWeight: 700, color: this.state.stepIdx === i ? '#18181B' : '#52525B' };
+    return { margin: 0, fontSize: '12px', fontWeight: 700, color: this.state.stepIdx === i ? 'var(--c-ink)' : 'var(--c-ink-3)' };
   }
   delOn(i) { return this.state.estDels.indexOf(EST_DELS[i]) !== -1; }
   delCard(i) {
     return Object.assign({ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px', borderRadius: '16px', textAlign: 'left', cursor: 'pointer' },
-      this.delOn(i) ? { background: 'rgba(238,242,255,.7)', border: '1px solid #C7D2FE', color: '#18181B' } : { background: '#F9FAFB', border: '1px solid #E5E7EB', color: '#52525B' });
+      this.delOn(i) ? { background: 'var(--c-accent-soft)', border: '1px solid var(--c-accent-line)', color: 'var(--c-ink)' } : { background: 'var(--c-subtle)', border: '1px solid var(--c-line)', color: 'var(--c-ink-3)' });
   }
   delCheck(i) {
     const on = this.delOn(i);
-    return { width: '16px', height: '16px', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', flexShrink: 0, background: on ? '#4F46E5' : '#E5E7EB', color: on ? '#fff' : 'transparent', fontWeight: 700 };
+    return { width: '16px', height: '16px', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', flexShrink: 0, background: on ? 'var(--c-accent)' : 'var(--c-line)', color: on ? 'var(--c-surface)' : 'transparent', fontWeight: 700 };
   }
   toggleDel(i) {
     return () => {
@@ -528,9 +918,10 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state;
+    const markReveal = { display: 'inline-block', overflow: 'hidden', whiteSpace: 'nowrap', verticalAlign: 'bottom', transition: 'max-width .62s cubic-bezier(.2,.8,.2,1), opacity .5s ease .08s', maxWidth: s.markOpen ? '6em' : '0em', opacity: s.markOpen ? 1 : 0 };
     const set = (patch) => () => this.setState(patch);
     const typedHead = s.typed;
-    const caretStyle = { display: 'inline-block', width: '3px', height: '.9em', marginLeft: '.06em', verticalAlign: '-.06em', background: '#4F46E5', borderRadius: '2px', animation: 'caretBlink 1s steps(1) infinite', opacity: s.typing ? 1 : 0, transition: 'opacity .4s .6s' };
+    const caretStyle = { display: 'inline-block', width: '3px', height: '.9em', marginLeft: '.06em', verticalAlign: '-.06em', background: 'var(--c-accent)', borderRadius: '2px', animation: s.typing ? 'caretBlink 1s steps(1) infinite' : 'none', opacity: s.typing ? 1 : 0, transition: 'opacity .4s .6s' };
     const skillsTab = s.skillsTab || this.props.skillsDefaultTab || 'Key UX/UI Skills';
     const tab = skillsTab === 'Tool Proficiency' ? 'tools' : skillsTab === 'Domain Matrix' ? 'matrix' : 'skills';
 
@@ -538,19 +929,19 @@ class Component extends DCLogic {
     const mk = (name, step) => {
       const px = Math.round(bf * Math.pow(ratio, step));
       const rem = step === 0 ? '1.00' : Math.pow(ratio, step).toFixed(2);
-      return { name, label: rem + 'rem (' + px + 'px)', sampleStyle: { fontSize: px + 'px', lineHeight: 1.25, fontWeight: 700, color: '#18181B', letterSpacing: '-.02em', flex: 1 } };
+      return { name, label: rem + 'rem (' + px + 'px)', sampleStyle: { fontSize: px + 'px', lineHeight: 1.25, fontWeight: 700, color: 'var(--c-ink)', letterSpacing: '-.02em', flex: 1 } };
     };
 
 
     const btnPad = s.size === 'sm' ? '6px 12px' : s.size === 'md' ? '10px 20px' : '14px 28px';
     const btnFont = s.size === 'sm' ? '12px' : s.size === 'md' ? '14px' : '16px';
     const variantStyle = s.variant === 'primary'
-      ? { background: '#4F46E5', color: '#fff', border: 'none', boxShadow: '0 4px 12px rgba(79,70,229,.25)' }
+      ? { background: 'var(--c-accent)', color: 'var(--c-surface)', border: 'none', boxShadow: '0 4px 12px rgba(79,70,229,.25)' }
       : s.variant === 'secondary'
-        ? { background: '#fff', color: '#27272A', border: '1px solid #E5E7EB' }
+        ? { background: 'var(--c-surface)', color: 'var(--c-ink-1)', border: '1px solid var(--c-line)' }
         : s.variant === 'ghost'
-          ? { background: 'transparent', color: '#4338CA', border: 'none' }
-          : { background: '#E11D48', color: '#fff', border: 'none', boxShadow: '0 4px 12px rgba(225,29,72,.25)' };
+          ? { background: 'transparent', color: 'var(--c-accent-text)', border: 'none' }
+          : { background: '#E11D48', color: 'var(--c-surface)', border: 'none', boxShadow: '0 4px 12px rgba(225,29,72,.25)' };
 
     const springDur = Math.max(220, Math.round(1400 * Math.sqrt(s.mass) / Math.sqrt(s.stiffness)));
     const overshoot = Math.max(0, Math.min(0.9, (40 - s.damping) / 40));
@@ -560,11 +951,32 @@ class Component extends DCLogic {
 
     return {
       typedHead: typedHead, caretStyle: caretStyle,
+      cursorRingRef: this.cursorRingRef, cursorDotRef: this.cursorDotRef,
+      themeIcon: (s.theme === 'dark' ? '☀' : '☾'),
+      themeLabel: (s.theme === 'dark' ? 'Light mode' : 'Dark mode'),
+      toggleTheme: () => {
+        const next = s.theme === 'dark' ? 'light' : 'dark';
+        this.applyTheme(next);
+        this.setState({ theme: next });
+      },
+      heroRef: this.heroRef, heroCanvasRef: this.heroCanvasRef, heroContentRef: this.heroContentRef,
+      orb1Ref: this.orb1Ref, orb2Ref: this.orb2Ref, orb3Ref: this.orb3Ref,
       isDesktop: isDesktop, isMobile: !isDesktop,
       drawerOpen: s.drawerOpen && !isDesktop,
       toggleDrawer: () => this.setState({ drawerOpen: !this.state.drawerOpen }),
       closeDrawer: () => this.setState({ drawerOpen: false }),
       openResumeFromDrawer: () => this.setState({ drawerOpen: false, modal: 'resume' }),
+      markReveal: markReveal,
+      lampHot: !!s.lampHot,
+      lampOn: () => { this.setState({ lampHot: true }); this.runBurn(); },
+      lampOff: () => { this.setState({ lampHot: false }); this.resetBurn(); },
+      markWordStyle: { display: 'inline-block', transition: 'transform .3s cubic-bezier(.2,.8,.2,1), opacity .3s ease, filter .3s ease' },
+      markWordRef: this.markWordRef,
+      lampStyle: { flexShrink: 0, overflow: 'visible', cursor: 'pointer', transformOrigin: '17px 18px', transition: 'transform .4s cubic-bezier(.2,.8,.2,1)', transformOrigin: '17px 18px', transform: s.lampHot ? 'rotate(26deg) translate(3px,-2px)' : 'rotate(0deg) translate(0,0)', animation: 'none' },
+      lampGlowStyle: { transformOrigin: '5.2px 7px', transition: 'opacity .3s ease', opacity: s.lampHot ? .55 : .22, animation: s.lampHot ? 'glowpulse .9s ease-in-out infinite' : 'glowpulse 2.6s ease-in-out infinite' },
+      lampFlameScale: { transformOrigin: '5.2px 9.5px', transition: 'transform .35s cubic-bezier(.2,.8,.2,1)', transform: s.lampHot ? 'scale(2.3)' : 'scale(1)' },
+      lampFlameStyle: { transformOrigin: '5.2px 9.5px', animation: s.lampHot ? 'flicker .5s ease-in-out infinite' : 'flicker 1.5s ease-in-out infinite' },
+      markShine: !!s.markShine,
       navWorkStyle: this.navStyle(s.activeNav === 'work'),
       navAboutStyle: this.navStyle(s.activeNav === 'about'),
       navContactStyle: this.navStyle(s.activeNav === 'contact'),
@@ -609,8 +1021,8 @@ class Component extends DCLogic {
       setStDefault: set({ compState: 'default' }), setStLoading: set({ compState: 'loading' }), setStDisabled: set({ compState: 'disabled' }), setStSuccess: set({ compState: 'success' }),
       previewBtnStyle: Object.assign({ fontWeight: 600, borderRadius: '12px', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: btnPad, fontSize: btnFont, cursor: s.compState === 'disabled' ? 'not-allowed' : 'pointer', opacity: s.compState === 'disabled' ? 0.4 : 1 }, variantStyle),
       previewBtnLabel: s.compState === 'loading' ? '↻ Processing...' : s.compState === 'success' ? '✓ Confirmed!' : s.compState === 'disabled' ? 'Action Locked' : 'Trigger Action',
-      switchTrack: { width: '48px', height: '24px', borderRadius: '999px', background: s.switchOn ? '#4F46E5' : '#D1D5DB', padding: '4px', display: 'flex', alignItems: 'center', border: 'none', cursor: 'pointer', transition: 'background .2s ease' },
-      switchKnob: { width: '16px', height: '16px', borderRadius: '999px', background: '#fff', display: 'block', transform: s.switchOn ? 'translateX(24px)' : 'translateX(0)', transition: 'transform .25s cubic-bezier(.34,1.56,.64,1)', boxShadow: '0 1px 3px rgba(0,0,0,.2)' },
+      switchTrack: { width: '48px', height: '24px', borderRadius: '999px', background: s.switchOn ? 'var(--c-accent)' : 'var(--c-line-2)', padding: '4px', display: 'flex', alignItems: 'center', border: 'none', cursor: 'pointer', transition: 'background .2s ease' },
+      switchKnob: { width: '16px', height: '16px', borderRadius: '999px', background: 'var(--c-surface)', display: 'block', transform: s.switchOn ? 'translateX(24px)' : 'translateX(0)', transition: 'transform .25s cubic-bezier(.34,1.56,.64,1)', boxShadow: '0 1px 3px rgba(0,0,0,.2)' },
       toggleSwitch: () => this.setState({ switchOn: !s.switchOn }),
       componentSummary: 'Variant: ' + s.variant + ' • Size: ' + s.size + ' • Active State: ' + s.compState,
 
@@ -619,7 +1031,7 @@ class Component extends DCLogic {
       onDamping: (e) => this.setState({ damping: Number(e.target.value) }),
       onMass: (e) => this.setState({ mass: Number(e.target.value) }),
       springBoxStyle: {
-        width: '96px', height: '96px', borderRadius: '16px', background: '#4F46E5', color: '#fff',
+        width: '96px', height: '96px', borderRadius: '16px', background: 'var(--c-accent)', color: 'var(--c-surface)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px', cursor: 'pointer',
         boxShadow: '0 16px 40px rgba(79,70,229,.25)',
         transform: s.springOn ? 'scale(1) translateY(0) rotate(0deg)' : 'scale(.7) translateY(-20px) rotate(-6deg)',
