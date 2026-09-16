@@ -30,6 +30,10 @@
   html, body { transition:background-color .3s ease, color .3s ease; }
   html { scroll-behavior:smooth; background:var(--c-bg); }
   section[id] { scroll-margin-top:96px; }
+  body { overflow-x:hidden; }
+  @media (max-width:900px){ [data-r="orb"]{ display:none; } }
+  img { max-width:100%; height:auto; }
+  @media (max-width:700px){ [data-r="modal"]{ padding:12px !important; } }
   body { margin:0; background:var(--c-bg); color:var(--c-ink); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
   a { color:var(--c-accent-text); text-decoration:none; }
@@ -62,6 +66,7 @@
   @keyframes blobA { 0%,100% { transform:translate(-50%,-50%) scale(1); } 50% { transform:translate(-46%,-54%) scale(1.14); } }
   @keyframes blobB { 0%,100% { transform:translate(0,0) scale(1); opacity:.55; } 50% { transform:translate(60px,40px) scale(1.2); opacity:.85; } }
   @keyframes blobC { 0%,100% { transform:translate(0,0) scale(1.1); opacity:.5; } 50% { transform:translate(-70px,30px) scale(.9); opacity:.8; } }
+  @keyframes heroRipple { from { transform:translate(-50%,-50%) scale(.25); opacity:.5; } to { transform:translate(-50%,-50%) scale(1); opacity:0; } }
   @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; } }
 </style>
   <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
@@ -110,13 +115,14 @@
 
   <section style="position:relative;padding:clamp(122px,14vw,156px) 0 clamp(78px,10vw,104px);overflow:hidden;background-color:var(--c-bg);background-size:40px 40px;background-image:linear-gradient(to right,var(--c-grid) 1px,transparent 1px),linear-gradient(to bottom,var(--c-grid) 1px,transparent 1px);background-position:0 0,0 0;animation:gridPan 24s linear infinite" ref="{{ heroRef }}">
     <canvas ref="{{ heroCanvasRef }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas>
-    <div ref="{{ orb1Ref }}" style="position:absolute;top:33%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:rgba(99,102,241,.1);border-radius:999px;filter:blur(140px);pointer-events:none;animation:blobA 18s ease-in-out infinite"></div>
-    <div ref="{{ orb2Ref }}" style="position:absolute;top:6%;left:8%;width:420px;height:320px;background:rgba(129,140,248,.16);border-radius:999px;filter:blur(120px);pointer-events:none;animation:blobB 22s ease-in-out infinite"></div>
-    <div ref="{{ orb3Ref }}" style="position:absolute;bottom:-8%;right:4%;width:460px;height:340px;background:rgba(45,212,191,.13);border-radius:999px;filter:blur(130px);pointer-events:none;animation:blobC 26s ease-in-out infinite"></div>
+    <div ref="{{ heroGlowRef }}" data-hero-glow="true" aria-hidden="true" style="position:absolute;left:0;top:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:999px;background:radial-gradient(circle, rgba(99,102,241,.20) 0%, rgba(99,102,241,.09) 42%, rgba(99,102,241,0) 72%);filter:blur(12px);pointer-events:none;opacity:0;transition:opacity .6s cubic-bezier(.2,.7,.2,1);z-index:0;will-change:transform,opacity;backface-visibility:hidden"></div>
+    <div ref="{{ orb1Ref }}" data-r="orb" style="position:absolute;top:33%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:rgba(99,102,241,.1);border-radius:999px;filter:blur(140px);pointer-events:none;animation:blobA 18s ease-in-out infinite"></div>
+    <div ref="{{ orb2Ref }}" data-r="orb" style="position:absolute;top:6%;left:8%;width:420px;height:320px;background:rgba(129,140,248,.16);border-radius:999px;filter:blur(120px);pointer-events:none;animation:blobB 22s ease-in-out infinite"></div>
+    <div ref="{{ orb3Ref }}" data-r="orb" style="position:absolute;bottom:-8%;right:4%;width:460px;height:340px;background:rgba(45,212,191,.13);border-radius:999px;filter:blur(130px);pointer-events:none;animation:blobC 26s ease-in-out infinite"></div>
     <div ref="{{ heroContentRef }}" style="position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 clamp(24px,6vw,48px);display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
-      <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);color:var(--c-accent-text);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;animation:heroRise .7s cubic-bezier(.2,.7,.2,1) both .05s">Product Designer</div>
-      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(36px,5.6vw,64px);font-weight:800;color:var(--c-ink);letter-spacing:-.015em;text-transform:uppercase;line-height:1;margin:0;max-width:20ch;text-wrap:pretty;min-height:3em">{{ typedHead }}<span style="{{ caretStyle }}"></span></h1>
-      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s;font-size:19px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:46ch;text-wrap:pretty">I'm Chirag Mahajan, a Product Designer who turns complex problems into clear, useful and scalable digital experiences.</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);color:var(--c-accent-text);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;animation:heroRise .7s cubic-bezier(.2,.7,.2,1) both .05s">Product Designer</div>
+      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(36px,5.6vw,64px);font-weight:800;color:var(--c-ink);letter-spacing:-.015em;line-height:1.04;margin:0;max-width:24ch;text-wrap:pretty;min-height:2.1em">{{ typedHead }}<span style="{{ caretStyle }}"></span></h1>
+      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s;font-size:19px;color:var(--c-ink-3);line-height:1.7;margin:-6px 0 0;max-width:64ch;text-wrap:pretty">I’m Chirag Mahajan, a Product Designer with 3+ years of experience designing digital products across different industries and problem spaces. I work across UX, UI, product thinking, and design systems, and I also know how to code, which helps me prototype ideas and collaborate closely with engineering.</p>
       <div style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .44s;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding-top:4px">
         <a href="#work" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--c-ink);color:var(--c-surface);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;box-shadow:0 12px 30px rgba(24,24,27,.12);text-decoration:none">View my work ↓</a>
         <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--c-surface);color:var(--c-ink);border:1px solid var(--c-line-2);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none">Get in touch →</a>
@@ -135,7 +141,7 @@
 
       <div style="display:flex;flex-direction:column;gap:56px">
         <article style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line)">
-          <a href="quick-chat.html" onClick="{{ openChatCase }}" aria-label="Open the Quick Chat case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
+          <a href="quick-chat.html" onClick="{{ openChatCase }}" onMouseEnter="{{ preChat }}" aria-label="Open the Quick Chat case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
           <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;max-width:70ch">
             <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">01 — Quick Chat</span>
             <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">Designing a unified communication experience.</h3>
@@ -168,7 +174,7 @@
 </article>
 
         <article style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line)">
-          <a href="quick-crm.html" onClick="{{ openCrmCase }}" aria-label="Open the Quick CRM case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
+          <a href="quick-crm.html" onClick="{{ openCrmCase }}" onMouseEnter="{{ preCrm }}" aria-label="Open the Quick CRM case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
           <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;max-width:70ch">
             <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">02 — Quick CRM</span>
             <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">From scattered contact records to a reusable customer system.</h3>
@@ -353,10 +359,10 @@
       </div>
       <div style="display:flex;flex-direction:column;gap:32px">
         <div style="display:flex;flex-direction:column;gap:22px;max-width:88ch">
-          <div style="font-size: 20px; color: var(--c-ink); line-height: 1.7; margin: 0; text-wrap: pretty; font-weight: 500; letter-spacing: -.01em"><p data-start="128" data-end="265" class="PDq2pG_selectionAnchorContainer"><strong data-start="128" data-end="265" style="font-weight: 500">Hi, I’m Chirag Mahajan, a Product Designer with 3+ years of experience working on B2B SaaS, AI-powered products, and marketing tools.</strong><span aria-hidden="true" class="PDq2pG_selectionAnchor"></span></p>
-<p data-start="270" data-end="494">I like working on products where the problem isn’t always clear at the beginning. I enjoy understanding the problem, figuring out how things should work, and turning complex workflows into simple and easy-to-use experiences.</p>
-<p data-start="499" data-end="785">I work across UX, UI, information architecture, interaction design, and design systems, and I usually stay involved from the early product thinking to the final design. I also work closely with product and engineering teams to make sure what I design actually works in the real product.&nbsp;<span style="letter-spacing: -0.2px;">I’ve worked across customer management, communication, automation, content, and marketing products. Different domains, same thing I enjoy: </span><strong data-start="929" data-end="992" style="letter-spacing: -0.2px;">figuring out the problem and making the product make sense.</strong></p>
-</div>
+          <div style="font-size: 20px; color: var(--c-ink); line-height: 1.7; margin: 0; text-wrap: pretty; font-weight: 500; letter-spacing: -.01em; display: flex; flex-direction: column; gap: 22px; max-width: 62ch">
+            <p style="margin:0">I’m Chirag Mahajan, a Product Designer who likes working where design, technology, and product thinking come together. I enjoy understanding complex problems and turning them into experiences that feel clear, useful, and thoughtfully designed.</p>
+            <p style="margin:0">I like being involved in the bigger picture, but I’m equally comfortable getting into the details. I enjoy shaping product ideas, exploring different solutions, prototyping, and writing code when it helps bring an idea to life.</p>
+          </div>
           
         </div>
 
@@ -465,12 +471,9 @@
     </div>
   </div>
 </div>
-<div ref="{{ cursorDotRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:999px;background:var(--c-accent);box-shadow:0 0 8px rgba(99,102,241,.7);pointer-events:none;z-index:9999;opacity:0;transition:transform .15s ease,opacity .2s ease;will-change:transform"></div>
-<canvas ref="{{ cursorCanvasRef }}" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9998"></canvas>
-<div ref="{{ cursorRingRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:999px;border:1px solid rgba(161,161,170,.45);pointer-events:none;z-index:9999;opacity:0;transition:width .2s ease,height .2s ease,margin .2s ease,border-color .2s ease,background-color .2s ease,opacity .2s ease;will-change:transform"></div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showProcess&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showAvailability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;customCursor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Effects&quot;}}">
 const EST_DELS = ['Figma Variables & Components', 'Interactive React/Motion Prototype', 'WCAG AAA Compliance Audit', 'Design Token Dictionaries (JSON/CSS)', 'Cognitive Walkthrough & Usability Testing', 'Developer Handoff Documentation'];
 
 const MONO = "'JetBrains Mono', monospace";
@@ -508,15 +511,42 @@ class Component extends DCLogic {
     try { localStorage.setItem('cm-portfolio-theme', theme); } catch (e) {}
   }
 
+  prefetch(href) {
+    this.prefetched = this.prefetched || {};
+    if (this.prefetched[href]) return;
+    this.prefetched[href] = true;
+    const l = document.createElement('link');
+    l.rel = 'prefetch'; l.href = href;
+    document.head.appendChild(l);
+  }
+
   goCase(e, label, href) {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
     e.preventDefault();
     this.setState({ loading: true, loaderLabel: label });
-    this.caseTimer = setTimeout(() => { window.location.href = href; }, 900);
+    this.caseTimer = setTimeout(() => { window.location.href = href; }, 380);
+  }
+
+  mountCursorLayer() {
+    if (this.cursorLayer) return;
+    const mk = (tag, css) => { const el = document.createElement(tag); el.setAttribute('aria-hidden', 'true'); el.style.cssText = css; document.body.appendChild(el); return el; };
+    const dot = mk('div', 'position:fixed;left:-100px;top:-100px;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:999px;background:var(--c-accent);box-shadow:0 0 8px rgba(99,102,241,.7);pointer-events:none;z-index:9999;opacity:0;transition:transform .15s ease,opacity .2s ease;will-change:transform');
+    const cvs = mk('canvas', 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9998');
+    const ring = mk('div', 'position:fixed;left:-100px;top:-100px;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:999px;border:1px solid rgba(161,161,170,.45);pointer-events:none;z-index:9999;opacity:0;transition:width .2s ease,height .2s ease,margin .2s ease,border-color .2s ease,background-color .2s ease,opacity .2s ease;will-change:transform');
+    this.cursorDotRef.current = dot; this.cursorCanvasRef.current = cvs; this.cursorRingRef.current = ring;
+    this.cursorLayer = [dot, cvs, ring];
+  }
+  unmountCursorLayer() {
+    if (!this.cursorLayer) return;
+    this.cursorLayer.forEach((el) => { if (el && el.parentNode) el.parentNode.removeChild(el); });
+    this.cursorLayer = null;
+    this.cursorDotRef.current = null; this.cursorCanvasRef.current = null; this.cursorRingRef.current = null;
   }
 
   startCursor() {
+    if (this.props.customCursor === false) { this.unmountCursorLayer(); return; }
     if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+    this.mountCursorLayer();
     clearTimeout(this.cursorRetry);
     if (this.stopCursor) { this.stopCursor(); this.stopCursor = null; }
     const ring = this.cursorRingRef.current, dot = this.cursorDotRef.current;
@@ -527,7 +557,7 @@ class Component extends DCLogic {
     let parts = [], lastSx = -100, lastSy = -100, dpr = 1;
     const sizeCanvas = () => {
       if (!cvs) return;
-      dpr = window.devicePixelRatio || 1;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       cvs.width = window.innerWidth * dpr; cvs.height = window.innerHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
@@ -706,13 +736,25 @@ class Component extends DCLogic {
 
   heroCanvasRef = React.createRef();
   heroContentRef = React.createRef();
+  heroGlowRef = React.createRef();
   orb1Ref = React.createRef();
   orb2Ref = React.createRef();
   orb3Ref = React.createRef();
 
+  isLite() {
+    if (this._lite !== undefined) return this._lite;
+    const mq = window.matchMedia;
+    const coarse = mq && mq('(pointer: coarse)').matches;
+    const small = window.innerWidth < 900;
+    const weak = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+    this._lite = !!(coarse || small || weak);
+    return this._lite;
+  }
+
   startConstellation() {
     const canvas = this.heroCanvasRef.current;
     if (!canvas) return;
+    if (this.isLite()) { canvas.style.display = 'none'; return; }
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
@@ -721,7 +763,7 @@ class Component extends DCLogic {
     const mouse = { x: -9999, y: -9999, inside: false };
 
     const init = () => {
-      const count = Math.floor(Math.min((w * h) / 12000, 75));
+      const count = Math.floor(Math.min((w * h) / 16000, 55));
       parts = [];
       for (let i = 0; i < count; i++) {
         const r = Math.random();
@@ -736,20 +778,54 @@ class Component extends DCLogic {
     const size = () => {
       const rect = canvas.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = rect.width; h = rect.height;
       canvas.width = w * dpr; canvas.height = h * dpr;
       if (ctx.resetTransform) ctx.resetTransform();
       ctx.scale(dpr, dpr);
       init();
     };
+    const glowEl = () => this.heroGlowRef.current || host.querySelector('[data-hero-glow]');
+    let gx = 0, gy = 0, tx = 0, ty = 0, gRaf = 0, gShown = false, gLast = 0;
+    const glowLoop = (now) => {
+      gRaf = requestAnimationFrame(glowLoop);
+      const g = glowEl();
+      if (!g) return;
+      const t = now || performance.now();
+      const dt = gLast ? Math.min((t - gLast) / 16.667, 3) : 1;
+      gLast = t;
+      const k = 1 - Math.pow(1 - .075, dt);
+      gx += (tx - gx) * k; gy += (ty - gy) * k;
+      g.style.transform = 'translate3d(' + gx.toFixed(2) + 'px,' + gy.toFixed(2) + 'px,0)';
+    };
+    glowLoop();
     const onMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; mouse.inside = true;
+      tx = mouse.x; ty = mouse.y;
+      if (!gShown) {
+        const g = glowEl();
+        if (g) { gShown = true; gx = tx; gy = ty; g.style.opacity = '1'; }
+      }
     };
-    const onLeave = () => { mouse.inside = false; mouse.x = -9999; mouse.y = -9999; };
+    const onLeave = () => {
+      mouse.inside = false; mouse.x = -9999; mouse.y = -9999;
+      const g = glowEl();
+      if (g) g.style.opacity = '0';
+      gShown = false;
+    };
+    const onDown = (e) => {
+      if (e.target.closest('a,button,input,textarea,select')) return;
+      const rect = host.getBoundingClientRect();
+      const r = document.createElement('span');
+      r.setAttribute('aria-hidden', 'true');
+      r.style.cssText = 'position:absolute;left:' + (e.clientX - rect.left) + 'px;top:' + (e.clientY - rect.top) + 'px;width:280px;height:280px;border-radius:999px;border:1px solid var(--c-accent);pointer-events:none;z-index:0;animation:heroRipple 1s cubic-bezier(.16,.84,.24,1) forwards';
+      host.appendChild(r);
+      setTimeout(() => { if (r.parentNode) r.parentNode.removeChild(r); }, 900);
+    };
     host.addEventListener('mousemove', onMove);
     host.addEventListener('mouseleave', onLeave);
+    host.addEventListener('mousedown', onDown);
 
     const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: .02 });
     io.observe(canvas);
@@ -783,8 +859,13 @@ class Component extends DCLogic {
             ctx.lineWidth = .8; ctx.stroke();
           }
         }
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = fillFor(p.type, p.alpha, dark); ctx.fill();
+        let wake = 0;
+        if (mouse.inside) {
+          const wdx = mouse.x - p.x, wdy = mouse.y - p.y, wd = Math.sqrt(wdx * wdx + wdy * wdy);
+          if (wd < 200) wake = 1 - wd / 200;
+        }
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.radius * (1 + wake * 1.1), 0, Math.PI * 2);
+        ctx.fillStyle = fillFor(p.type, Math.min(1, p.alpha + wake * .55), dark); ctx.fill();
         for (let j = i + 1; j < parts.length; j++) {
           const q = parts[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.sqrt(dx * dx + dy * dy);
           if (d < 95) {
@@ -797,13 +878,15 @@ class Component extends DCLogic {
     };
     render();
     this.stopConstellation = () => {
-      cancelAnimationFrame(raf); io.disconnect(); ro.disconnect();
+      cancelAnimationFrame(raf); cancelAnimationFrame(gRaf); io.disconnect(); ro.disconnect();
       host.removeEventListener('mousemove', onMove);
       host.removeEventListener('mouseleave', onLeave);
+      host.removeEventListener('mousedown', onDown);
     };
   }
 
   startHeroParallax() {
+    if (this.isLite()) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let raf = 0, queued = false;
     const apply = () => {
@@ -844,14 +927,17 @@ class Component extends DCLogic {
     const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
     this.applyTheme(theme);
     this.setState({ theme: theme });
-    this.startConstellation();
-    this.startHeroParallax();
-    this.startCursor();
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
+    idle(() => {
+      this.startConstellation();
+      this.startHeroParallax();
+      this.startCursor();
+    });
     this.startSpotlight();
     this.markTimer = setTimeout(() => this.setState({ markOpen: true }), 850);
     this.shineTimer = setTimeout(() => this.setState({ markShine: true }), 1650);
     this.shineOffTimer = setTimeout(() => this.setState({ markShine: false }), 2900);
-    const HEAD = 'I design products that make complexity feel simple.';
+    const HEAD = 'I Design Products That Make Complexity Feel Simple, With Design And Code.';
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       this.setState({ typed: HEAD, typing: false });
     } else {
@@ -871,7 +957,16 @@ class Component extends DCLogic {
       this.typeLoop = setInterval(runType, LOOP);
     }
 
+    let navTick = false;
     this.onScroll = () => {
+      if (navTick) return;
+      navTick = true;
+      requestAnimationFrame(() => {
+        navTick = false;
+        this.scanNav();
+      });
+    };
+    this.scanNav = () => {
       const ids = ['work', 'about', 'contact'];
       let current = '';
       for (const id of ids) {
@@ -882,18 +977,22 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', this.onScroll, { passive: true });
     document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
-    this.navTimer = setInterval(this.onScroll, 300);
-    this.onScroll();
+    this.scanNav();
 
     this.onResize = () => {
+      clearTimeout(this.resizeTimer);
+      this.resizeTimer = setTimeout(() => this.applyResize(), 120);
+    };
+    this.applyResize = () => {
       if (window.innerWidth !== this.state.vw) {
         this.setState({ vw: window.innerWidth, drawerOpen: window.innerWidth >= 1024 ? false : this.state.drawerOpen });
       }
     };
-    window.addEventListener('resize', this.onResize);
-    this.onResize();
+    window.addEventListener('resize', this.onResize, { passive: true });
+    this.applyResize();
   }
   componentWillUnmount() {
+    this.unmountCursorLayer();
     if (this.stopConstellation) this.stopConstellation();
     clearTimeout(this.cursorRetry);
     clearTimeout(this.caseTimer);
@@ -1050,10 +1149,12 @@ class Component extends DCLogic {
       },
       loaderBarStyle: {
         height: '100%', borderRadius: '999px', background: 'var(--c-accent)',
-        width: s.loading ? '100%' : '0%', transition: 'width 1.05s cubic-bezier(.3,.7,.3,1)'
+        width: s.loading ? '100%' : '0%', transition: 'width .42s cubic-bezier(.3,.7,.3,1)'
       },
       openChatCase: (e) => this.goCase(e, 'Quick Chat', 'quick-chat.html'),
       openCrmCase: (e) => this.goCase(e, 'Quick CRM', 'quick-crm.html'),
+      preChat: () => this.prefetch('quick-chat.html'),
+      preCrm: () => this.prefetch('quick-crm.html'),
       cursorRingRef: this.cursorRingRef, cursorDotRef: this.cursorDotRef, cursorCanvasRef: this.cursorCanvasRef,
       themeIcon: (s.theme === 'dark' ? '☀' : '☾'),
       themeLabel: (s.theme === 'dark' ? 'Light mode' : 'Dark mode'),
@@ -1063,6 +1164,7 @@ class Component extends DCLogic {
         this.setState({ theme: next });
       },
       heroRef: this.heroRef, heroCanvasRef: this.heroCanvasRef, heroContentRef: this.heroContentRef,
+      heroGlowRef: this.heroGlowRef,
       orb1Ref: this.orb1Ref, orb2Ref: this.orb2Ref, orb3Ref: this.orb3Ref,
       isDesktop: isDesktop, isMobile: !isDesktop,
       drawerOpen: s.drawerOpen && !isDesktop,
