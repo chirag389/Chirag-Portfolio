@@ -381,17 +381,13 @@
         <p style="font-size:17px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:42ch;text-wrap:pretty">I'm open to Product Design opportunities and interesting product problems.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="position:relative;padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
-          <a href="mailto:chiragmahajan700@gmail.com" aria-label="Email chiragmahajan700@gmail.com" style="position:absolute;inset:0;z-index:1;border-radius:16px;text-decoration:none"></a>
-          <span style="position:relative;z-index:0;display:flex;flex-direction:column;gap:4px;min-width:0">
+        <a href="mailto:chiragmahajan700@gmail.com" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
+          <span style="display:flex;flex-direction:column;gap:4px">
             <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Email</span>
-            <span style="font-size:14px;font-weight:600;color:var(--c-ink);word-break:break-all">chiragmahajan700@gmail.com</span>
+            <span style="font-size:14px;font-weight:600;color:var(--c-ink)">chiragmahajan700@gmail.com</span>
           </span>
-          <span style="position:relative;z-index:2;display:flex;align-items:center;gap:10px;flex-shrink:0">
-            <button onClick="{{ copyEmail }}" aria-label="Copy email address" style="{{ copyEmailStyle }}" style-hover="border-color:var(--c-accent-line);color:var(--c-accent-text)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-            <span style="font-size:14px;color:var(--c-accent-text)">↗</span>
-          </span>
-        </div>
+          <span style="font-size:14px;color:var(--c-accent-text)">↗</span>
+        </a>
         <a href="https://www.linkedin.com/in/chirag-mahajan-713106228" target="_blank" rel="noopener" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
           <span style="display:flex;flex-direction:column;gap:4px">
             <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">LinkedIn</span>
@@ -509,25 +505,6 @@ class Component extends DCLogic {
   cursorRingRef = React.createRef();
   cursorDotRef = React.createRef();
   cursorCanvasRef = React.createRef();
-
-  copyEmailAddr() {
-    const addr = 'chiragmahajan700@gmail.com';
-    const done = () => {
-      clearTimeout(this.copyTimer);
-      this.setState({ emailCopied: true });
-      this.copyTimer = setTimeout(() => this.setState({ emailCopied: false }), 1800);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(addr).then(done, () => done());
-    } else {
-      const ta = document.createElement('textarea');
-      ta.value = addr; ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); } catch (e) {}
-      document.body.removeChild(ta);
-      done();
-    }
-  }
 
   applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -1015,7 +992,6 @@ class Component extends DCLogic {
     this.applyResize();
   }
   componentWillUnmount() {
-    clearTimeout(this.copyTimer);
     this.unmountCursorLayer();
     if (this.stopConstellation) this.stopConstellation();
     clearTimeout(this.cursorRetry);
@@ -1162,18 +1138,7 @@ class Component extends DCLogic {
     const isDesktop = s.vw >= 1024;
     const gutter = s.vw >= 1280 ? '140px' : s.vw >= 1024 ? '48px' : '24px';
 
-    const copied = !!s.emailCopied;
     return {
-      copyEmail: (e) => { e.preventDefault(); e.stopPropagation(); this.copyEmailAddr(); },
-      copyEmailStyle: {
-        fontSize: '10px', fontFamily: "'JetBrains Mono',monospace", fontWeight: 700,
-        textTransform: 'uppercase', letterSpacing: '.12em', cursor: 'pointer',
-        display: 'inline-flex', alignItems: 'center', gap: '6px',
-        padding: '8px 12px', borderRadius: '999px', background: 'var(--c-surface)',
-        border: '1px solid ' + (copied ? 'var(--c-accent-line)' : 'var(--c-line)'),
-        color: copied ? 'var(--c-accent-text)' : 'var(--c-ink-3)',
-        transition: 'color .18s ease,border-color .18s ease'
-      },
       typedHead: typedHead, caretStyle: caretStyle,
       loaderLabel: s.loaderLabel || '',
       loaderOverlayStyle: {
