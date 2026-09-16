@@ -66,6 +66,8 @@
   @keyframes blobA { 0%,100% { transform:translate(-50%,-50%) scale(1); } 50% { transform:translate(-46%,-54%) scale(1.14); } }
   @keyframes blobB { 0%,100% { transform:translate(0,0) scale(1); opacity:.55; } 50% { transform:translate(60px,40px) scale(1.2); opacity:.85; } }
   @keyframes blobC { 0%,100% { transform:translate(0,0) scale(1.1); opacity:.5; } 50% { transform:translate(-70px,30px) scale(.9); opacity:.8; } }
+  @keyframes notePop { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes tickPop { from { transform:scale(.4); opacity:0; } to { transform:scale(1); opacity:1; } }
   @keyframes heroRipple { from { transform:translate(-50%,-50%) scale(.25); opacity:.5; } to { transform:translate(-50%,-50%) scale(1); opacity:0; } }
   @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; } }
 </style>
@@ -381,13 +383,10 @@
         <p style="font-size:17px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:42ch;text-wrap:pretty">I'm open to Product Design opportunities and interesting product problems.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <a href="mailto:chiragmahajan700@gmail.com" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
-          <span style="display:flex;flex-direction:column;gap:4px">
-            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Email</span>
-            <span style="font-size:14px;font-weight:600;color:var(--c-ink)">chiragmahajan700@gmail.com</span>
-          </span>
-          <span style="font-size:14px;color:var(--c-accent-text)">↗</span>
-        </a>
+        <div style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;flex-direction:column;gap:4px;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
+          <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Email</span>
+          <span style="font-size:14px;font-weight:600;color:var(--c-ink);word-break:break-all;user-select:all;-webkit-user-select:all;cursor:text">chiragmahajan700@gmail.com</span>
+        </div>
         <a href="https://www.linkedin.com/in/chirag-mahajan-713106228" target="_blank" rel="noopener" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
           <span style="display:flex;flex-direction:column;gap:4px">
             <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">LinkedIn</span>
@@ -505,6 +504,10 @@ class Component extends DCLogic {
   cursorRingRef = React.createRef();
   cursorDotRef = React.createRef();
   cursorCanvasRef = React.createRef();
+
+
+
+
 
   applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
