@@ -9,9 +9,15 @@
 <x-dc>
 <helmet>
 <title>Chirag Mahajan — Product Designer</title>
+<meta name="description" content="Product designer working across SaaS, CRM and AI tools. I design products that make complexity feel simple, with design and code.">
+<meta name="theme-color" content="#F8F9FA">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chirag Mahajan — Product Designer">
+<meta property="og:description" content="Product designer working across SaaS, CRM and AI tools. I design products that make complexity feel simple, with design and code.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
   :root {
     --c-bg:#F8F9FA; --c-surface:#FFFFFF; --c-subtle:#F9FAFB; --c-nav:rgba(255,255,255,.92);
@@ -68,16 +74,21 @@
   @keyframes blobC { 0%,100% { transform:translate(0,0) scale(1.1); opacity:.5; } 50% { transform:translate(-70px,30px) scale(.9); opacity:.8; } }
   @keyframes notePop { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
   @keyframes tickPop { from { transform:scale(.4); opacity:0; } to { transform:scale(1); opacity:1; } }
+  @keyframes lampReveal { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:none; } }
+  @keyframes lampSwing { 0%,100% { transform:rotate(-13deg); } 50% { transform:rotate(13deg); } }
+  @keyframes lampFlicker { 0%,100% { opacity:1; } 42% { opacity:.62; } 66% { opacity:.92; } }
   @keyframes heroRipple { from { transform:translate(-50%,-50%) scale(.25); opacity:.5; } to { transform:translate(-50%,-50%) scale(1); opacity:0; } }
-  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; } }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition-duration:.01ms !important; } }
+  :focus-visible { outline:2px solid var(--c-accent); outline-offset:3px; border-radius:6px; }
+  [data-skip]:focus { transform:translateY(0) !important; opacity:1 !important; }
 </style>
-  <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 </helmet>
+<a href="#work" data-skip="" style="position:fixed;top:12px;left:12px;z-index:100;padding:10px 16px;border-radius:10px;background:var(--c-surface);border:1px solid var(--c-accent-line);color:var(--c-ink);font-size:13px;font-weight:600;transform:translateY(-200%);opacity:0;transition:transform .16s ease,opacity .16s ease">Skip to content</a>
 
 <header style="position:fixed;top:0;left:0;right:0;z-index:40;padding:14px 0;background:var(--c-nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--c-line)">
   <div style="max-width:1280px;margin:0 auto;padding:0 clamp(24px,6vw,140px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
     <a href="#top" style="display:flex;align-items:center;gap:11px;text-decoration:none">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--c-subtle);border:1px solid var(--c-line);flex-shrink:0"><svg width="30" height="22" viewBox="0 0 34 24" fill="none" aria-hidden="true" onMouseEnter="{{ lampOn }}" onMouseLeave="{{ lampOff }}" style="{{ lampStyle }}"><circle cx="5.2" cy="7" r="6" fill="#F59E0B" style="{{ lampGlowStyle }}"></circle><g style="{{ lampFlameScale }}"><g style="{{ lampFlameStyle }}"><path d="M5.2 3.2c1.8 1.9 2.6 3.2 2.6 4.5 0 1.5-1.16 2.6-2.6 2.6S2.6 9.2 2.6 7.7c0-1.3.8-2.6 2.6-4.5z" fill="#F59E0B"></path><path d="M5.2 6.1c.86.95 1.2 1.6 1.2 2.2 0 .72-.54 1.25-1.2 1.25S4 9.02 4 8.3c0-.6.34-1.25 1.2-2.2z" fill="#FDE68A"></path></g></g><sc-if value="{{ lampHot }}" hint-placeholder-val="{{ false }}"><g fill="var(--c-ink-4)"><circle cx="5.2" cy="1.8" r="1.5" style="transform-origin:5.2px 1.8px;animation:smoke 1.5s ease-out infinite"></circle><circle cx="6.4" cy="2.4" r="1.1" style="transform-origin:6.4px 2.4px;animation:smoke 1.5s ease-out .5s infinite"></circle><circle cx="4.2" cy="2.2" r="0.9" style="transform-origin:4.2px 2.2px;animation:smoke 1.5s ease-out .95s infinite"></circle></g></sc-if><path d="M10.6 14.6 4.2 9.4l1.5-1.9 6.6 4.7z" fill="#6B6B74"></path><path d="M26.4 14.6c3.4-.4 4.4 4.6.6 5.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path><rect x="15.8" y="10.2" width="3.6" height="2.6" rx="1.1" fill="#9A9AA3"></rect><path d="M8.6 12.6h18.2c0 4-4.1 6.4-9.1 6.4s-9.1-2.4-9.1-6.4z" fill="#8E8E97"></path><path d="M10.7 13.5h12.4c-.5 1.1-1.7 1.9-3.2 2.3-2.6.7-6.1.5-7.9-.5-.7-.4-1.1-1-1.3-1.8z" fill="#FFFFFF" opacity=".55"></path><path d="M12.6 17.9c1.3.8 3.2 1.1 5.1 1.1 1.9 0 3.7-.4 5-1.2-1.3 1.4-3.1 2.2-5 2.2s-3.8-.7-5.1-2.1z" fill="#3F3F46" opacity=".45"></path><path d="M12.4 20.4h10.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--c-subtle);border:1px solid var(--c-line);flex-shrink:0"><svg width="30" height="22" viewBox="0 0 34 24" fill="none" aria-hidden="true" onMouseEnter="{{ lampOn }}" onMouseLeave="{{ lampOff }}" style="{{ lampStyle }}"><circle cx="5.2" cy="7" r="6" fill="#60A5FA" style="{{ lampGlowStyle }}"></circle><g style="{{ lampFlameScale }}"><g style="{{ lampFlameStyle }}"><path d="M5.2 3.2c1.8 1.9 2.6 3.2 2.6 4.5 0 1.5-1.16 2.6-2.6 2.6S2.6 9.2 2.6 7.7c0-1.3.8-2.6 2.6-4.5z" fill="#3B82F6"></path><path d="M5.2 6.1c.86.95 1.2 1.6 1.2 2.2 0 .72-.54 1.25-1.2 1.25S4 9.02 4 8.3c0-.6.34-1.25 1.2-2.2z" fill="#BFDBFE"></path></g></g><sc-if value="{{ lampHot }}" hint-placeholder-val="{{ false }}"><g fill="var(--c-ink-4)"><circle cx="5.2" cy="1.8" r="1.5" style="transform-origin:5.2px 1.8px;animation:smoke 1.5s ease-out infinite"></circle><circle cx="6.4" cy="2.4" r="1.1" style="transform-origin:6.4px 2.4px;animation:smoke 1.5s ease-out .5s infinite"></circle><circle cx="4.2" cy="2.2" r="0.9" style="transform-origin:4.2px 2.2px;animation:smoke 1.5s ease-out .95s infinite"></circle></g></sc-if><path d="M10.6 14.6 4.2 9.4l1.5-1.9 6.6 4.7z" fill="#6B6B74"></path><path d="M26.4 14.6c3.4-.4 4.4 4.6.6 5.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path><rect x="15.8" y="10.2" width="3.6" height="2.6" rx="1.1" fill="#9A9AA3"></rect><path d="M8.6 12.6h18.2c0 4-4.1 6.4-9.1 6.4s-9.1-2.4-9.1-6.4z" fill="#8E8E97"></path><path d="M10.7 13.5h12.4c-.5 1.1-1.7 1.9-3.2 2.3-2.6.7-6.1.5-7.9-.5-.7-.4-1.1-1-1.3-1.8z" fill="#FFFFFF" opacity=".55"></path><path d="M12.6 17.9c1.3.8 3.2 1.1 5.1 1.1 1.9 0 3.7-.4 5-1.2-1.3 1.4-3.1 2.2-5 2.2s-3.8-.7-5.1-2.1z" fill="#3F3F46" opacity=".45"></path><path d="M12.4 20.4h10.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
       <span style="position:relative;display:inline-block;font-size:18px;font-weight:800;color:var(--c-mark-2);letter-spacing:-.025em;white-space:nowrap;overflow:hidden;transition:letter-spacing .35s cubic-bezier(.2,.8,.2,1)" style-hover="letter-spacing:.01em"><span ref="{{ markWordRef }}" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease"><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">C</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">h</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">i</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">r</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">a</span><span data-ltr="1" style="display:inline-block;transition:color .3s ease,text-shadow .3s ease,transform .3s ease,opacity .25s ease">g</span></span></span>
     </a>
 
@@ -123,7 +134,7 @@
     <div ref="{{ orb3Ref }}" data-r="orb" style="position:absolute;bottom:-8%;right:4%;width:460px;height:340px;background:rgba(45,212,191,.13);border-radius:999px;filter:blur(130px);pointer-events:none;animation:blobC 26s ease-in-out infinite"></div>
     <div ref="{{ heroContentRef }}" style="position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 clamp(24px,6vw,48px);display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
       <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);color:var(--c-accent-text);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;animation:heroRise .7s cubic-bezier(.2,.7,.2,1) both .05s">Product Designer</div>
-      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(36px,5.6vw,64px);font-weight:800;color:var(--c-ink);letter-spacing:-.015em;line-height:1.04;margin:0;max-width:24ch;text-wrap:pretty;min-height:2.1em">{{ typedHead }}<span style="{{ caretStyle }}"></span></h1>
+      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(36px,5.6vw,64px);font-weight:800;color:var(--c-ink);letter-spacing:-.015em;line-height:1.04;margin:0;max-width:24ch;text-wrap:pretty;">I Design Products That Make Complexity Feel Simple, With Design And Code.</h1>
       <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s;font-size:19px;color:var(--c-ink-3);line-height:1.7;margin:-6px 0 0;max-width:64ch;text-wrap:pretty">I’m Chirag Mahajan, a Product Designer with 3+ years of experience designing digital products across different industries and problem spaces. I work across UX, UI, product thinking, and design systems, and I also know how to code, which helps me prototype ideas and collaborate closely with engineering.</p>
       <div style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .44s;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding-top:4px">
         <a href="#work" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--c-ink);color:var(--c-surface);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;box-shadow:0 12px 30px rgba(24,24,27,.12);text-decoration:none">View my work ↓</a>
@@ -142,11 +153,10 @@
       </div>
 
       <div style="display:flex;flex-direction:column;gap:56px">
-        <article style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line)">
-          <a href="quick-chat.html" onClick="{{ openChatCase }}" onMouseEnter="{{ preChat }}" aria-label="Open the Quick Chat case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
+        <article onClick="{{ openChatCase }}" onMouseEnter="{{ preChat }}" style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line);cursor:pointer">
           <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;max-width:70ch">
             <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">01 — Quick Chat</span>
-            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">Designing a unified communication experience.</h3>
+            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty"><a href="quick-chat.html" onClick="{{ openChatCase }}" style="color:inherit;text-decoration:none">Designing a unified communication experience.</a></h3>
             <p style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em;margin:0">Product Design · Communication · Automation</p>
           </div>
           <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
@@ -175,11 +185,10 @@
           </div>
 </article>
 
-        <article style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line)">
-          <a href="quick-crm.html" onClick="{{ openCrmCase }}" onMouseEnter="{{ preCrm }}" aria-label="Open the Quick CRM case study" style="position:absolute;inset:0;z-index:2;border-radius:16px;outline-offset:4px"></a>
+        <article onClick="{{ openCrmCase }}" onMouseEnter="{{ preCrm }}" style="position:relative;display:flex;flex-direction:column;gap:24px;padding-top:40px;border-top:1px solid var(--c-line);cursor:pointer">
           <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;max-width:70ch">
             <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">02 — Quick CRM</span>
-            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty">From scattered contact records to a reusable customer system.</h3>
+            <h3 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.025em;line-height:1.2;margin:0;text-wrap:pretty"><a href="quick-crm.html" onClick="{{ openCrmCase }}" style="color:inherit;text-decoration:none">From scattered contact records to a reusable customer system.</a></h3>
             <p style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em;margin:0">Product Design · 0→1 · Customer Systems</p>
           </div>
           <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
@@ -383,9 +392,19 @@
         <p style="font-size:17px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:42ch;text-wrap:pretty">I'm open to Product Design opportunities and interesting product problems.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;flex-direction:column;gap:4px;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
-          <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Email</span>
-          <span style="font-size:14px;font-weight:600;color:var(--c-ink);word-break:break-all;user-select:all;-webkit-user-select:all;cursor:text">chiragmahajan700@gmail.com</span>
+        <div style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
+          <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Email</span>
+            <span style="font-size:14px;font-weight:600;color:var(--c-ink);word-break:break-all;user-select:all;-webkit-user-select:all;cursor:text">chiragmahajan700@gmail.com</span>
+          </span>
+          <button type="button" onClick="{{ copyEmail }}" aria-label="Copy email address" title="{{ emailCopyLabel }}" style="flex:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-ink-3);cursor:pointer;transition:color .18s ease,border-color .18s ease,background .18s ease" style-hover="color:var(--c-ink);border-color:var(--c-accent-line)">
+            <sc-if value="{{ emailCopied }}" hint-placeholder-val="{{ false }}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </sc-if>
+            <sc-if value="{{ emailNotCopied }}" hint-placeholder-val="{{ true }}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
+            </sc-if>
+          </button>
         </div>
         <a href="https://www.linkedin.com/in/chirag-mahajan-713106228" target="_blank" rel="noopener" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
           <span style="display:flex;flex-direction:column;gap:4px">
@@ -441,13 +460,13 @@
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <a href="assets/Chirag-Mahajan-Resume.pdf" download="Chirag Mahajan Ux Designer CV.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-2);background:var(--c-subtle);border-radius:999px;border:1px solid var(--c-line);text-decoration:none"><span style="color:var(--c-accent)">⇩</span><span>Save as PDF</span></a>
+          <a href="assets/Chirag Mahajan - Resume.pdf" download="Chirag Mahajan Ux Designer CV.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-2);background:var(--c-subtle);border-radius:999px;border:1px solid var(--c-line);text-decoration:none"><span style="color:var(--c-accent)">⇩</span><span>Save as PDF</span></a>
           <button onClick="{{ closeModals }}" style="padding:6px 10px;color:var(--c-ink-5);background:none;border:none;border-radius:8px;cursor:pointer;font-size:14px">✕</button>
         </div>
       </div>
       <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
-        <iframe src="assets/Chirag-Mahajan-Resume.pdf#view=FitH" title="Chirag Mahajan resume" style="width:100%;height:min(78vh,1000px);border:1px solid var(--c-line);border-radius:12px;background:var(--c-subtle)"></iframe>
-        <p style="font-size:12px;color:var(--c-ink-4);line-height:1.6;margin:0">If the preview does not load, <a href="assets/Chirag-Mahajan-Resume.pdf" target="_blank" rel="noopener" style="color:var(--c-accent-text);font-weight:600">open the resume in a new tab</a>.</p>
+        <iframe src="assets/Chirag Mahajan - Resume.pdf#view=FitH" title="Chirag Mahajan resume" style="width:100%;height:min(78vh,1000px);border:1px solid var(--c-line);border-radius:12px;background:var(--c-subtle)"></iframe>
+        <p style="font-size:12px;color:var(--c-ink-4);line-height:1.6;margin:0">If the preview does not load, <a href="assets/Chirag Mahajan - Resume.pdf" target="_blank" rel="noopener" style="color:var(--c-accent-text);font-weight:600">open the resume in a new tab</a>.</p>
       </div>
     </div>
   </div>
@@ -455,11 +474,14 @@
 
 
 <div style="{{ loaderOverlayStyle }}" aria-live="polite">
-  <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
-    <div style="position:relative;width:64px;height:64px">
-      <div style="position:absolute;inset:0;border-radius:999px;border:2px solid var(--c-line);"></div>
-      <div style="position:absolute;inset:0;border-radius:999px;border:2px solid transparent;border-top-color:var(--c-accent);animation:spin .85s linear infinite"></div>
-      <div style="position:absolute;inset:14px;border-radius:999px;background:var(--c-accent);opacity:.14;animation:glowpulse 1.4s ease-in-out infinite"></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:22px;animation:lampReveal .3s ease both .22s">
+    <div style="position:relative;width:132px;height:150px;display:flex;justify-content:center" aria-hidden="true">
+      <div style="position:absolute;top:0;transform-origin:50% 0;animation:lampSwing 2.6s cubic-bezier(.45,0,.55,1) infinite;display:flex;flex-direction:column;align-items:center">
+        <div style="width:2px;height:40px;background:var(--c-line-2)"></div>
+        <div style="width:54px;height:30px;background:var(--c-accent);clip-path:polygon(28% 0,72% 0,100% 100%,0 100%);box-shadow:0 8px 24px rgba(79,70,229,.32)"></div>
+        <div style="width:12px;height:12px;border-radius:999px;background:#FFF7D6;box-shadow:0 0 14px 5px rgba(255,214,102,.75);margin-top:-3px;animation:lampFlicker 1.9s ease-in-out infinite"></div>
+        <div style="width:96px;height:96px;margin-top:-8px;background:linear-gradient(to bottom,rgba(255,214,102,.32),rgba(255,214,102,0));clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);animation:lampFlicker 1.9s ease-in-out infinite"></div>
+      </div>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
       <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.16em">{{ loaderLabel }}</span>
@@ -476,10 +498,10 @@
 const EST_DELS = ['Figma Variables & Components', 'Interactive React/Motion Prototype', 'WCAG AAA Compliance Audit', 'Design Token Dictionaries (JSON/CSS)', 'Cognitive Walkthrough & Usability Testing', 'Developer Handoff Documentation'];
 
 const MONO = "'JetBrains Mono', monospace";
-const EMAIL = 'your.email@example.com';
+const EMAIL = 'chiragmahajan700@gmail.com';
 
 class Component extends DCLogic {
-  state = { theme: 'light', activeNav: '', typed: '', typing: true,
+  state = { theme: 'light', activeNav: '',
     scrolled: false, active: 'work',
     skillsTab: null, dsTab: 'tokens',
     baseFont: 16, ratio: 1.25, copied: false,
@@ -527,7 +549,7 @@ class Component extends DCLogic {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
     e.preventDefault();
     this.setState({ loading: true, loaderLabel: label });
-    this.caseTimer = setTimeout(() => { window.location.href = href; }, 380);
+    this.caseTimer = setTimeout(() => { window.location.href = href; }, 210);
   }
 
   mountCursorLayer() {
@@ -548,7 +570,7 @@ class Component extends DCLogic {
 
   startCursor() {
     if (this.props.customCursor === false) { this.unmountCursorLayer(); return; }
-    if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+    if (window.matchMedia && (window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches)) { this.unmountCursorLayer(); return; }
     this.mountCursorLayer();
     clearTimeout(this.cursorRetry);
     if (this.stopCursor) { this.stopCursor(); this.stopCursor = null; }
@@ -617,22 +639,28 @@ class Component extends DCLogic {
       ring.style.background = hovered ? 'rgba(99,102,241,.08)' : 'transparent';
       dot.style.transform = 'scale(' + (down ? .6 : hovered ? 1.5 : 1) + ')';
     };
+    let cleared = false;
     const loop = () => {
-      raf = requestAnimationFrame(loop);
       rx += (mx - rx) * .22; ry += (my - ry) * .22;
       ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
       dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-      drawSparks();
+      if (parts.length) { drawSparks(); cleared = false; }
+      else if (!cleared && ctx) { ctx.clearRect(0, 0, cvs.width / dpr, cvs.height / dpr); cleared = true; }
+      // idle: nothing to animate until the pointer moves again
+      if (!parts.length && Math.abs(mx - rx) < .15 && Math.abs(my - ry) < .15) { raf = 0; return; }
+      raf = requestAnimationFrame(loop);
     };
+    const wake = () => { if (!raf) raf = requestAnimationFrame(loop); };
     const onMove = (e) => {
       mx = e.clientX; my = e.clientY;
+      wake();
       if (!shown) { shown = true; ring.style.opacity = '1'; dot.style.opacity = '1'; rx = mx; ry = my; }
       if (Math.hypot(mx - lastSx, my - lastSy) >= 12) { lastSx = mx; lastSy = my; spawn(mx, my, Math.random() < .6 ? 1 : 2, false); }
       const el = e.target && e.target.closest ? e.target.closest('a,button,[role="button"],input,textarea,select,[data-spot]') : null;
       const h = !!el;
       if (h !== hovered) { hovered = h; setRing(); }
     };
-    const onDown = (e) => { down = true; setRing(); spawn(e.clientX, e.clientY, 8, true); };
+    const onDown = (e) => { down = true; setRing(); spawn(e.clientX, e.clientY, 8, true); wake(); };
     const onUp = () => { down = false; setRing(); };
     const onOut = () => { shown = false; ring.style.opacity = '0'; dot.style.opacity = '0'; };
     window.addEventListener('mousemove', onMove, { passive: true });
@@ -791,21 +819,25 @@ class Component extends DCLogic {
     const glowEl = () => this.heroGlowRef.current || host.querySelector('[data-hero-glow]');
     let gx = 0, gy = 0, tx = 0, ty = 0, gRaf = 0, gShown = false, gLast = 0;
     const glowLoop = (now) => {
-      gRaf = requestAnimationFrame(glowLoop);
       const g = glowEl();
-      if (!g) return;
+      if (!g) { gRaf = requestAnimationFrame(glowLoop); return; }
       const t = now || performance.now();
       const dt = gLast ? Math.min((t - gLast) / 16.667, 3) : 1;
       gLast = t;
       const k = 1 - Math.pow(1 - .075, dt);
       gx += (tx - gx) * k; gy += (ty - gy) * k;
       g.style.transform = 'translate3d(' + gx.toFixed(2) + 'px,' + gy.toFixed(2) + 'px,0)';
+      // park the loop once the glow has settled on the cursor; onMove wakes it
+      if (Math.abs(tx - gx) < .1 && Math.abs(ty - gy) < .1) { gRaf = 0; gLast = 0; return; }
+      gRaf = requestAnimationFrame(glowLoop);
     };
+    const wakeGlow = () => { if (!gRaf) { gLast = 0; gRaf = requestAnimationFrame(glowLoop); } };
     glowLoop();
     const onMove = (e) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; mouse.inside = true;
       tx = mouse.x; ty = mouse.y;
+      wakeGlow();
       if (!gShown) {
         const g = glowEl();
         if (g) { gShown = true; gx = tx; gy = ty; g.style.opacity = '1'; }
@@ -830,7 +862,12 @@ class Component extends DCLogic {
     host.addEventListener('mouseleave', onLeave);
     host.addEventListener('mousedown', onDown);
 
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: .02 });
+    // stop the frame loop outright when the hero scrolls away, restart on re-entry
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible) { if (!raf) raf = requestAnimationFrame(render); }
+      else if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    }, { threshold: .02 });
     io.observe(canvas);
     size();
     const ro = new ResizeObserver(() => size());
@@ -841,39 +878,39 @@ class Component extends DCLogic {
       ? (t === 'indigo' ? 'rgba(165,180,252,' + a + ')' : t === 'teal' ? 'rgba(125,211,252,' + (a * .9) + ')' : 'rgba(228,228,231,' + (a * .6) + ')')
       : (t === 'indigo' ? 'rgba(79,70,229,' + (a * .85) + ')' : t === 'teal' ? 'rgba(13,148,136,' + (a * .7) + ')' : 'rgba(82,82,91,' + (a * .45) + ')');
 
+    const LINK2 = 95 * 95, PULL2 = 140 * 140, WAKE2 = 200 * 200;
     const render = () => {
       raf = requestAnimationFrame(render);
       if (!visible || !w) return;
       ctx.clearRect(0, 0, w, h);
       const dark = isDark();
       const lineRGB = dark ? '147,197,253' : '99,102,241';
-      for (let i = 0; i < parts.length; i++) {
+      const linkA = dark ? .18 : .12, pullA = dark ? .35 : .25;
+      const n = parts.length;
+      for (let i = 0; i < n; i++) {
         const p = parts[i];
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0) { p.x = 0; p.vx *= -1; } else if (p.x > w) { p.x = w; p.vx *= -1; }
         if (p.y < 0) { p.y = 0; p.vy *= -1; } else if (p.y > h) { p.y = h; p.vy *= -1; }
-        if (mouse.inside) {
-          const dx = mouse.x - p.x, dy = mouse.y - p.y, d = Math.sqrt(dx * dx + dy * dy), max = 140;
-          if (d < max && d > 0) {
-            const f = (1 - d / max) * 1.5;
-            p.x -= (dx / d) * f; p.y -= (dy / d) * f;
-            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - d / max) * (dark ? .35 : .25)) + ')';
-            ctx.lineWidth = .8; ctx.stroke();
-          }
-        }
         let wake = 0;
         if (mouse.inside) {
-          const wdx = mouse.x - p.x, wdy = mouse.y - p.y, wd = Math.sqrt(wdx * wdx + wdy * wdy);
-          if (wd < 200) wake = 1 - wd / 200;
+          const dx = mouse.x - p.x, dy = mouse.y - p.y, d2 = dx * dx + dy * dy;
+          if (d2 < PULL2 && d2 > 0) {
+            const d = Math.sqrt(d2), f = (1 - d / 140) * 1.5;
+            p.x -= (dx / d) * f; p.y -= (dy / d) * f;
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - d / 140) * pullA) + ')';
+            ctx.lineWidth = .8; ctx.stroke();
+          }
+          if (d2 < WAKE2) wake = 1 - Math.sqrt(d2) / 200;
         }
         ctx.beginPath(); ctx.arc(p.x, p.y, p.radius * (1 + wake * 1.1), 0, Math.PI * 2);
         ctx.fillStyle = fillFor(p.type, Math.min(1, p.alpha + wake * .55), dark); ctx.fill();
-        for (let j = i + 1; j < parts.length; j++) {
-          const q = parts[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 95) {
+        for (let j = i + 1; j < n; j++) {
+          const q = parts[j], dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
+          if (d2 < LINK2) {
             ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - d / 95) * (dark ? .18 : .12)) + ')';
+            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - Math.sqrt(d2) / 95) * linkA) + ')';
             ctx.lineWidth = .6; ctx.stroke();
           }
         }
@@ -928,6 +965,7 @@ class Component extends DCLogic {
     let saved = null;
     try { saved = localStorage.getItem('cm-portfolio-theme'); } catch (e) {}
     const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+    document.documentElement.lang = 'en';
     this.applyTheme(theme);
     this.setState({ theme: theme });
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
@@ -940,25 +978,6 @@ class Component extends DCLogic {
     this.markTimer = setTimeout(() => this.setState({ markOpen: true }), 850);
     this.shineTimer = setTimeout(() => this.setState({ markShine: true }), 1650);
     this.shineOffTimer = setTimeout(() => this.setState({ markShine: false }), 2900);
-    const HEAD = 'I Design Products That Make Complexity Feel Simple, With Design And Code.';
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      this.setState({ typed: HEAD, typing: false });
-    } else {
-      const CPS = 18, LOOP = 30000;
-      const runType = () => {
-        const start = Date.now() + 260;
-        let shown = -1;
-        this.setState({ typed: '', typing: true });
-        clearInterval(this.typeTimer);
-        this.typeTimer = setInterval(() => {
-          const n = Math.min(HEAD.length, Math.max(0, Math.round((Date.now() - start) / 1000 * CPS)));
-          if (n !== shown) { shown = n; this.setState({ typed: HEAD.slice(0, n) }); }
-          if (n >= HEAD.length) { clearInterval(this.typeTimer); this.setState({ typing: false }); }
-        }, 1000 / 60);
-      };
-      runType();
-      this.typeLoop = setInterval(runType, LOOP);
-    }
 
     let navTick = false;
     this.onScroll = () => {
@@ -1002,7 +1021,6 @@ class Component extends DCLogic {
     if (this.stopCursor) this.stopCursor();
     if (this.stopSpotlight) this.stopSpotlight();
     (this.burnTimers || []).forEach(clearTimeout);
-    clearInterval(this.typeLoop);
     clearTimeout(this.markTimer); clearTimeout(this.shineTimer); clearTimeout(this.shineOffTimer);
     if (this.stopHeroParallax) this.stopHeroParallax();
     window.removeEventListener('resize', this.onResize);
@@ -1112,8 +1130,6 @@ class Component extends DCLogic {
     const s = this.state;
     const markReveal = { display: 'inline-block', overflow: 'hidden', whiteSpace: 'nowrap', verticalAlign: 'bottom', transition: 'max-width .62s cubic-bezier(.2,.8,.2,1), opacity .5s ease .08s', maxWidth: s.markOpen ? '6em' : '0em', opacity: s.markOpen ? 1 : 0 };
     const set = (patch) => () => this.setState(patch);
-    const typedHead = s.typed;
-    const caretStyle = { display: 'inline-block', width: '3px', height: '.9em', marginLeft: '.06em', verticalAlign: '-.06em', background: 'var(--c-accent)', borderRadius: '2px', animation: s.typing ? 'caretBlink 1s steps(1) infinite' : 'none', opacity: s.typing ? 1 : 0, transition: 'opacity .4s .6s' };
     const skillsTab = s.skillsTab || this.props.skillsDefaultTab || 'Key UX/UI Skills';
     const tab = skillsTab === 'Tool Proficiency' ? 'tools' : skillsTab === 'Domain Matrix' ? 'matrix' : 'skills';
 
@@ -1142,17 +1158,16 @@ class Component extends DCLogic {
     const gutter = s.vw >= 1280 ? '140px' : s.vw >= 1024 ? '48px' : '24px';
 
     return {
-      typedHead: typedHead, caretStyle: caretStyle,
       loaderLabel: s.loaderLabel || '',
       loaderOverlayStyle: {
         position: 'fixed', inset: 0, zIndex: 9997, display: 'flex', alignItems: 'center', justifyContent: 'center',
         background: 'var(--c-bg)', opacity: s.loading ? 1 : 0,
         pointerEvents: s.loading ? 'auto' : 'none',
-        transition: 'opacity .28s ease'
+        transition: 'opacity .2s cubic-bezier(.4,0,.2,1)', willChange: 'opacity', contain: 'strict'
       },
       loaderBarStyle: {
         height: '100%', borderRadius: '999px', background: 'var(--c-accent)',
-        width: s.loading ? '100%' : '0%', transition: 'width .42s cubic-bezier(.3,.7,.3,1)'
+        width: s.loading ? '100%' : '0%', transition: 'width .6s cubic-bezier(.2,.8,.2,1)'
       },
       openChatCase: (e) => this.goCase(e, 'Quick Chat', 'quick-chat.html'),
       openCrmCase: (e) => this.goCase(e, 'Quick CRM', 'quick-crm.html'),
@@ -1180,7 +1195,7 @@ class Component extends DCLogic {
       lampOff: () => { this.setState({ lampHot: false }); this.resetBurn(); },
       markWordStyle: { display: 'inline-block', transition: 'transform .3s cubic-bezier(.2,.8,.2,1), opacity .3s ease, filter .3s ease' },
       markWordRef: this.markWordRef,
-      lampStyle: { flexShrink: 0, overflow: 'visible', cursor: 'pointer', transformOrigin: '17px 18px', transition: 'transform .4s cubic-bezier(.2,.8,.2,1), filter .4s ease', filter: s.lampHot ? 'drop-shadow(0 2px 10px rgba(245,158,11,.6))' : 'drop-shadow(0 1px 5px rgba(245,158,11,.38))', transformOrigin: '17px 18px', transform: s.lampHot ? 'rotate(26deg) translate(3px,-2px)' : 'rotate(0deg) translate(0,0)', animation: 'none' },
+      lampStyle: { flexShrink: 0, overflow: 'visible', cursor: 'pointer', transformOrigin: '17px 18px', transition: 'transform .4s cubic-bezier(.2,.8,.2,1), filter .4s ease', filter: s.lampHot ? 'drop-shadow(0 2px 10px rgba(59,130,246,.6))' : 'drop-shadow(0 1px 5px rgba(59,130,246,.38))', transformOrigin: '17px 18px', transform: s.lampHot ? 'rotate(26deg) translate(3px,-2px)' : 'rotate(0deg) translate(0,0)', animation: 'none' },
       lampGlowStyle: { transformOrigin: '5.2px 7px', transition: 'opacity .3s ease', opacity: s.lampHot ? .6 : .38, animation: s.lampHot ? 'glowpulse .9s ease-in-out infinite' : 'glowpulse 2.6s ease-in-out infinite' },
       lampFlameScale: { transformOrigin: '5.2px 9.5px', transition: 'transform .35s cubic-bezier(.2,.8,.2,1)', transform: s.lampHot ? 'scale(2.3)' : 'scale(1)' },
       lampFlameStyle: { transformOrigin: '5.2px 9.5px', animation: s.lampHot ? 'flicker .5s ease-in-out infinite' : 'flicker 1.5s ease-in-out infinite' },
@@ -1276,12 +1291,32 @@ class Component extends DCLogic {
 
 
 
+      emailCopied: s.emailCopied, emailNotCopied: !s.emailCopied,
       emailCopyLabel: s.emailCopied ? 'Copied' : 'Copy',
       resumeEmailLabel: s.emailCopied ? 'Email Copied!' : EMAIL,
       copyEmail: () => {
-        if (navigator.clipboard) navigator.clipboard.writeText(EMAIL);
-        this.setState({ emailCopied: true });
-        setTimeout(() => this.setState({ emailCopied: false }), 2000);
+        const done = () => {
+          this.setState({ emailCopied: true });
+          clearTimeout(this._copyT);
+          this._copyT = setTimeout(() => this.setState({ emailCopied: false }), 2000);
+        };
+        const fallback = () => {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = EMAIL;
+            ta.setAttribute('readonly', '');
+            ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+            document.body.appendChild(ta);
+            ta.select();
+            ta.setSelectionRange(0, EMAIL.length);
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          } catch (e) {}
+          done();
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(EMAIL).then(done, fallback);
+        } else fallback();
       },
       bookSlot: () => this.setState({ form: Object.assign({}, s.form, { message: "Hi Chirag! Let's schedule a 20-min product design intro chat." }) }),
 
