@@ -3,22 +3,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./analytics.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <title>Quick CRM — From scattered contact tables to a reusable customer system</title>
-
-
-
-
-
-
+<meta name="description" content="Case study: turning scattered contact tables into a reusable customer system for Quick CRM.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quick CRM — From scattered contact tables to a reusable customer system">
+<meta property="og:description" content="Case study: turning scattered contact tables into a reusable customer system for Quick CRM.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
   html { scroll-behavior: smooth; }
+
+  @media (max-width: 900px) {
+    [data-r="shell"] { grid-template-columns: minmax(0,1fr) !important; gap: 28px !important; }
+    [data-r="shell"] > aside { display: none; }
+    [data-r="row"] { grid-template-columns: minmax(0,1fr) !important; gap: 8px !important; }
+    [data-screen-label], header > div { padding-left: 20px !important; padding-right: 20px !important; }
+  }
+  @media (max-width: 900px) { body { overflow-x: hidden; } img { max-width: 100%; height: auto; } }
+
   body { margin:0; background:#fff; color:#18181B; font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
   a { color:#067040; text-decoration:none; }
@@ -28,6 +38,10 @@
   img { display:block; }
   ::selection { background:#0BA861; color:#fff; }
 button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:none !important}
+
+html{background:#fff}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition-duration:.01ms !important}}
+:focus-visible{outline:2px solid #0BA861;outline-offset:3px;border-radius:6px}
 </style>
 </helmet>
 
@@ -53,7 +67,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
       <span style="font-size:12px;font-family:'JetBrains Mono',monospace;padding:4px 12px;border-radius:999px;background:#F3F4F6;color:#3F3F46;border:1px solid #E5E7EB">Quick Hub</span>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
-      <span style="display:flex;align-items:center;gap:10px;font-size:24px;font-weight:700;letter-spacing:-.02em;color:#18181B"><img src="assets/logo-quick-crm.png" alt="Quick CRM logo" style="width:40px;height:40px;display:block;flex:0 0 auto">Quick CRM</span>
+      <span style="display:flex;align-items:center;gap:10px;font-size:24px;font-weight:700;letter-spacing:-.02em;color:#18181B"><img decoding="async" src="assets/logo-quick-crm.webp" alt="Quick CRM logo" style="width:40px;height:40px;display:block;flex:0 0 auto">Quick CRM</span>
       <h1 style="font-size:60px;font-weight:800;letter-spacing:-.035em;line-height:1.08;max-width:22ch;text-wrap:pretty">From scattered contact tables to a reusable customer system</h1>
     </div>
     <p style="max-width:64ch;font-size:16px;color:#52525B;line-height:1.7">A centralized CRM designed to help businesses manage customers, understand their relationship with the business, and reuse customer data across Quick Hub.</p>
@@ -66,12 +80,12 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
       </sc-for>
     </div>
     <div style="position:relative;margin-top:8px;border-radius:16px;overflow:hidden;background:#18181B;border:1px solid #E5E7EB;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)">
-      <img src="assets/qcrm-cs/img09.png" alt="The Quick CRM dashboard: contact and tag counts, follow-ups due today, an upcoming follow-up table and source distribution" style="width:100%;height:auto;object-fit:cover;opacity:.92">
+      <img decoding="async" src="assets/qcrm-cs/img09.webp" alt="The Quick CRM dashboard: contact and tag counts, follow-ups due today, an upcoming follow-up table and source distribution" style="width:100%;height:auto;object-fit:cover;opacity:.92">
       <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,11,.70),transparent 55%)"></div>
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:48px;padding-top:56px">
+  <div data-r="shell" style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:48px;padding-top:56px">
     <aside>
       <div style="position:sticky;top:96px;display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB">
         <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:#71717A;border-bottom:1px solid #E5E7EB;padding-bottom:10px"><span>Case Study Index</span></div>
@@ -166,7 +180,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
           <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#71717A;text-transform:uppercase;letter-spacing:.1em">What this helped me define</span>
           <div style="display:flex;flex-direction:column;border-top:1px solid #E5E7EB">
             <sc-for list="{{ learnings }}" as="ln" hint-placeholder-count="3">
-              <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:24px;padding:20px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
+              <div data-r="row" style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:24px;padding:20px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
                 <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em">{{ ln.label }}</span>
                 <p style="font-size:16px;color:#3F3F46;line-height:1.7">{{ ln.body }}</p>
               </div>
@@ -193,7 +207,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
             </sc-for>
           </div>
           <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
-            <img src="assets/qcrm-cs/img09.png" alt="The Quick CRM dashboard with contact and tag counts, follow-ups and source distribution" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img09.webp" alt="The Quick CRM dashboard with contact and tag counts, follow-ups and source distribution" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
             <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">Follow-ups sit on the overview rather than only inside each record, because that is the work with a date attached to it.</figcaption>
           </figure>
         </div>
@@ -205,12 +219,12 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
           </div>
           <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.45;max-width:52ch;color:#18181B;text-wrap:pretty">A basic contact table answers "Can I find this customer?" A CRM should also help users organize groups of customers and take action on them.</p>
           <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
-            <img src="assets/qcrm-cs/img10.png" alt="The Quick CRM contacts screen with search, filters, tags and row selection" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img10.webp" alt="The Quick CRM contacts screen with search, filters, tags and row selection" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
             <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">Search, filtering, tags, multi-select and bulk actions on the surface where customers are added.</figcaption>
           </figure>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
             <figure style="margin:0;display:flex;flex-direction:column;gap:10px">
-              <img src="assets/qcrm-cs/img08.png" alt="Adding a contact and tagging it during creation" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+              <img loading="lazy" decoding="async" src="assets/qcrm-cs/img08.webp" alt="Adding a contact and tagging it during creation" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
               <figcaption style="font-size:12px;color:#52525B;line-height:1.65">Tags can be applied while the customer is being created.</figcaption>
             </figure>
             
@@ -232,7 +246,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
           </div>
           <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">The profile answers those four in a fixed order. Identity and the available actions sit at the top of the left panel, the information the business holds and its tags below them, and everything time-based occupies the main area — so nothing important sits behind navigation.</p>
           <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
-            <img src="assets/qcrm-cs/img04.png" alt="The customer profile panel with details, tags and status" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 20px 50px rgba(0,0,0,.08)">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img04.webp" alt="The customer profile panel with details, tags and status" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 20px 50px rgba(0,0,0,.08)">
             <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">One panel carries who the customer is and what can be done about them.</figcaption>
           </figure>
           <p style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.4;max-width:40ch;color:#18181B;text-wrap:pretty">The customer became the primary unit of the CRM, rather than the contact row.</p>
@@ -266,14 +280,14 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
           <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">All of it lands in one chronological view, but not at the same weight. Communication needs enough context to recognize a conversation; record changes stay compact. Making every event visually equal would have produced a log rather than a relationship.</p>
           <div style="display:flex;flex-direction:column;border-top:1px solid #E5E7EB">
             <sc-for list="{{ density }}" as="d" hint-placeholder-count="3">
-              <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
+              <div data-r="row" style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
                 <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em">{{ d.label }}</span>
                 <p style="font-size:14px;color:#52525B;line-height:1.7">{{ d.body }}</p>
               </div>
             </sc-for>
           </div>
           <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
-            <img src="assets/qcrm-cs/act-activity.png" alt="The Quick CRM Activity tab: upcoming scheduled items above a dated timeline of calls, notes and WhatsApp messages" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 20px 50px rgba(0,0,0,.08)">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/act-activity.webp" alt="The Quick CRM Activity tab: upcoming scheduled items above a dated timeline of calls, notes and WhatsApp messages" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 20px 50px rgba(0,0,0,.08)">
             <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">Upcoming items sit above the timeline; past activity is grouped by date with the channel and outcome for each entry.</figcaption>
           </figure>
         </div>
@@ -292,7 +306,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
                   <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
                     <span style="font-size: 14px; font-family: 'JetBrains Mono',monospace; font-weight: 700; color: #18181B; text-transform: uppercase; letter-spacing: 0em">{{ ac.label }}</span>
                     <p style="font-size:12px;color:#52525B;line-height:1.65">{{ ac.body }}</p>
-                    <img src="{{ ac.img }}" alt="{{ ac.alt }}" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                    <img loading="lazy" decoding="async" src="{{ ac.img }}" alt="{{ ac.alt }}" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
                   </div>
                 </sc-for>
               </div>
@@ -308,7 +322,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
             <h4 style="font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25;color:#18181B;margin:0">From context to action</h4>
             <p style="font-size:16px;color:#52525B;line-height:1.75;max-width:74ch">Customer interactions provide the context needed to decide what happens next. Follow-ups turn that context into scheduled, assigned work without separating the action from the customer record.</p>
             <figure style="margin:0;display:flex;flex-direction:column;gap:14px">
-              <img src="assets/qcrm-cs/act-followups.png" alt="The Follow-ups tab: upcoming scheduled follow-ups with description, date, time, assignee and Complete or Edit actions, above quieter completed items" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 24px 60px rgba(0,0,0,.09)">
+              <img loading="lazy" decoding="async" src="assets/qcrm-cs/act-followups.webp" alt="The Follow-ups tab: upcoming scheduled follow-ups with description, date, time, assignee and Complete or Edit actions, above quieter completed items" style="width:100%;border-radius:16px;border:1px solid #E5E7EB;box-shadow:0 24px 60px rgba(0,0,0,.09)">
               <figcaption style="font-size:14px;color:#52525B;line-height:1.75;max-width:70ch">Scheduled follow-ups stay open with the details needed to act. Completed follow-ups become quieter history, while remaining available when the business needs to inspect what was done.</figcaption>
             </figure>
           </div>
@@ -340,7 +354,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
                   <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">{{ st.num }}</span>
                   <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">{{ st.label }}</h5>
                   <p style="font-size:12px;color:#52525B;line-height:1.65">{{ st.body }}</p>
-                  <img src="{{ st.img }}" alt="{{ st.alt }}" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                  <img loading="lazy" decoding="async" src="{{ st.img }}" alt="{{ st.alt }}" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
                 </div>
               </sc-for>
               </div>
@@ -453,25 +467,25 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
                 <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">01</span>
                 <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Choose the first rule</h5>
                 <p style="font-size:12px;color:#52525B;line-height:1.65">Pick the customer information that defines membership.</p>
-                <img src="assets/qcrm-cs/img01.png" alt="Create New Segment with a name field and the customer information available for the first condition" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img01.webp" alt="Create New Segment with a name field and the customer information available for the first condition" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
               </div>
               <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
                 <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">02</span>
                 <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Narrow the audience</h5>
                 <p style="font-size:12px;color:#52525B;line-height:1.65">Add a second condition to reach a smaller group.</p>
-                <img src="assets/qcrm-cs/img11.png" alt="Two conditions combined in one segment, including an import date range" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img11.webp" alt="Two conditions combined in one segment, including an import date range" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
               </div>
               <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
                 <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">03</span>
                 <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Combine conditions</h5>
                 <p style="font-size:12px;color:#52525B;line-height:1.65">A second group gives a different set of conditions a way into the same audience.</p>
-                <img src="assets/qcrm-cs/img06.png" alt="A segment with several conditions in one group and a second group joined by OR" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img06.webp" alt="A segment with several conditions in one group and a second group joined by OR" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
               </div>
               <div style="flex:0 0 80%;border-radius:16px;background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:10px">
                 <span style="width:24px;height:24px;border-radius:8px;background:#18181B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700">04</span>
                 <h5 style="font-size:14px;font-weight:700;color:#18181B;letter-spacing:-.01em">Verify the audience</h5>
                 <p style="font-size:12px;color:#52525B;line-height:1.65">Check the customers the rules currently match before saving.</p>
-                <img src="assets/qcrm-cs/img03.png" alt="The contacts matching the segment conditions, listed for review before saving" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img03.webp" alt="The contacts matching the segment conditions, listed for review before saving" style="width:100%;border-radius:12px;border:1px solid #E5E7EB">
               </div>
               </div>
             </div>
@@ -501,7 +515,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
           <h3 style="font-size:20px;font-weight:600;letter-spacing:-.015em;color:#18181B;line-height:1.3">Save it once, use it again</h3>
           <p style="font-size:16px;color:#52525B;line-height:1.7;max-width:70ch">Once the audience is defined, the business can save it as a Segment instead of rebuilding the same customer group each time.</p>
           <figure style="margin:0;display:flex;flex-direction:column;gap:12px">
-            <img src="assets/qcrm-cs/img02.png" alt="The saved segments list with segment name, total number of contacts, created date and last updated" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img02.webp" alt="The saved segments list with segment name, total number of contacts, created date and last updated" style="width:100%;border-radius:16px;border:1px solid #E5E7EB">
             <figcaption style="font-size:12px;color:#52525B;line-height:1.65;max-width:66ch">The audience now exists as a reusable object.</figcaption>
           </figure>
           <div style="display:flex;flex-wrap:wrap;gap:8px">
@@ -561,7 +575,7 @@ button[data-seg-arrow][data-seg-off="true"]{opacity:0 !important;pointer-events:
         </div>
         <div style="display:flex;flex-direction:column;border-top:1px solid #E5E7EB">
           <sc-for list="{{ ownership }}" as="o" hint-placeholder-count="5">
-            <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:24px;padding:20px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
+            <div data-r="row" style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:24px;padding:20px 0;border-bottom:1px solid #E5E7EB;align-items:baseline">
               <span style="font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#067040;text-transform:uppercase;letter-spacing:.1em">{{ o.label }}</span>
               <p style="font-size:15px;color:#52525B;line-height:1.75">{{ o.body }}</p>
             </div>
@@ -725,16 +739,16 @@ const RULE_EXAMPLES = [
 const resolveAsset = (id, path) => path;
 
 const ACTIVITY_VIEWS = [
-  { label: 'Call', body: 'Understand conversations, outcomes, and recordings.', img: 'assets/qcrm-cs/act-call.png', alt: 'The Call tab of a customer record, showing dated calls with direction, outcome and a recording' },
-  { label: 'Email', body: 'See campaigns, scheduled emails, received emails, and individual messages.', img: 'assets/qcrm-cs/act-email.png', alt: 'The Email tab of a customer record, showing campaigns, scheduled sends, received mail and individual messages' },
-  { label: 'Notes', body: 'Capture internal customer context that may influence the next action.', img: 'assets/qcrm-cs/act-notes.png', alt: 'The Notes tab of a customer record, showing dated internal notes with their author' }
+  { label: 'Call', body: 'Understand conversations, outcomes, and recordings.', img: 'assets/qcrm-cs/act-call.webp', alt: 'The Call tab of a customer record, showing dated calls with direction, outcome and a recording' },
+  { label: 'Email', body: 'See campaigns, scheduled emails, received emails, and individual messages.', img: 'assets/qcrm-cs/act-email.webp', alt: 'The Email tab of a customer record, showing campaigns, scheduled sends, received mail and individual messages' },
+  { label: 'Notes', body: 'Capture internal customer context that may influence the next action.', img: 'assets/qcrm-cs/act-notes.webp', alt: 'The Notes tab of a customer record, showing dated internal notes with their author' }
 ];
 
 const IMPORT_STEPS = [
-  { num: '01', label: 'Upload', body: 'Select the spreadsheet. The import starts from Contacts, where the customer base already lives.', id: 'importUpload', img: 'assets/qcrm-cs/img14.png', alt: 'The Upload CSV File dialog with a drag-and-drop area over the contacts list' },
-  { num: '02', label: 'Map', body: 'Map spreadsheet columns to CRM fields, with a default mapping proposed and the required fields marked.', id: 'importMapping', img: 'assets/qcrm-cs/img13.png', alt: 'Mapping Properties: CSV columns matched to CRM properties, each marked as mapped, with an assign-tag field' },
-  { num: '03', label: 'Review', body: 'Identify incorrect or duplicate records before importing. They are named, and offered as a CSV to fix outside the product.', id: 'importValidation', img: 'assets/qcrm-cs/img15.png', alt: 'The Import Contact review step with Incorrect Contacts and Duplicate Contacts tabs and a list of detected duplicates' },
-  { num: '04', label: 'Import', body: 'Create the customer records only after review, with the progress state showing how many are being added.', id: 'importProgress', img: 'assets/qcrm-cs/img12.png', alt: 'The import running, showing how many contacts are being imported and the progress' }
+  { num: '01', label: 'Upload', body: 'Select the spreadsheet. The import starts from Contacts, where the customer base already lives.', id: 'importUpload', img: 'assets/qcrm-cs/img14.webp', alt: 'The Upload CSV File dialog with a drag-and-drop area over the contacts list' },
+  { num: '02', label: 'Map', body: 'Map spreadsheet columns to CRM fields, with a default mapping proposed and the required fields marked.', id: 'importMapping', img: 'assets/qcrm-cs/img13.webp', alt: 'Mapping Properties: CSV columns matched to CRM properties, each marked as mapped, with an assign-tag field' },
+  { num: '03', label: 'Review', body: 'Identify incorrect or duplicate records before importing. They are named, and offered as a CSV to fix outside the product.', id: 'importValidation', img: 'assets/qcrm-cs/img15.webp', alt: 'The Import Contact review step with Incorrect Contacts and Duplicate Contacts tabs and a list of detected duplicates' },
+  { num: '04', label: 'Import', body: 'Create the customer records only after review, with the progress state showing how many are being added.', id: 'importProgress', img: 'assets/qcrm-cs/img12.webp', alt: 'The import running, showing how many contacts are being imported and the progress' }
 ];
 
 const BEFORE = ['Separate contact tables in Quick Chat, Campaign and Ads', 'Basic contact information', 'Duplicate records', 'Export and import between products', 'No shared customer context', 'Limited organization'];
@@ -758,6 +772,7 @@ class Component extends DCLogic {
   state = { activeSection: 'top', importIndex: 0, segIndex: 0, actIndex: 0 };
 
   componentDidMount() {
+    document.documentElement.lang = 'en';
     this.onScroll = () => {
       let current = TOC[0].id;
       for (const t of TOC) {
@@ -768,14 +783,12 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', this.onScroll, { passive: true });
     document.addEventListener('scroll', this.onScroll, { passive: true, capture: true });
-    this.tocTimer = setInterval(this.onScroll, 250);
     this.onScroll();
 
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll);
     document.removeEventListener('scroll', this.onScroll, true);
-    clearInterval(this.tocTimer);
   }
 
   tocStyle(isActive) {

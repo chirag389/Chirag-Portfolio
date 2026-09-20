@@ -1,0 +1,116 @@
+/* ============================================================
+   Portfolio analytics
+   ------------------------------------------------------------
+   GA4     -> visitors, sources, countries, events   (LIVE)
+   Clarity -> heatmaps, session recordings           (add ID below)
+
+   Only the two lines under CONFIG ever need editing.
+   ============================================================ */
+
+/* ---------------- CONFIG ---------------- */
+var GA_ID      = "G-8LDJC6KZ0D";        // already set
+var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> Overview
+/* ---------------------------------------- */
+
+(function () {
+  var hasGA = GA_ID && GA_ID.indexOf("G-") === 0;
+  var hasClarity = CLARITY_ID && CLARITY_ID !== "PASTE_YOUR_ID_HERE";
+
+  /* ---- 1. Google Analytics 4 ---- */
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+
+  if (hasGA) {
+    var g = document.createElement("script");
+    g.async = true;
+    g.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(g);
+    gtag("js", new Date());
+    gtag("config", GA_ID);
+  }
+
+  /* ---- 2. Microsoft Clarity ---- */
+  if (hasClarity) {
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", CLARITY_ID);
+  } else {
+    console.warn("[analytics] Clarity ID not set — heatmaps and recordings are off.");
+  }
+
+  /* ---- 3. Send one event to both tools ---- */
+  function track(name, params) {
+    params = params || {};
+    if (hasGA) gtag("event", name, params);
+    if (window.clarity) clarity("event", name.slice(0, 50));
+  }
+
+  /* ---- 4. Visit source from ?r= in the URL ----
+     Send yoursite.com/?r=zomato to a company and you can isolate
+     that company's visit in both dashboards afterwards.          */
+  var ref = null;
+  try {
+    ref = new URLSearchParams(window.location.search).get("r");
+    if (ref) {
+      ref = ref.toLowerCase().slice(0, 40);
+      if (window.clarity) clarity("set", "source", ref);
+      if (hasGA) gtag("set", "user_properties", { visit_source: ref });
+      track("visit_tagged", { source: ref });
+    }
+  } catch (e) {}
+
+  var page = (location.pathname.split("/").pop() || "index.html").replace(".html", "");
+  if (window.clarity) clarity("set", "page", page);
+
+  /* ---- 5. Delegated click tracking ----
+     Listens on the document, so it survives your redesigns —
+     no data-track attributes to re-add in the markup.            */
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("a, button, [role='button']");
+    if (!el) return;
+
+    var label = el.getAttribute("data-track");
+    if (!label) {
+      var href = el.getAttribute("href") || "";
+      var text = (el.innerText || el.textContent || "").trim().slice(0, 40);
+
+      if (/\.pdf/i.test(href)) {
+        label = "resume_open";
+      } else if (/^https?:/i.test(href)) {
+        var host = "";
+        try { host = new URL(href, location.href).hostname.replace(/^www\./, ""); } catch (x) {}
+        label = "outbound_" + host.split(".")[0];
+      } else if (/\.html/i.test(href)) {
+        label = "open_" + href.replace(/.*\//, "").replace(".html", "");
+      } else if (/^#/.test(href)) {
+        label = "nav_" + href.slice(1);
+      } else if (text) {
+        label = "click_" + text.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+      }
+    }
+
+    if (label) track(label.slice(0, 40), { page: page, link_text: (el.innerText || "").trim().slice(0, 60) });
+  }, true);
+
+  /* ---- 6. Scroll depth ----
+     Shows whether recruiters reach your outcomes section
+     or bail right after the hero.                                */
+  var fired = {};
+  window.addEventListener("scroll", function () {
+    var h = document.documentElement;
+    var pct = (h.scrollTop + window.innerHeight) / h.scrollHeight * 100;
+    [25, 50, 75, 100].forEach(function (mark) {
+      if (pct >= mark && !fired[mark]) {
+        fired[mark] = true;
+        track("scroll_" + mark, { page: page });
+      }
+    });
+  }, { passive: true });
+
+  /* ---- 7. Time on page (GA4 alone is unreliable on exits) ---- */
+  [15, 30, 60, 120].forEach(function (sec) {
+    setTimeout(function () { track("time_" + sec + "s", { page: page }); }, sec * 1000);
+  });
+})();
