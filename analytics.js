@@ -9,7 +9,7 @@
 
 /* ---------------- CONFIG ---------------- */
 var GA_ID      = "G-8LDJC6KZ0D";        // already set
-var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> Overview
+var CLARITY_ID = "ylgxvze4qm";          // already set
 /* ---------------------------------------- */
 
 (function () {
