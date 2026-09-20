@@ -26,7 +26,13 @@ var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> 
     g.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
     document.head.appendChild(g);
     gtag("js", new Date());
-    gtag("config", GA_ID);
+
+    // GitHub Pages serves the home page at both "/" and "/index.html",
+    // which GA4 would otherwise count as two different pages.
+    // Report both as "/" so the numbers stay in one row.
+    gtag("config", GA_ID, {
+      page_location: location.href.replace(/index\.html(?=$|[?#])/, "")
+    });
   }
 
   /* ---- 2. Microsoft Clarity ---- */
@@ -64,7 +70,7 @@ var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> 
     }
   } catch (e) {}
 
-  var page = (location.pathname.split("/").pop() || "index.html").replace(".html", "");
+  var page = (location.pathname.split("/").pop() || "index").replace(".html", "") || "index";
   if (window.clarity) clarity("set", "page", page);
 
   /* ---- 5. Delegated click tracking ----
