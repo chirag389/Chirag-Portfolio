@@ -43,7 +43,10 @@ var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> 
   /* ---- 3. Send one event to both tools ---- */
   function track(name, params) {
     params = params || {};
-    if (hasGA) gtag("event", name, params);
+    if (hasGA) {
+      params.transport_type = "beacon";   // survives the page unload
+      gtag("event", name, params);
+    }
     if (window.clarity) clarity("event", name.slice(0, 50));
   }
 
@@ -68,12 +71,19 @@ var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> 
      Listens on the document, so it survives your redesigns —
      no data-track attributes to re-add in the markup.            */
   document.addEventListener("click", function (e) {
-    var el = e.target.closest("a, button, [role='button']");
+    // cards are <article onClick=...>, not <a> — so match those too
+    var el = e.target.closest("a, button, [role='button'], [data-track], [onclick], article");
     if (!el) return;
 
     var label = el.getAttribute("data-track");
     if (!label) {
       var href = el.getAttribute("href") || "";
+
+      // clicked a card/wrapper: borrow the link sitting inside it
+      if (!href && el.querySelector) {
+        var inner = el.querySelector("a[href]");
+        if (inner) href = inner.getAttribute("href") || "";
+      }
 
       // icon-only buttons have no text — fall back to aria-label / title
       var text = (el.innerText || el.textContent || "").trim()
