@@ -129,6 +129,32 @@ var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> 
     });
   }, { passive: true });
 
+  /* ---- 7. Browser Back fix (bfcache) ----
+     Clicking a case study leaves the home page frozen with its
+     loading overlay switched on. Chrome's Back button restores that
+     frozen copy, overlay and all, so it hangs forever. On a restored
+     page, reload once so the state starts clean. Assets come from
+     cache, so it's fast.                                            */
+  window.addEventListener("pageshow", function (e) {
+    if (!e.persisted) return;
+
+    // the frozen overlay still says "Quick Chat / Opening case study".
+    // relabel it to Home so the moment before the reload reads right.
+    try {
+      var spans = document.querySelectorAll("span");
+      for (var i = 0; i < spans.length; i++) {
+        if ((spans[i].textContent || "").trim() === "Opening case study") {
+          spans[i].textContent = "Going back";
+          var lbl = spans[i].previousElementSibling;
+          if (lbl) lbl.textContent = "Home";
+          break;
+        }
+      }
+    } catch (err) {}
+
+    window.location.reload();
+  });
+
   /* ---- 7. Time on page (GA4 alone is unreliable on exits) ---- */
   [15, 30, 60, 120].forEach(function (sec) {
     setTimeout(function () { track("time_" + sec + "s", { page: page }); }, sec * 1000);
