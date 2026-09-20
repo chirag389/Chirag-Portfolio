@@ -74,24 +74,34 @@ var CLARITY_ID = "PASTE_YOUR_ID_HERE";  // clarity.microsoft.com -> Settings -> 
     var label = el.getAttribute("data-track");
     if (!label) {
       var href = el.getAttribute("href") || "";
-      var text = (el.innerText || el.textContent || "").trim().slice(0, 40);
+
+      // icon-only buttons have no text — fall back to aria-label / title
+      var text = (el.innerText || el.textContent || "").trim()
+                 || el.getAttribute("aria-label")
+                 || el.getAttribute("title")
+                 || "";
+      text = text.trim().slice(0, 40);
 
       if (/\.pdf/i.test(href)) {
         label = "resume_open";
       } else if (/^https?:/i.test(href)) {
         var host = "";
         try { host = new URL(href, location.href).hostname.replace(/^www\./, ""); } catch (x) {}
-        label = "outbound_" + host.split(".")[0];
+        label = host ? "outbound_" + host.split(".")[0] : "";
       } else if (/\.html/i.test(href)) {
         label = "open_" + href.replace(/.*\//, "").replace(".html", "");
       } else if (/^#/.test(href)) {
         label = "nav_" + href.slice(1);
-      } else if (text) {
-        label = "click_" + text.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+      } else {
+        var slug = text.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+        label = slug ? "click_" + slug : "";   // no name -> send nothing
       }
     }
 
-    if (label) track(label.slice(0, 40), { page: page, link_text: (el.innerText || "").trim().slice(0, 60) });
+    label = (label || "").trim();
+    if (!label || /_$/.test(label)) return;   // drop empty / trailing-underscore junk
+
+    track(label.slice(0, 40), { page: page, link_text: (el.innerText || "").trim().slice(0, 60) });
   }, true);
 
   /* ---- 6. Scroll depth ----
