@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<script>/* dark by default; only a visitor's own toggle (cm-theme) switches it */try{document.documentElement.setAttribute("data-theme",localStorage.getItem("cm-theme")==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
+<script>/* dark by default; only a visitor's own toggle (cm-theme) switches it */try{document.documentElement.setAttribute("data-theme",sessionStorage.getItem("cm-theme")==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
 <style>html[data-theme="dark"]{background:#151419;color-scheme:dark}</style>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <!-- React and fonts are served from this site (vendor/) instead of unpkg + Google: fewer connections on a first visit. support.js swaps its CDN URLs for these via window.__resources. -->
@@ -546,6 +546,7 @@
   main h1, main h2, main h3, main h2[style], main h3[style], .tone-name { font-family:var(--f-display) !important; font-weight:700 !important; }
   .hero-section h1 { font-weight:700 !important; font-size:clamp(46px,6.6vw,86px) !important; line-height:1.04 !important; letter-spacing:-.045em !important; }
   main h2, main h2[style] { letter-spacing:-.035em !important; }
+  article.case { cursor:pointer; }
 </style>
 </head>
 <body>
@@ -954,25 +955,7 @@
 </sc-if>
 
 
-<div style="{{ loaderOverlayStyle }}" aria-live="polite">
-  <div style="display:flex;flex-direction:column;align-items:center;gap:22px;animation:lampReveal .3s ease both .22s">
-    <div style="position:relative;width:132px;height:150px;display:flex;justify-content:center" aria-hidden="true">
-      <div style="position:absolute;top:0;transform-origin:50% 0;animation:lampSwing 2.6s cubic-bezier(.45,0,.55,1) infinite;display:flex;flex-direction:column;align-items:center">
-        <div style="width:2px;height:40px;background:var(--c-line-2)"></div>
-        <div style="width:54px;height:30px;background:var(--c-accent);clip-path:polygon(28% 0,72% 0,100% 100%,0 100%);box-shadow:0 8px 24px rgba(79,70,229,.32)"></div>
-        <div style="width:12px;height:12px;border-radius:999px;background:#FFF7D6;box-shadow:0 0 14px 5px rgba(255,214,102,.75);margin-top:-3px;animation:lampFlicker 1.9s ease-in-out infinite"></div>
-        <div style="width:96px;height:96px;margin-top:-8px;background:linear-gradient(to bottom,rgba(255,214,102,.32),rgba(255,214,102,0));clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);animation:lampFlicker 1.9s ease-in-out infinite"></div>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-      <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.16em">{{ loaderLabel }}</span>
-      <span style="font-size:13px;color:var(--c-ink-3)">Opening case study</span>
-    </div>
-    <div style="width:180px;height:2px;border-radius:999px;background:var(--c-line);overflow:hidden">
-      <div style="{{ loaderBarStyle }}"></div>
-    </div>
-  </div>
-</div>
+
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;customCursor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Effects&quot;}}">
@@ -1037,8 +1020,8 @@ class Component extends DCLogic {
     document.documentElement.setAttribute('data-theme', theme);
     const tc = document.querySelector('meta[name="theme-color"]');
     if (tc) tc.setAttribute('content', theme === 'dark' ? '#151419' : '#FCFCFC');
-    // only a visitor's own choice is remembered, so everyone else always lands on dark
-    if (remember) { try { localStorage.setItem('cm-theme', theme); } catch (e) {} }
+    // a visitor's switch lasts for this visit only; every new visit opens dark
+    if (remember) { try { sessionStorage.setItem('cm-theme', theme); } catch (e) {} }
   }
 
   prefetch(href) {
@@ -1052,9 +1035,10 @@ class Component extends DCLogic {
 
   goCase(e, label, href) {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
-    e.preventDefault();
-    this.setState({ loading: true, loaderLabel: label });
-    this.caseTimer = setTimeout(() => { window.location.href = href; }, 210);
+    // a real link opens by itself; anywhere else on the card opens the case study too
+    // (no loader here: the case study page shows its own skeleton while it loads)
+    if (e.target && e.target.closest && e.target.closest('a')) return;
+    window.location.href = href;
   }
 
   mountCursorLayer() {
@@ -1482,7 +1466,7 @@ class Component extends DCLogic {
     };
     document.addEventListener('keydown', this.onModalKey);
     let saved = null;
-    try { saved = localStorage.getItem('cm-theme'); } catch (e) {}
+    try { saved = sessionStorage.getItem('cm-theme'); } catch (e) {}
     const theme = saved === 'light' ? 'light' : 'dark';
     document.documentElement.lang = 'en';
     this.applyTheme(theme);
