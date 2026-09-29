@@ -24,8 +24,12 @@
    - The real DOM copy stays in place (invisible) for screen readers,
      selection and keyboard focus; pointer clicks and hovers are mapped
      through the camera back onto the page.
-   Fallbacks: no WebGL2 -> the DOM hero is shown as is. Touch or
-   reduced motion -> one still frame of the tiles behind the real copy.
+   Touch screens: the real copy stays on top; an unseen "cursor" drifts
+   around the hero's edges so the tiles move by themselves, and a finger
+   takes over while it touches the hero (resumes 2.5 s after lifting).
+   It runs at ~30 fps and only while the hero is on screen.
+   Fallbacks: no WebGL2 -> the DOM hero is shown as is. Reduced motion
+   -> one still frame of the tiles behind the real copy.
    ============================================================ */
 (function () {
   "use strict";
@@ -33,6 +37,8 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
   var live = fine && !reduce;
+  var touchMode = !fine && !reduce;   // phones/tablets: ambient drift + finger
+  var PAINT_COPY = false;     // false: text + CTAs stay as the real, still DOM copy; only the background tiles lift
   var textOn = false;         // the copy is painted into the tiles only once the web fonts have arrived
 
   /* look — sizes are CSS px */
@@ -48,11 +54,15 @@
   var FADE = 0.912;           // presence kept per frame (60 fps); lower = shorter trail
   var FEED = 10;              // presence added per second under the cursor
   var FIELD_W = 96;           // presence grid width (height follows the hero's aspect)
+  var T_RADIUS = 560;         // touch: smaller presence so the ring reads on a narrow hero
+  var T_LAP = 16;             // touch: seconds for the unseen cursor to go once around the edges
+  var T_FRAME = 30;           // touch: ms between frames (~30 fps, easier on the battery)
 
   var hero, copy, canvas, gl, prog, U = {}, texPage, texFlow, paint, pctx;
   var w = 0, h = 0, scale = 1, gw = FIELD_W, gh = 32, field = null;
   var cam = null, bg = [0, 0, 0], tintRgb = [1, 1, 1], links = [], hoverIdx = -1;
   var pointerOn = false, px = 0, py = 0, raf = 0, lastT = 0, activeUntil = 0;
+  var heroSeen = true, fingerUntil = 0, lastDraw = 0;
 
   /* ---------------------------------------------------------------- shader */
   var VS = "#version 300 es\nlayout(location=0) in vec2 aPos; out vec2 vUv;\n" +
@@ -247,7 +257,7 @@
       for (var x = 5.5; x < w; x += 11) ctx.fillRect(x - 0.8, y - 0.8, 1.6, 1.6);
     }
 
-    if (!live || !textOn) return uploadPage();   // touch / reduced motion / fonts still loading: the real copy sits on top
+    if (!live || !textOn || !PAINT_COPY) return uploadPage();   // touch / reduced motion / fonts still loading: the real copy sits on top
 
     /* boxes: pill backgrounds, borders, the badge dot */
     links = [];
@@ -350,15 +360,16 @@
   }
 
   /* ---------------------------------------------------------------- presence field */
-  function stepField(dt) {
+  function stepField(dt, drift) {
     if (!field) return 0;
     var keep = Math.pow(FADE, dt * 60), n = gw * gh, max = 0, i;
     for (i = 0; i < n; i++) field[i] *= keep;
-    if (pointerOn) {
+    if (pointerOn || drift) {
       var p = toPage(px, py);
       if (p) {
         var fx = p[0] / w, fy = p[1] / h, asp = w / h;
-        var rad = (RADIUS / h) * (RADIUS / h) * 0.28, add = FEED * dt;
+        var R = touchMode ? T_RADIUS : RADIUS;
+        var rad = (R / h) * (R / h) * 0.28, add = FEED * dt;
         for (var y = 0; y < gh; y++) {
           var dy = (y + 0.5) / gh - fy;
           for (var x = 0; x < gw; x++) {
@@ -401,13 +412,25 @@
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
 
+  /* touch: the unseen cursor's path, a rounded rectangle hugging the hero's edges */
+  function driftPoint(t) {
+    var a = t * Math.PI * 2 / T_LAP, c = Math.cos(a), s = Math.sin(a);
+    var ex = (c < 0 ? -1 : 1) * Math.pow(Math.abs(c), 0.45), ey = (s < 0 ? -1 : 1) * Math.pow(Math.abs(s), 0.45);
+    return [w * (0.5 + 0.44 * ex), h * (0.5 + 0.44 * ey)];
+  }
+  function drifting(now) { return touchMode && heroSeen && !document.hidden && !pointerOn && now > fingerUntil; }
+
   function loop(now) {
     raf = 0;
+    if (touchMode && now - lastDraw < T_FRAME) { raf = requestAnimationFrame(loop); return; }
+    lastDraw = now;
     var dt = Math.min(Math.max((now - (lastT || now - 16)) / 1000, 0), 1 / 30);
     lastT = now;
-    var max = stepField(dt);
+    var drift = drifting(now);
+    if (drift) { var d = driftPoint(now / 1000); px = d[0]; py = d[1]; }
+    var max = stepField(dt, drift);
     draw();
-    if (pointerOn || now < activeUntil || max > 0.002) raf = requestAnimationFrame(loop);
+    if (pointerOn || drift || now < activeUntil || max > 0.002) raf = requestAnimationFrame(loop);
     else lastT = 0;
   }
   function wake() { if (!raf) raf = requestAnimationFrame(loop); }
@@ -483,13 +506,39 @@
     /* show the tiles straight away (real text on top); swap to painted text once the fonts are in,
        so the background never waits on the font download */
     hero.classList.add("hexgl-on"); relayout();
-    var textReady = function () { textOn = true; if (live) hero.classList.add("hexgl-live"); paintPage(); draw(); };
+    var textReady = function () {
+      textOn = true;
+      if (live) hero.classList.add("hexgl-live");                    // hex cursor + mouse-driven field
+      if (live && PAINT_COPY) hero.classList.add("hexgl-paint");    // hides the DOM copy only when it is painted into the tiles
+      paintPage(); draw();
+    };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(textReady); else textReady();
     window.addEventListener("load", function () { setTimeout(relayout, 300); });
     if ("ResizeObserver" in window) new ResizeObserver(relayout).observe(hero);
     new MutationObserver(function () { setTimeout(function () { paintPage(); draw(); }, 30); })
       .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); hero.classList.remove("hexgl-on", "hexgl-live"); });
+
+    if (touchMode) {
+      /* a finger drives the field while it touches the hero (passive: scrolling is never blocked) */
+      var at = function (t) {
+        var r = canvas.getBoundingClientRect();
+        px = (t.clientX - r.left) * (w / r.width); py = (t.clientY - r.top) * (h / r.height);
+      };
+      var down = function (e) { if (e.touches && e.touches[0]) { at(e.touches[0]); pointerOn = true; wake(); } };
+      var up = function () { pointerOn = false; fingerUntil = activeUntil = performance.now() + 2500; wake(); };
+      hero.addEventListener("touchstart", down, { passive: true });
+      hero.addEventListener("touchmove", down, { passive: true });
+      hero.addEventListener("touchend", up, { passive: true });
+      hero.addEventListener("touchcancel", up, { passive: true });
+      /* only animate while the hero is on screen and the tab is visible */
+      if ("IntersectionObserver" in window) new IntersectionObserver(function (en) {
+        heroSeen = en[0].isIntersecting; if (heroSeen) wake();
+      }, { threshold: 0.05 }).observe(hero);
+      document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
+      setTimeout(wake, 600);
+      return;
+    }
 
     if (!live) return;
     hero.addEventListener("pointermove", function (e) {
