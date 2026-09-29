@@ -17,7 +17,7 @@
 <script src="./support.js"></script>
 <script src="./analytics.js?v=2" defer></script>
 <script src="./motion.js?v=9" defer></script>
-<script src="./hero-field.js?v=28" defer></script>
+<script src="./hero-field.js?v=29" defer></script>
 <!-- page stylesheet (moved out of <helmet> so it applies before the runtime renders) -->
 <style>
   /* Light = "cool dawn over product canvas": snow canvas, lavender wash, midnight ink, one royal-blue accent */
@@ -135,13 +135,13 @@
      measured type (never bold), wide-set headings, spacious rhythm,
      flat cards, pill controls, calm motion.
      ================================================================ */
-  :root { --f-body:'Outfit', system-ui, sans-serif; --f-display:'Outfit', system-ui, sans-serif; --f-label:'Doto', ui-monospace, monospace; }
+  :root { --f-body:'Outfit', system-ui, sans-serif; --f-display:'Outfit', system-ui, sans-serif; --f-label:'Outfit', system-ui, sans-serif; }
   body { font-size:16px; line-height:1.5; font-weight:400; }
 
   /* type — weights sit between regular and semibold */
   [style*="font-weight:600"], [style*="font-weight: 600"],
   [style*="font-weight:700"], [style*="font-weight: 700"],
-  [style*="font-weight:800"], [style*="font-weight: 800"] { font-weight:480 !important; }
+  [style*="font-weight:800"], [style*="font-weight: 800"] { font-weight:560 !important; }
   main h1, main h2, main h3 { font-family:var(--f-display) !important; font-weight:500 !important; }
   .hero-section h1 { font-size:clamp(40px,5.4vw,65px) !important; line-height:1.1 !important; letter-spacing:-.035em !important; font-weight:500 !important; }
   main h2 { font-size:clamp(30px,3.6vw,42px) !important; line-height:1.15 !important; letter-spacing:-.03em !important; }
@@ -149,7 +149,7 @@
   .hero-section h1 + p { font-size:18px !important; line-height:1.5 !important; font-weight:400 !important; }
 
   /* labels — dot-matrix (Doto), no all-caps; small text never below 12px */
-  [style*="JetBrains Mono"] { font-family:var(--f-label) !important; font-weight:800 !important; }
+  [style*="JetBrains Mono"] { font-family:var(--f-label) !important; font-weight:500 !important; font-size:13px !important; letter-spacing:.01em !important; }
   [style*="text-transform:uppercase"], [style*="text-transform: uppercase"] { text-transform:none !important; letter-spacing:.01em !important; }
   [style*="font-size:10px"], [style*="font-size:11px"],
   [style*="font-size: 10px"], [style*="font-size: 11px"] { font-size:12px !important; }
@@ -312,8 +312,8 @@
   .hero-section.hexgl-live.hexgl-paint > div:last-of-type:focus-within { opacity:1 !important; pointer-events:auto; }
   .hero-section.hexgl-live { cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 3l9.5 5.5v11L14 25 4.5 19.5v-11z' fill='none' stroke='%23145AFF' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, auto; }
   .hero-section.hexgl-live.hexgl-link { cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 3l9.5 5.5v11L14 25 4.5 19.5v-11z' fill='%23145AFF' stroke='%23ffffff' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, pointer; }
-  html[data-theme="dark"] .hero-section.hexgl-live { cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 3l9.5 5.5v11L14 25 4.5 19.5v-11z' fill='none' stroke='%23A5B4FC' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, auto; }
-  html[data-theme="dark"] .hero-section.hexgl-live.hexgl-link { cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 3l9.5 5.5v11L14 25 4.5 19.5v-11z' fill='%23A5B4FC' stroke='%23030303' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, pointer; }
+  html[data-theme="dark"] .hero-section.hexgl-live { cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 3l9.5 5.5v11L14 25 4.5 19.5v-11z' fill='none' stroke='%236FA3FF' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, auto; }
+  html[data-theme="dark"] .hero-section.hexgl-live.hexgl-link { cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 3l9.5 5.5v11L14 25 4.5 19.5v-11z' fill='%236FA3FF' stroke='%23030303' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, pointer; }
   /* --- light theme only: single royal-blue accent --- */
   html:not([data-theme="dark"]) .eshape-inner { --sc:#145AFF !important; }
   html:not([data-theme="dark"]) ::selection { background:#145AFF; color:#fff; }
@@ -478,6 +478,68 @@
   .tone-ship { display:inline-flex; align-items:center; gap:6px; padding:4px 11px 4px 9px; border-radius:999px;
     background:rgba(10,11,16,.88); color:#FFFFFF; font-size:12px; font-weight:500; letter-spacing:.01em; line-height:1.4; white-space:nowrap; }
   .tone-ship svg { width:12px; height:12px; color:#DDF763; flex:none; }
+  /* ===== critique fixes 2026-09-29 ===== */
+  /* one accent: blue (no indigo / lavender / violet / rose) */
+  html[data-theme="dark"] { --c-accent:#4D8DFF; --c-accent-text:#8AB4FF; --hero-dot:#4D8DFF; --hero-dot-glow:rgba(77,141,255,.55);
+    --hero-wash:radial-gradient(46% 58% at 8% 4%, rgba(77,141,255,.30), transparent 72%); }
+  html:not([data-theme="dark"]) { --hero-wash:radial-gradient(46% 58% at 8% 4%, rgba(20,90,255,.12), transparent 72%), radial-gradient(60% 55% at 50% 100%, rgba(20,90,255,.10), transparent 70%); }
+  html[data-theme="dark"] #work::before { background:radial-gradient(42% 460px at 10% 0, rgba(77,141,255,.22), transparent 72%), radial-gradient(38% 520px at 100% 42%, rgba(77,141,255,.08), transparent 70%); }
+  html[data-theme="dark"] #behance::before { background:radial-gradient(40% 80% at 6% 100%, rgba(77,141,255,.10), transparent 70%); }
+  html[data-theme="dark"] #about::before { background:radial-gradient(40% 60% at 100% 20%, rgba(77,141,255,.14), transparent 70%); }
+  html[data-theme="dark"] #contact::before { background:radial-gradient(55% 90% at 50% 120%, rgba(77,141,255,.22), transparent 70%); }
+  html:not([data-theme="dark"]) #behance::before { background:radial-gradient(40% 80% at 6% 100%, rgba(20,90,255,.07), transparent 70%); }
+  html:not([data-theme="dark"]) #about::before { background:radial-gradient(40% 60% at 100% 20%, rgba(20,90,255,.08), transparent 70%), radial-gradient(35% 50% at 0 90%, rgba(182,203,253,.28), transparent 70%); }
+  html:not([data-theme="dark"]) #contact::before { background:radial-gradient(55% 90% at 50% 120%, rgba(20,90,255,.14), transparent 70%); }
+  html[data-theme="dark"] [data-bcard]:hover, html[data-theme="dark"] #contact a[style*="--c-subtle"]:hover {
+    border-color:rgba(138,180,255,.34) !important; box-shadow:0 0 0 1px rgba(138,180,255,.10), 0 26px 60px -26px rgba(77,141,255,.45) !important; }
+  .tone-ship svg { color:#FFFFFF; }
+  .tone-arrow { background:#0B0B12; color:#FFFFFF; transition:transform .25s cubic-bezier(.2,.7,.2,1); }
+  /* headings get real weight again */
+  main h2, main h3, main h2[style], main h3[style] { font-weight:600 !important; }
+  [style*="JetBrains Mono"][style*="font-size"] { font-size:13px !important; }
+  /* case cards: no dark overlay on hover (it dimmed the CTA); the arrow answers instead */
+  .tone > [data-spot-layer] { display:none !important; }
+  .case:hover .tone-arrow { transform:translate(2px,-2px); }
+  .tone-name { font-size:clamp(20px,2.2vw,24px) !important; }
+  html.mo-ready .case .tone { clip-path:inset(0 round 20px); }
+  /* scroll reveal: quick fade, no blur */
+  html.mo-ready .mo-rise { transition:opacity .5s ease-out var(--mo-delay,0ms), translate .6s cubic-bezier(.16,1,.3,1) var(--mo-delay,0ms), background-color .2s ease, border-color .2s ease; }
+  html.mo-ready .mo-rise:not(.in) { opacity:0; translate:0 14px; filter:none; }
+  /* also shipped */
+  .also { display:flex; flex-direction:column; gap:20px; }
+  .also-head { margin:0; color:var(--c-ink); }
+  .also-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+  .also-item { display:flex; flex-direction:column; gap:10px; padding:24px; border-radius:20px; background:var(--c-surface); border:1px solid var(--c-line); }
+  html[data-theme="dark"] .also-item { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.08); }
+  .also-top { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
+  .also-name { font-size:20px; font-weight:560; letter-spacing:-.02em; color:var(--c-ink); }
+  .also-name::before { content:""; display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:10px; background:var(--also-c); }
+  .also-social { --also-c:#3B82F6; } .also-campaign { --also-c:#8B5CF6; }
+  .also-line { margin:0; font-size:16px; line-height:1.55; color:var(--c-ink-2); }
+  .also-meta { font-size:14px; color:var(--c-ink-4); }
+  @media (max-width:700px) { .also-grid { grid-template-columns:1fr; } }
+  /* contact actions */
+  .contact-cta { display:flex; flex-wrap:wrap; gap:12px; margin-top:10px; }
+  .cta-primary, .cta-ghost { display:inline-flex; align-items:center; min-height:48px; padding:0 26px; border-radius:999px; font:inherit; font-size:16px; font-weight:560; text-decoration:none; cursor:pointer; }
+  .cta-primary { background:var(--hero-cta-bg); color:var(--hero-cta-text); border:1px solid transparent; }
+  .cta-ghost { background:transparent; color:var(--c-ink); border:1px solid var(--c-line-2); }
+  .cta-ghost:hover { border-color:var(--c-ink-4); }
+  /* grids never leave an orphan: 4 / 2 / 1 */
+  #behance [style*="minmax(240px"], #about [style*="minmax(220px"] { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+  @media (max-width:980px) { #behance [style*="minmax(240px"], #about [style*="minmax(220px"] { grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
+  @media (max-width:560px) { #about [style*="minmax(220px"] { grid-template-columns:1fr !important; } #behance [style*="minmax(240px"] { gap:12px !important; } #behance [data-bcard] { padding:10px !important; gap:10px !important; } #behance [data-bcard] span[style*="font-size:15px"], #behance [data-bcard] span[style*="font-size: 15px"] { font-size:14px !important; } }
+  /* Behance covers stay quieter than the main work */
+  #behance img { filter:saturate(.75); transition:filter .3s ease; }
+  #behance a:hover img { filter:none; }
+  /* non-clickable cards don't pretend to be buttons */
+  html[data-theme="dark"] #about [style*="minmax(220px"] > div:hover { transform:none !important; box-shadow:none !important; border-color:rgba(255,255,255,.08) !important; }
+  html:not([data-theme="dark"]) #about [style*="minmax(220px"] > div:hover { transform:none !important; box-shadow:none !important; }
+  /* readable measure */
+  #about [style*="max-width: 62ch"] { max-width:56ch !important; }
+  /* touch targets */
+  button[aria-label="Dark mode"] { width:40px !important; height:40px !important; }
+  button[aria-controls="mobile-menu"] { min-width:44px; min-height:44px; }
+  @media (max-width:700px), (pointer:coarse) { footer a, footer button, footer a[style], footer button[style] { min-height:44px !important; display:inline-flex !important; align-items:center; } .tone-pill { min-height:44px; } }
 </style>
 </head>
 <body>
@@ -534,7 +596,6 @@
         <a href="#work" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: var(--hero-cta-bg); color: var(--hero-cta-text); border: 1px solid var(--hero-cta-line); font-size: var(--hero-cta-size); font-weight: 700; text-transform: var(--hero-caps); letter-spacing: var(--hero-caps-track); box-shadow: var(--hero-cta-shadow); text-decoration: none;">View my work ↓</a>
         <a href="#contact" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: var(--hero-ghost-bg); color: var(--hero-ghost-text); border: 1px solid var(--hero-ghost-line); font-size: var(--hero-cta-size); font-weight: 700; text-transform: var(--hero-caps); letter-spacing: var(--hero-caps-track); text-decoration: none;">Get in touch →</a>
       </div>
-      <p style="animation: heroRise .8s cubic-bezier(.2,.7,.2,1) both .58s; font-size: var(--hero-skills-size); font-weight: var(--hero-skills-weight); text-transform: var(--hero-caps); letter-spacing: var(--hero-skills-track); color: var(--hero-faint); margin: 6px 0 0; text-wrap: balance;">Product thinking · UX · Interaction · UI · Design Systems</p>
     </div>
   </section></main>
 </div>
@@ -628,14 +689,12 @@
         <a href="#work" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--hero-cta-bg);color:var(--hero-cta-text);border:1px solid var(--hero-cta-line);font-size:var(--hero-cta-size);font-weight:700;text-transform:var(--hero-caps);letter-spacing:var(--hero-caps-track);box-shadow:var(--hero-cta-shadow);text-decoration:none">View my work ↓</a>
         <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--hero-ghost-bg);color:var(--hero-ghost-text);border:1px solid var(--hero-ghost-line);font-size:var(--hero-cta-size);font-weight:700;text-transform:var(--hero-caps);letter-spacing:var(--hero-caps-track);text-decoration:none">Get in touch →</a>
       </div>
-      <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .58s;font-size:var(--hero-skills-size);font-weight:var(--hero-skills-weight);text-transform:var(--hero-caps);letter-spacing:var(--hero-skills-track);color:var(--hero-faint);margin:6px 0 0;text-wrap:balance">Product thinking · UX · Interaction · UI · Design Systems</p>
     </div>
   </section>
 
   <section id="work" style="padding:clamp(64px,9vw,104px) 0;background:var(--c-surface)">
     <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px)">
       <div style="max-width:640px;margin-bottom:56px;display:flex;flex-direction:column;gap:14px">
-        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Selected Work</div>
         <h2 style="font-size:clamp(30px,4vw,44px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:0">Products I've designed.<br><span class="hl">Problems I've solved.</span></h2>
         <p style="font-size:17px;color:var(--c-ink-3);line-height:1.7;margin:0;text-wrap:pretty">A selection of products where I worked across product thinking, UX, interaction design and UI to turn complex problems into usable experiences.</p>
       </div>
@@ -679,41 +738,73 @@
           </div>
         </article>
 
-        <article class="case" style="cursor:default">
-          <h3 style="max-width:760px;color:var(--c-ink);margin:0;text-wrap:balance">Making social publishing easier to plan, create and manage.</h3>
-          <div class="tone tone-blue">
-            <div class="tone-head">
-              <div>
-                <span class="tone-title"><span class="tone-name">Quick Social</span><span class="tone-ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Shipped</span></span>
-                <span class="tone-sub">Content · Publishing</span>
-              </div>
-              <span class="tone-pill is-static"><span class="tone-dot"></span>Case study soon</span>
+        <div class="also">
+          <h3 class="also-head">Also shipped</h3>
+          <div class="also-grid">
+            <div class="also-item also-social">
+              <span class="also-top"><span class="also-name">Quick Social</span><span class="tone-ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Shipped</span></span>
+              <p class="also-line">Making social publishing easier to plan, create and manage.</p>
+              <span class="also-meta">Content · Publishing · Case study in progress</span>
             </div>
-            <div class="tone-soon">
-              <div class="tone-wf" aria-hidden="true"><i style="width:74px;height:52px"></i><i style="width:96px;height:70px"></i><i style="width:74px;height:52px"></i></div>
-              <span class="tone-soon-pill">Case study coming soon</span>
-              <p>This product is live. The case study is being written.</p>
+            <div class="also-item also-campaign">
+              <span class="also-top"><span class="also-name">Quick Campaign</span><span class="tone-ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Shipped</span></span>
+              <p class="also-line">Designing a clearer way to create and activate campaigns.</p>
+              <span class="also-meta">Campaigns · Marketing · Case study in progress</span>
             </div>
           </div>
-        </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <article class="case" style="cursor:default">
-          <h3 style="max-width:760px;color:var(--c-ink);margin:0;text-wrap:balance">Designing a clearer way to create and activate campaigns.</h3>
-          <div class="tone tone-purple">
-            <div class="tone-head">
-              <div>
-                <span class="tone-title"><span class="tone-name">Quick Campaign</span><span class="tone-ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Shipped</span></span>
-                <span class="tone-sub">Campaigns · Marketing</span>
-              </div>
-              <span class="tone-pill is-static"><span class="tone-dot"></span>Case study soon</span>
-            </div>
-            <div class="tone-soon">
-              <div class="tone-wf" aria-hidden="true"><i style="width:74px;height:52px"></i><i style="width:96px;height:70px"></i><i style="width:74px;height:52px"></i></div>
-              <span class="tone-soon-pill">Case study coming soon</span>
-              <p>This product is live. The case study is being written.</p>
-            </div>
+
+  <section id="about" style="padding:clamp(64px,9vw,104px) 0;background:var(--c-bg);border-top:1px solid var(--c-line)">
+    <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px);display:flex;flex-direction:column;gap:clamp(28px,4vw,44px);align-items:stretch">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="font-size:clamp(28px,3.8vw,42px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:6px 0 0;max-width:22ch;text-wrap:balance">Where design, technology and <span class="hl">product thinking meet.</span></h2>
+
+      </div>
+      <div style="display:flex;flex-direction:column;gap:32px">
+        <div style="display:flex;flex-direction:column;gap:22px;max-width:88ch">
+          <div style="font-size: 20px; color: var(--c-ink); line-height: 1.7; margin: 0; text-wrap: pretty; font-weight: 500; letter-spacing: -.01em; display: flex; flex-direction: column; gap: 22px; max-width: 62ch">
+            <p style="margin:0">I enjoy understanding complex problems and turning them into experiences that feel clear, useful, and thoughtfully designed.</p>
+            <p style="margin:0">I like being involved in the bigger picture, but I’m equally comfortable getting into the details. I enjoy shaping product ideas, exploring different solutions, prototyping, and writing code when it helps bring an idea to life.</p>
           </div>
-        </article>
+
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">01 — Product thinking</span>
+            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">Framing the real problem, mapping flows and information architecture before pixels.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">02 — UX &amp; interaction</span>
+            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">Turning complex, high-stakes flows into experiences that feel clear and usable.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">03 — UI &amp; design systems</span>
+            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">High-craft interfaces backed by reusable tokens and consistent components.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
+            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">04 — Prototyping in code</span>
+            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">Building working React &amp; Motion prototypes to test ideas and collaborate with engineering.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-top:4px">
+          <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.14em;margin-right:4px">Tools</span>
+          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Figma</span>
+          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">React</span>
+          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Motion</span>
+          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Design tokens</span>
+          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">HTML / CSS</span>
+          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Accessibility</span>
+        </div>
+
+        
+
+        
       </div>
     </div>
   </section>
@@ -722,7 +813,6 @@
     <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px);display:flex;flex-direction:column;gap:clamp(24px,3.5vw,36px)">
       <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px">
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.14em">Behance</div>
           <h2 style="font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:0">Earlier <span class="hl">explorations</span></h2>
           <p style="font-size:16px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:52ch;text-wrap:pretty">Self-initiated case studies and client work published on Behance.</p>
         </div>
@@ -769,72 +859,20 @@
     </div>
   </section>
 
-  <section id="about" style="padding:clamp(64px,9vw,104px) 0;background:var(--c-bg);border-top:1px solid var(--c-line)">
-    <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px);display:flex;flex-direction:column;gap:clamp(28px,4vw,44px);align-items:stretch">
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">About Me</div>
-        <h2 style="font-size:clamp(28px,3.8vw,42px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:6px 0 0;max-width:22ch;text-wrap:balance">Where design, technology and <span class="hl">product thinking meet.</span></h2>
-
-      </div>
-      <div style="display:flex;flex-direction:column;gap:32px">
-        <div style="display:flex;flex-direction:column;gap:22px;max-width:88ch">
-          <div style="font-size: 20px; color: var(--c-ink); line-height: 1.7; margin: 0; text-wrap: pretty; font-weight: 500; letter-spacing: -.01em; display: flex; flex-direction: column; gap: 22px; max-width: 62ch">
-            <p style="margin:0">I’m Chirag Mahajan, a Product Designer who likes working where design, technology, and product thinking come together. I enjoy understanding complex problems and turning them into experiences that feel clear, useful, and thoughtfully designed.</p>
-            <p style="margin:0">I like being involved in the bigger picture, but I’m equally comfortable getting into the details. I enjoy shaping product ideas, exploring different solutions, prototyping, and writing code when it helps bring an idea to life.</p>
-          </div>
-
-        </div>
-
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
-          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
-            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">01 — Product thinking</span>
-            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">Framing the real problem, mapping flows and information architecture before pixels.</p>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
-            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">02 — UX &amp; interaction</span>
-            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">Turning complex, high-stakes flows into experiences that feel clear and usable.</p>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
-            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">03 — UI &amp; design systems</span>
-            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">High-craft interfaces backed by reusable tokens and consistent components.</p>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-line)">
-            <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-accent-text);text-transform:uppercase;letter-spacing:.14em">04 — Prototyping in code</span>
-            <p style="font-size:15px;color:var(--c-ink-2);line-height:1.6;margin:0">Building working React &amp; Motion prototypes to test ideas and collaborate with engineering.</p>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-top:4px">
-          <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.14em;margin-right:4px">Tools</span>
-          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Figma</span>
-          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">React</span>
-          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Motion</span>
-          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Design tokens</span>
-          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">HTML / CSS</span>
-          <span style="font-size:12px;font-weight:600;color:var(--c-ink-2);background:var(--c-subtle);border:1px solid var(--c-line);padding:6px 13px;border-radius:999px">Accessibility</span>
-        </div>
-
-        
-
-        
-      </div>
-    </div>
-  </section>
-
   <section id="contact" style="padding:clamp(64px,9vw,104px) 0;background:var(--c-surface);border-top:1px solid var(--c-line)">
     <div style="max-width:1120px;margin:0 auto;padding:0 clamp(24px,6vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:56px;align-items:start">
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:4px 12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);border-radius:999px;color:var(--c-accent-text);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Get In Touch</div>
         <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:800;color:var(--c-ink);letter-spacing:-.03em;line-height:1.15;margin:0">Let's build something <span class="hl">useful.</span></h2>
         <p style="font-size:17px;color:var(--c-ink-3);line-height:1.7;margin:0;max-width:42ch;text-wrap:pretty">I'm open to Product Design opportunities and interesting product problems.</p>
+        <div class="contact-cta"><a class="cta-primary" href="mailto:chiragmahajan700@gmail.com">Email me</a><button type="button" class="cta-ghost" onClick="{{ openResume }}">View resume</button></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
+        <div style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px">
           <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
             <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">Email</span>
             <span style="font-size:14px;font-weight:600;color:var(--c-ink);word-break:break-all;user-select:all;-webkit-user-select:all;cursor:text">chiragmahajan700@gmail.com</span>
           </span>
-          <button type="button" onClick="{{ copyEmail }}" aria-label="Copy email address" title="{{ emailCopyLabel }}" style="flex:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-ink-3);cursor:pointer;transition:color .18s ease,border-color .18s ease,background .18s ease" style-hover="color:var(--c-ink);border-color:var(--c-accent-line)">
+          <button type="button" onClick="{{ copyEmail }}" aria-label="Copy email address" title="{{ emailCopyLabel }}" style="flex:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-ink-3);cursor:pointer;transition:color .18s ease,border-color .18s ease,background .18s ease" style-hover="color:var(--c-ink);border-color:var(--c-accent-line)">
             <sc-if value="{{ emailCopied }}" hint-placeholder-val="{{ false }}">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </sc-if>
@@ -846,7 +884,7 @@
         <a href="https://www.linkedin.com/in/chirag-mahajan-713106228" target="_blank" rel="noopener" style="padding:20px;border-radius:16px;background:var(--c-subtle);border:1px solid var(--c-line);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;transition:background .18s ease,border-color .18s ease" style-hover="background:var(--c-surface);border-color:var(--c-accent-line)">
           <span style="display:flex;flex-direction:column;gap:4px">
             <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.12em">LinkedIn</span>
-            <span style="font-size:14px;font-weight:600;color:var(--c-ink)">linkedin.com/in/chirag-mahajan</span>
+            <span style="font-size:14px;font-weight:600;color:var(--c-ink)">linkedin.com/in/chirag-mahajan-713106228</span>
           </span>
           <span style="font-size:14px;color:var(--c-accent-text)">↗</span>
         <span class="sr-only"> (opens in new tab)</span></a>
@@ -866,7 +904,7 @@
   <div style="max-width:1280px;margin:0 auto;padding:0 clamp(24px,6vw,140px);display:flex;flex-direction:column;gap:24px">
     <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding-bottom:24px;border-bottom:1px solid var(--c-subtle)">
       <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:32px;height:32px;border-radius:12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--c-accent-text);font-size:12px">CM</div>
+        <div style="width:32px;height:32px;border-radius:12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);display:flex;align-items:center;justify-content:center"><svg width="24" height="18" viewBox="0 0 34 24" fill="none" aria-hidden="true"><circle cx="5.2" cy="7" r="6" fill="#60A5FA" opacity=".35"></circle><path d="M5.2 3.2c1.8 1.9 2.6 3.2 2.6 4.5 0 1.5-1.16 2.6-2.6 2.6S2.6 9.2 2.6 7.7c0-1.3.8-2.6 2.6-4.5z" fill="#3B82F6"></path><path d="M5.2 6.1c.86.95 1.2 1.6 1.2 2.2 0 .72-.54 1.25-1.2 1.25S4 9.02 4 8.3c0-.6.34-1.25 1.2-2.2z" fill="#BFDBFE"></path><path d="M10.6 14.6 4.2 9.4l1.5-1.9 6.6 4.7z" fill="#6B6B74"></path><path d="M26.4 14.6c3.4-.4 4.4 4.6.6 5.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path><rect x="15.8" y="10.2" width="3.6" height="2.6" rx="1.1" fill="#9A9AA3"></rect><path d="M8.6 12.6h18.2c0 4-4.1 6.4-9.1 6.4s-9.1-2.4-9.1-6.4z" fill="#8E8E97"></path><path d="M10.7 13.5h12.4c-.5 1.1-1.7 1.9-3.2 2.3-2.6.7-6.1.5-7.9-.5-.7-.4-1.1-1-1.3-1.8z" fill="#FFFFFF" opacity=".55"></path><path d="M12.4 20.4h10.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path></svg></div>
         <div>
           <span style="display:block;font-weight:700;color:var(--c-ink);font-size:14px">Chirag Mahajan</span>
           <span style="font-size:11px;color:var(--c-ink-4);text-transform:uppercase;letter-spacing:.1em;font-family:'JetBrains Mono',monospace">Product Designer</span>
@@ -890,14 +928,14 @@
     <div role="dialog" aria-modal="true" aria-label="Resume" data-modal="resume" style="position:relative;width:100%;max-width:896px;max-height:90vh;overflow-y:auto;border-radius:16px;background:var(--c-surface);border:1px solid var(--c-line);box-shadow:0 25px 50px rgba(0,0,0,.25);color:var(--c-ink-1)">
       <div style="position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;border-bottom:1px solid var(--c-line);background:var(--c-nav)">
         <div style="display:flex;align-items:center;gap:12px">
-          <div style="width:36px;height:36px;border-radius:12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);display:flex;align-items:center;justify-content:center;color:var(--c-accent-text);font-weight:700;font-size:14px">CM</div>
+          <div style="width:36px;height:36px;border-radius:12px;background:var(--c-accent-soft);border:1px solid var(--c-accent-line);display:flex;align-items:center;justify-content:center"><svg width="24" height="18" viewBox="0 0 34 24" fill="none" aria-hidden="true"><circle cx="5.2" cy="7" r="6" fill="#60A5FA" opacity=".35"></circle><path d="M5.2 3.2c1.8 1.9 2.6 3.2 2.6 4.5 0 1.5-1.16 2.6-2.6 2.6S2.6 9.2 2.6 7.7c0-1.3.8-2.6 2.6-4.5z" fill="#3B82F6"></path><path d="M5.2 6.1c.86.95 1.2 1.6 1.2 2.2 0 .72-.54 1.25-1.2 1.25S4 9.02 4 8.3c0-.6.34-1.25 1.2-2.2z" fill="#BFDBFE"></path><path d="M10.6 14.6 4.2 9.4l1.5-1.9 6.6 4.7z" fill="#6B6B74"></path><path d="M26.4 14.6c3.4-.4 4.4 4.6.6 5.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path><rect x="15.8" y="10.2" width="3.6" height="2.6" rx="1.1" fill="#9A9AA3"></rect><path d="M8.6 12.6h18.2c0 4-4.1 6.4-9.1 6.4s-9.1-2.4-9.1-6.4z" fill="#8E8E97"></path><path d="M10.7 13.5h12.4c-.5 1.1-1.7 1.9-3.2 2.3-2.6.7-6.1.5-7.9-.5-.7-.4-1.1-1-1.3-1.8z" fill="#FFFFFF" opacity=".55"></path><path d="M12.4 20.4h10.4" stroke="#6B6B74" stroke-width="1.7" stroke-linecap="round"></path></svg></div>
           <div>
             <h3 style="font-weight:600;color:var(--c-ink);font-size:16px">Chirag Mahajan — Resume</h3>
             <p style="font-size:12px;color:var(--c-ink-4)">Product Designer • QuickHub, CloudPeak Technologies</p>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <a href="assets/Chirag-Mahajan-Resume.pdf" download="Chirag Mahajan Ux Designer CV.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-2);background:var(--c-subtle);border-radius:999px;border:1px solid var(--c-line);text-decoration:none"><span style="color:var(--c-accent)">⇩</span><span>Save as PDF</span></a>
+          <a href="assets/Chirag-Mahajan-Resume.pdf" download="Chirag Mahajan - Product Designer - Resume.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-2);background:var(--c-subtle);border-radius:999px;border:1px solid var(--c-line);text-decoration:none"><span style="color:var(--c-accent)">⇩</span><span>Save as PDF</span></a>
           <button onClick="{{ closeModals }}" aria-label="Close resume" data-modal-close="1" style="padding:6px 10px;color:var(--c-ink-5);background:none;border:none;border-radius:8px;cursor:pointer;font-size:14px">✕</button>
         </div>
       </div>

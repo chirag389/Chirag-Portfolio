@@ -60,7 +60,7 @@
 
   var hero, copy, canvas, gl, prog, U = {}, texPage, texFlow, paint, pctx;
   var w = 0, h = 0, scale = 1, gw = FIELD_W, gh = 32, field = null;
-  var cam = null, bg = [0, 0, 0], tintRgb = [1, 1, 1], links = [], hoverIdx = -1;
+  var clear = [0, 0, 1e-3, 1e-3], cam = null, bg = [0, 0, 0], tintRgb = [1, 1, 1], links = [], hoverIdx = -1;
   var pointerOn = false, px = 0, py = 0, raf = 0, lastT = 0, activeUntil = 0;
   var heroSeen = true, fingerUntil = 0, lastDraw = 0;
 
@@ -78,6 +78,7 @@
     "uniform vec3 uFwd, uUp;",
     "uniform float uFocal, uLift, uBev, uShine, uIrid, uLight;",
     "uniform vec3 uBg, uSeam, uTint;",
+    "uniform vec4 uClear;               // clear zone behind the copy: centre, radii (cells)",
     "const float R3 = 0.8660254;",
     "const vec2 E0 = vec2(1.0, 0.0), E1 = vec2(0.5, R3), E2 = vec2(-0.5, R3);",
     "",
@@ -96,6 +97,7 @@
     "  return texture(uFlow, uv).r;",
     "}",
     "float calm(float f){ return smoothstep(0.18, 0.85, f); }",
+    "float clearAt(vec2 p){ return 1.0 - smoothstep(0.8, 1.3, length((p - uClear.xy) / uClear.zw)); }",
     "float rise(float f){ return uLift * smoothstep(0.02, 0.14, f) * (1.0 - smoothstep(0.14, 0.6, f)); }",
     "vec3 pageAt(vec2 p){",
     "  vec2 uv = p / uPage2;",
@@ -116,7 +118,7 @@
     "  vec2 c = tileOf(uEye.xy + rd.xy * tStart);",
     "  bool hit = false, onTop = false; float tHit = 0.0, f = 0.0, z = 0.0; vec3 n = vec3(0.0, 0.0, 1.0);",
     "  for (int i = 0; i < 48; i++) {",
-    "    f = presence(c); z = rise(f);",
+    "    f = presence(c); z = rise(f) * (1.0 - clearAt(c));",
     "    // span of the ray inside this hex column",
     "    float tIn = -1e9, tOut = 1e9; vec2 nIn = vec2(0.0);",
     "    for (int k = 0; k < 3; k++) {",
@@ -149,7 +151,7 @@
     "  if (!hit) return uSeam * 0.6;",
     "",
     "  vec3 p = uEye + rd * tHit;",
-    "  float k = calm(f);",
+    "  float k = max(calm(f), clearAt(p.xy));   // behind the copy the page stays flat and seamless",
     "  if (onTop) {                          // bevel: the last few px of a resting tile roll off toward its side",
     "    vec2 d = p.xy - c; float e = 0.5 - edgeDist(d);",
     "    if (e < uBev) {",
@@ -409,6 +411,7 @@
     var sk = dark ? 0.35 : 0.72;
     gl.uniform3f(U.uSeam, bg[0] * sk, bg[1] * sk, bg[2] * sk);
     gl.uniform3f(U.uTint, tintRgb[0], tintRgb[1], tintRgb[2]);
+    gl.uniform4f(U.uClear, clear[0], clear[1], clear[2], clear[3]);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
 
@@ -443,6 +446,13 @@
     scale = Math.min(window.devicePixelRatio || 1, 1.5);
     canvas.width = Math.round(w * scale); canvas.height = Math.round(h * scale);
     gw = FIELD_W; gh = Math.max(16, Math.round(FIELD_W * h / w));
+    /* tiles fade in only toward the edges: a soft oval around the copy stays plain */
+    var copy = hero.lastElementChild;
+    if (copy && copy !== canvas) {
+      var cr = copy.getBoundingClientRect();
+      clear = [(cr.left - r.left + cr.width / 2) / CELL, (cr.top - r.top + cr.height / 2) / CELL,
+               cr.width / 2 / CELL + 0.35, cr.height / 2 / CELL + 0.3];
+    }
     var old = field; field = new Float32Array(gw * gh);
     if (old && old.length === field.length) field.set(old);
     solveCamera();
@@ -463,7 +473,7 @@
     if (!v || !f) return false;
     prog = gl.createProgram(); gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return false;
-    ["uPage", "uFlow", "uRes", "uPage2", "uEye", "uFwd", "uUp", "uFocal", "uLift", "uBev", "uShine", "uIrid", "uLight", "uBg", "uSeam", "uTint"]
+    ["uPage", "uFlow", "uRes", "uPage2", "uEye", "uFwd", "uUp", "uFocal", "uLift", "uBev", "uShine", "uIrid", "uLight", "uBg", "uSeam", "uTint", "uClear"]
       .forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
     var buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
