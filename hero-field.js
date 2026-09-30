@@ -503,31 +503,61 @@
     return -1;
   }
 
-  function attach(section) {
-    hero = section;
-    canvas = hero.querySelector("canvas.hex-field");
-    if (!canvas || canvas.__field) return;
-    canvas.__field = true;
-    copy = hero.querySelector(":scope > div:last-of-type");
-    if (!copy || !initGL()) { canvas.style.display = "none"; return; }
-    paint = document.createElement("canvas"); pctx = paint.getContext("2d");
+  /* The tiles start on the static first-paint hero (#boot-shell) as soon as this script runs, so the
+     background arrives with the text instead of ~1 s later. When React renders the live hero, the same
+     running canvas is moved into it (a moved canvas keeps its WebGL context: no restart, no second fade)
+     and the per-hero listeners are bound again. If this script runs after React, it starts on the live hero. */
+  var started = false;
+  function relayout() { if (layout()) draw(); }
 
-    var relayout = function () { if (layout()) draw(); };
-    /* show the tiles straight away (real text on top); swap to painted text once the fonts are in,
-       so the background never waits on the font download */
+  function attach(section) {
+    var c = section.querySelector("canvas.hex-field");
+    if (!c || c.__field) return;
+    c.__field = true;
+    if (!started) {
+      hero = section; canvas = c;
+      copy = hero.querySelector(":scope > div:last-of-type");
+      if (!copy || !initGL()) { canvas.style.display = "none"; return; }
+      started = true;
+      paint = document.createElement("canvas"); pctx = paint.getContext("2d");
+      /* show the tiles straight away (real text on top); swap to painted text once the fonts are in,
+         so the background never waits on the font download */
+      var textReady = function () {
+        textOn = true;
+        if (live) hero.classList.add("hexgl-live");                    // hex cursor + mouse-driven field
+        if (live && PAINT_COPY) hero.classList.add("hexgl-paint");    // hides the DOM copy only when it is painted into the tiles
+        paintPage(); draw();
+      };
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(textReady); else textReady();
+      window.addEventListener("load", function () { setTimeout(relayout, 300); });
+      new MutationObserver(function () { setTimeout(function () { paintPage(); draw(); }, 30); })
+        .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); hero.classList.remove("hexgl-on", "hexgl-live"); });
+      if (touchMode) {
+        document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
+        setTimeout(wake, 600);
+      }
+    } else {
+      /* handover to the live hero: its classes first (so the canvas is already visible there), then the move */
+      section.classList.add("hexgl-on");
+      if (textOn && live) section.classList.add("hexgl-live");
+      if (textOn && live && PAINT_COPY) section.classList.add("hexgl-paint");
+      canvas.style.transition = "none";
+      c.style.display = "none";
+      c.parentNode.insertBefore(canvas, c);
+      hero = section;
+      copy = hero.querySelector(":scope > div:last-of-type");
+      hoverIdx = -1;
+    }
+    bindHero();
+    if (started) { paintPage(); draw(); }
+  }
+
+  /* everything tied to one hero element; runs again after the handover */
+  function bindHero() {
+    var h0 = hero;
     hero.classList.add("hexgl-on"); relayout();
-    var textReady = function () {
-      textOn = true;
-      if (live) hero.classList.add("hexgl-live");                    // hex cursor + mouse-driven field
-      if (live && PAINT_COPY) hero.classList.add("hexgl-paint");    // hides the DOM copy only when it is painted into the tiles
-      paintPage(); draw();
-    };
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(textReady); else textReady();
-    window.addEventListener("load", function () { setTimeout(relayout, 300); });
-    if ("ResizeObserver" in window) new ResizeObserver(relayout).observe(hero);
-    new MutationObserver(function () { setTimeout(function () { paintPage(); draw(); }, 30); })
-      .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); hero.classList.remove("hexgl-on", "hexgl-live"); });
+    if ("ResizeObserver" in window) new ResizeObserver(function () { if (hero === h0) relayout(); }).observe(hero);
 
     if (touchMode) {
       /* a finger drives the field while it touches the hero (passive: scrolling is never blocked) */
@@ -541,12 +571,11 @@
       hero.addEventListener("touchmove", down, { passive: true });
       hero.addEventListener("touchend", up, { passive: true });
       hero.addEventListener("touchcancel", up, { passive: true });
-      /* only animate while the hero is on screen and the tab is visible */
+      /* only animate while the hero is on screen and the tab is visible (an old, removed hero is ignored) */
       if ("IntersectionObserver" in window) new IntersectionObserver(function (en) {
+        if (hero !== h0) return;
         heroSeen = en[0].isIntersecting; if (heroSeen) wake();
       }, { threshold: 0.05 }).observe(hero);
-      document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
-      setTimeout(wake, 600);
       return;
     }
 
@@ -573,8 +602,13 @@
   }
 
   function find() {
-    var all = document.querySelectorAll(".hero-section");   // skip the raw template and the static first-paint copy
-    for (var i = 0; i < all.length; i++) if (!all[i].closest("x-dc") && !all[i].closest("#boot-shell")) { attach(all[i]); return; }
+    var all = document.querySelectorAll(".hero-section"), early = null;   // skip the raw template
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].closest("x-dc")) continue;
+      if (all[i].closest("#boot-shell")) { early = early || all[i]; continue; }
+      attach(all[i]); return;                                               // the live hero (start or handover)
+    }
+    if (early && !started) attach(early);                                   // first-paint hero, before React
   }
   function boot() {
     find();

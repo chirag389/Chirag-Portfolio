@@ -4,8 +4,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<script src="./support.js"></script>
-<script src="./analytics.js"></script>
+<!-- React and fonts are served from this site (vendor/) instead of unpkg + Google: fewer connections on a first visit. support.js swaps its CDN URLs for these via window.__resources (which also stops it re-downloading this page). -->
+<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js"};</script>
+<link rel="preload" as="script" href="vendor/react.production.min.js">
+<link rel="preload" as="script" href="vendor/react-dom.production.min.js">
+<link rel="preload" as="font" type="font/woff2" href="vendor/fonts/inter-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="vendor/fonts/jbmono-latin.woff2" crossorigin>
+<style>@font-face{font-family:'Inter';font-style:normal;font-weight:400 800;font-display:swap;src:url(vendor/fonts/inter-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Inter';font-style:normal;font-weight:400 800;font-display:swap;src:url(vendor/fonts/inter-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 700;font-display:swap;src:url(vendor/fonts/jbmono-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 700;font-display:swap;src:url(vendor/fonts/jbmono-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}x-dc{display:none}</style>
+<script src="./support.js" defer></script>
+<script src="./analytics.js" defer></script>
 </head>
 <body>
 <div id="cs-skel" aria-hidden="true">
@@ -35,8 +42,855 @@
 </div>
 <script>(function(){var s=document.getElementById("cs-skel");if(!s)return;var done=false;function hide(){if(done)return;done=true;s.classList.add("out");setTimeout(function(){s.remove()},320)}
 function ready(){var r=document.getElementById("dc-root");return r&&r.querySelector("h1")}
-var mo=new MutationObserver(function(){if(ready()){mo.disconnect();var f=document.fonts&&document.fonts.ready;Promise.race([f||Promise.resolve(),new Promise(function(r){setTimeout(r,1200)})]).then(hide)}});
+var mo=new MutationObserver(function(){if(document.getElementById("cs-static")){mo.disconnect();hide();return}if(ready()){mo.disconnect();var f=document.fonts&&document.fonts.ready;Promise.race([f||Promise.resolve(),new Promise(function(r){setTimeout(r,1200)})]).then(hide)}});
 mo.observe(document.documentElement,{childList:true,subtree:true});setTimeout(hide,10000);})();</script>
+<!-- prerender:start -->
+<div id="cs-static"><div class="sc-host" data-sc-name="quick-crm"><header style="position: sticky; top: 0px; z-index: 40; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgb(229, 231, 235);">
+  <div style="max-width: 1360px; margin: 0px auto; padding: 14px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="./" style="display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0px 16px 0px 12px; border-radius: 8px; background: rgb(255, 255, 255); border: 1px solid rgb(212, 212, 216); color: rgb(24, 24, 27); font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; flex-shrink: 0; box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>Back</a>
+      <span style="width: 12px; height: 12px; border-radius: 999px; background: rgb(11, 168, 97);"></span>
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(161, 161, 170); font-family: &quot;JetBrains Mono&quot;, monospace;">
+        <span style="color: rgb(82, 82, 91);">Selected Work</span>
+        <span>/</span>
+        <span style="color: rgb(6, 112, 64); font-weight: 700;">Quick CRM</span>
+      </div>
+    </div>
+    <a href="#top" style="padding: 6px 16px; border-radius: 999px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">Back to Top</a>
+  </div></header><div data-sid="top" data-screen-label="01 Hero" style="max-width: 1360px; margin: 0px auto; padding: 72px 32px 0px; background-color: rgb(255, 255, 255);">
+  <div style="display: flex; flex-direction: column; gap: 28px; padding-bottom: 56px; border-bottom: 1px solid rgb(229, 231, 235);">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+      <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: rgb(234, 251, 243); color: rgb(6, 112, 64); border: 1px solid rgb(183, 239, 211); text-transform: uppercase; letter-spacing: 0.08em;">Product Design</span>
+      <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; padding: 4px 12px; border-radius: 999px; background: rgb(243, 244, 246); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235);">Quick Hub</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <span style="display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: rgb(24, 24, 27);"><img decoding="async" src="assets/logo-quick-crm.webp" alt="Quick CRM logo" style="width: 40px; height: 40px; display: block; flex: 0 0 auto;">Quick CRM</span>
+      <h1 style="font-size: 60px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.08; max-width: 22ch; text-wrap: pretty;">From scattered contact tables to a reusable customer system</h1>
+    </div>
+    <p style="max-width: 64ch; font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7;">A centralized CRM designed to help businesses manage customers, understand their relationship with the business, and reuse customer data across Quick Hub.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+      
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235);">
+          <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Role</span></span>
+          <span style="font-size: 14px; color: rgb(63, 63, 70); font-weight: 500; line-height: 1.6;"><span class="sc-interp">Product Designer</span></span>
+        </div>
+      
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235);">
+          <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Product</span></span>
+          <span style="font-size: 14px; color: rgb(63, 63, 70); font-weight: 500; line-height: 1.6;"><span class="sc-interp">Quick CRM · Quick Hub</span></span>
+        </div>
+      
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235);">
+          <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Scope</span></span>
+          <span style="font-size: 14px; color: rgb(63, 63, 70); font-weight: 500; line-height: 1.6;"><span class="sc-interp">Product Strategy · UX · Information Architecture · UI Design · Prototyping</span></span>
+        </div>
+      
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235);">
+          <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Platform</span></span>
+          <span style="font-size: 14px; color: rgb(63, 63, 70); font-weight: 500; line-height: 1.6;"><span class="sc-interp">Web</span></span>
+        </div>
+      
+    </div>
+    <div style="position: relative; margin-top: 8px; border-radius: 16px; overflow: hidden; background: rgb(24, 24, 27); border: 1px solid rgb(229, 231, 235); box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;">
+      <img decoding="async" src="assets/qcrm-cs/img09.webp" alt="The Quick CRM dashboard: contact and tag counts, follow-ups due today, an upcoming follow-up table and source distribution" style="width: 100%; height: auto; object-fit: cover; opacity: 0.92;">
+      <div style="position: absolute; inset: 0px; background: linear-gradient(to top, rgba(9, 9, 11, 0.7), transparent 55%);"></div>
+    </div>
+  </div>
+
+  <div data-r="shell" style="display: grid; grid-template-columns: minmax(0px, 3fr) minmax(0px, 9fr); gap: 48px; padding-top: 56px;">
+    <aside>
+      <div style="position: sticky; top: 96px; display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235);">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; font-family: &quot;JetBrains Mono&quot;, monospace; text-transform: uppercase; letter-spacing: 0.1em; color: rgb(113, 113, 122); border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 10px;"><span>Case Study Index</span></div>
+        <nav style="display: flex; flex-direction: column; gap: 4px;">
+          
+            <a href="#top" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; background: rgb(24, 24, 27); color: rgb(255, 255, 255); font-weight: 700;"><span class="sc-interp">01. Hero</span></a>
+          
+            <a href="#sec-context" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">02. Context</span></a>
+          
+            <a href="#sec-problem" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">03. The Problem</span></a>
+          
+            <a href="#sec-goal" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">04. Goal</span></a>
+          
+            <a href="#sec-approach" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">05. Approach</span></a>
+          
+            <a href="#sec-design" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">06. Design</span></a>
+          
+            <a href="#sec-migration" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">07. Data Migration</span></a>
+          
+            <a href="#sec-newproblem" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">08. A New Problem</span></a>
+          
+            <a href="#sec-segmentation" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">09. Segmentation</span></a>
+          
+            <a href="#sec-outcome" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">10. Outcome</span></a>
+          
+            <a href="#sec-role" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">11. My Role</span></a>
+          
+            <a href="#sec-reflection" style="display: block; width: 100%; padding: 7px 12px; border-radius: 10px; font-size: 12px; text-decoration: none; transition: 0.2s; color: rgb(82, 82, 91); font-weight: 500;"><span class="sc-interp">12. Reflection</span></a>
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main style="display: flex; flex-direction: column; gap: 64px; padding-bottom: 40px;">
+
+      <section data-sid="sec-context" data-screen-label="02 Context" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">02 · Context</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">Creating a centralized customer system</h2>
+        </div>
+        <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 80ch;">Quick CRM is the centralized customer management system within the Quick Hub ecosystem. When I started working on this product, there wasn't a proper way to manage customers. Contact information was scattered across Quick Chat, Quick Campaign, and Quick Ads, with each product storing only basic details like name, email, and created date.</p>
+        <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 80ch;">There was no shared customer profile, activity history, or reusable customer data. My focus was to build a centralized CRM that brought customer information into one place and later evolve it with segmentation to support campaigns and broadcasts.</p>
+        
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+        <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.42; max-width: 42ch; color: rgb(24, 24, 27); text-wrap: pretty;">There were contacts everywhere, but there was no centralized customer system.</p>
+      </section>
+
+      <section data-sid="sec-problem" data-screen-label="03 The problem" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">03 · The Problem</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">The Problem</h2>
+        </div>
+        <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.45; max-width: 52ch; color: rgb(24, 24, 27); text-wrap: pretty;">We had customer records across Quick Hub, but businesses didn't have a connected way to manage and use them.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 16px;">
+          
+            <div style="padding: 20px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">01</span></span>
+                <h4 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.4;"><span class="sc-interp">Customer data was scattered</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Customer records lived across different Quick products, with no single place to manage them.</span></p>
+            </div>
+          
+            <div style="padding: 20px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">02</span></span>
+                <h4 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.4;"><span class="sc-interp">Customer interactions lacked context</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Businesses couldn't get a complete view of their interactions and relationship with a customer over time.</span></p>
+            </div>
+          
+            <div style="padding: 20px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">03</span></span>
+                <h4 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.4;"><span class="sc-interp">Customer data wasn't actionable</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Businesses couldn't easily turn their existing contacts into targeted groups for specific business activities.</span></p>
+            </div>
+          
+            <div style="padding: 20px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">04</span></span>
+                <h4 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.4;"><span class="sc-interp">Managing customers was inefficient</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Finding, organizing, and working with the right customers became increasingly manual as the customer base grew.</span></p>
+            </div>
+          
+        </div>
+      </section>
+
+      <section data-sid="sec-goal" data-screen-label="04 Goal" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">04 · Goal</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">Goal</h2>
+        </div>
+        <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.45; max-width: 52ch; color: rgb(24, 24, 27); text-wrap: pretty;">Create one connected customer system where businesses can manage, understand, organize, and activate their customer data across Quick Hub.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 16px;">
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">01</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: rgb(24, 24, 27); line-height: 1.35;"><span class="sc-interp">Centralize</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Bring customer records from across Quick Hub into one shared system. Businesses should no longer need to manage the same customers separately across different products.</span></p>
+            </div>
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">02</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: rgb(24, 24, 27); line-height: 1.35;"><span class="sc-interp">Understand</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Give businesses a clearer view of each customer beyond basic contact details. Customer context and interactions should be easier to understand from one place.</span></p>
+            </div>
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">03</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: rgb(24, 24, 27); line-height: 1.35;"><span class="sc-interp">Organize</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Make it easier to search, filter, and manage customers as the database grows. Businesses should be able to quickly find the customers they need to work with.</span></p>
+            </div>
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">04</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: rgb(24, 24, 27); line-height: 1.35;"><span class="sc-interp">Activate</span></h4>
+              </div>
+              <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7; padding-left: 32px;"><span class="sc-interp">Make customer data useful beyond the CRM itself. Businesses should be able to use their customers across Quick Hub, particularly for Campaigns and Broadcasts.</span></p>
+            </div>
+          
+        </div>
+      </section>
+
+      <section data-sid="sec-approach" data-screen-label="05 Approach" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">05 · Approach</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">Approach</h2>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.4; max-width: 48ch; color: rgb(24, 24, 27); text-wrap: pretty;">Understanding the problem from multiple perspectives</h3>
+        <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 74ch;">Before designing the CRM, I looked at the problem from both product and business perspectives. I used competitive analysis and insights from business owners, the sales team, and PMs to understand what the CRM needed to solve.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 16px;">
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">01</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.35; letter-spacing: -0.01em;"><span class="sc-interp">Competitive analysis</span></h4>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px; padding-left: 32px;">
+                
+                  <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">I studied established CRMs to understand patterns for customer profiles, activity, filtering, tagging, and segmentation. This helped me identify useful patterns without simply copying another product.</span></p>
+                
+              </div>
+            </div>
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">02</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.35; letter-spacing: -0.01em;"><span class="sc-interp">Business owner insights</span></h4>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px; padding-left: 32px;">
+                
+                  <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">I spoke with business owners to understand how they manage customers and what information they actually need. This highlighted the need to organize customers, understand interactions, and find the right customers quickly.</span></p>
+                
+              </div>
+            </div>
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">03</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.35; letter-spacing: -0.01em;"><span class="sc-interp">Sales team insights</span></h4>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px; padding-left: 32px;">
+                
+                  <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">I worked with the sales team to understand how customer information is used in everyday workflows. Their input helped identify the customer context and information needed for follow-ups and customer management.</span></p>
+                
+              </div>
+            </div>
+          
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">04</span></span>
+                <h4 style="font-size: 16px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.35; letter-spacing: -0.01em;"><span class="sc-interp">PM &amp; product</span></h4>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px; padding-left: 32px;">
+                
+                  <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">I worked with PMs to understand the existing product structure and how CRM would connect with Quick Chat, Quick Campaign, and Quick Ads. This helped define CRM as a shared customer system across Quick Hub.</span></p>
+                
+              </div>
+            </div>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid rgb(229, 231, 235);">
+          <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(113, 113, 122); text-transform: uppercase; letter-spacing: 0.1em;">What this helped me define</span>
+          <div style="display: flex; flex-direction: column; border-top: 1px solid rgb(229, 231, 235);">
+            
+              <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 180px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+                <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">01 · Shared customer record</span></span>
+                <p style="font-size: 16px; color: rgb(63, 63, 70); line-height: 1.7;"><span class="sc-interp">One central place for customer information.</span></p>
+              </div>
+            
+              <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 180px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+                <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">02 · Customer context</span></span>
+                <p style="font-size: 16px; color: rgb(63, 63, 70); line-height: 1.7;"><span class="sc-interp">Go beyond basic contact details and understand interactions.</span></p>
+              </div>
+            
+              <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 180px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+                <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">03 · Reusable customer data</span></span>
+                <p style="font-size: 16px; color: rgb(63, 63, 70); line-height: 1.7;"><span class="sc-interp">Make customer data usable across Quick Hub, especially Campaigns and Broadcasts.</span></p>
+              </div>
+            
+          </div>
+        </div>
+      </section>
+
+      <section data-sid="sec-design" data-screen-label="06 Design" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">06 · Design</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">Turning the product decision into the CRM experience</h2>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px;">
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;">6.1</span>
+            <h3 style="font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; color: rgb(24, 24, 27);">Start with an overview</h3>
+          </div>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 74ch;">The dashboard gives business owners a quick view of their customer base and what needs attention, before they move into any individual record.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Total contacts</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Total tags</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Today's follow-up</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Upcoming follow-up</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Source distribution</span></span>
+            
+          </div>
+          <figure style="margin: 0px; display: flex; flex-direction: column; gap: 12px;">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img09.webp" alt="The Quick CRM dashboard with contact and tag counts, follow-ups and source distribution" style="width: 100%; border-radius: 16px; border: 1px solid rgb(229, 231, 235);">
+            <figcaption style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65; max-width: 66ch;">Follow-ups sit on the overview rather than only inside each record, because that is the work with a date attached to it.</figcaption>
+          </figure>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px;">
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;">6.2</span>
+            <h3 style="font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; color: rgb(24, 24, 27);">Turn Contacts into a workspace</h3>
+          </div>
+          <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.45; max-width: 52ch; color: rgb(24, 24, 27); text-wrap: pretty;">A basic contact table answers "Can I find this customer?" A CRM should also help users organize groups of customers and take action on them.</p>
+          <figure style="margin: 0px; display: flex; flex-direction: column; gap: 12px;">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img10.webp" alt="The Quick CRM contacts screen with search, filters, tags and row selection" style="width: 100%; border-radius: 16px; border: 1px solid rgb(229, 231, 235);">
+            <figcaption style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65; max-width: 66ch;">Search, filtering, tags, multi-select and bulk actions on the surface where customers are added.</figcaption>
+          </figure>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <figure style="margin: 0px; display: flex; flex-direction: column; gap: 10px;">
+              <img loading="lazy" decoding="async" src="assets/qcrm-cs/img08.webp" alt="Adding a contact and tagging it during creation" style="width: 100%; border-radius: 16px; border: 1px solid rgb(229, 231, 235);">
+              <figcaption style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;">Tags can be applied while the customer is being created.</figcaption>
+            </figure>
+            
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px;">
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;">6.3</span>
+            <h3 style="font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; color: rgb(24, 24, 27);">Make the customer the primary record</h3>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0px; border-top: 1px solid rgb(229, 231, 235); border-bottom: 1px solid rgb(229, 231, 235);">
+            
+              <div style="padding: 20px 20px 20px 0px; display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;"><span class="sc-interp">01</span></span>
+                <p style="font-size: 15px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.45; letter-spacing: -0.01em;"><span class="sc-interp">Who is this customer?</span></p>
+              </div>
+            
+              <div style="padding: 20px 20px 20px 0px; display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;"><span class="sc-interp">02</span></span>
+                <p style="font-size: 15px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.45; letter-spacing: -0.01em;"><span class="sc-interp">What do we know about them?</span></p>
+              </div>
+            
+              <div style="padding: 20px 20px 20px 0px; display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;"><span class="sc-interp">03</span></span>
+                <p style="font-size: 15px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.45; letter-spacing: -0.01em;"><span class="sc-interp">What has happened with them?</span></p>
+              </div>
+            
+              <div style="padding: 20px 20px 20px 0px; display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;"><span class="sc-interp">04</span></span>
+                <p style="font-size: 15px; font-weight: 700; color: rgb(24, 24, 27); line-height: 1.45; letter-spacing: -0.01em;"><span class="sc-interp">What can we do next?</span></p>
+              </div>
+            
+          </div>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 74ch;">The profile answers those four in a fixed order. Identity and the available actions sit at the top of the left panel, the information the business holds and its tags below them, and everything time-based occupies the main area — so nothing important sits behind navigation.</p>
+          <figure style="margin: 0px; display: flex; flex-direction: column; gap: 12px;">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img04.webp" alt="The customer profile panel with details, tags and status" style="width: 100%; border-radius: 16px; border: 1px solid rgb(229, 231, 235); box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 50px;">
+            <figcaption style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65; max-width: 66ch;">One panel carries who the customer is and what can be done about them.</figcaption>
+          </figure>
+          <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.4; max-width: 40ch; color: rgb(24, 24, 27); text-wrap: pretty;">The customer became the primary unit of the CRM, rather than the contact row.</p>
+          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid rgb(229, 231, 235);">
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(113, 113, 122); text-transform: uppercase; letter-spacing: 0.1em;">Alternative I rejected</span>
+            <span style="font-size: 17px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.015em;">Separate channel-specific views</span>
+            <p style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 70ch;">Splitting the record by channel organizes information tidily, but it turns one relationship into several partial ones.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px;">
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;">6.4</span>
+            <h3 style="font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; color: rgb(24, 24, 27);">Give the customer a history, not just a profile</h3>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0px; border-top: 1px solid rgb(229, 231, 235); border-bottom: 1px solid rgb(229, 231, 235);">
+            <div style="padding: 22px 22px 22px 0px; display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(113, 113, 122); text-transform: uppercase; letter-spacing: 0.12em;">The profile shows</span>
+              <span style="font-size: 17px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.02em;">Who the customer is</span>
+            </div>
+            <div style="padding: 22px; display: flex; flex-direction: column; gap: 6px; background: rgba(234, 251, 243, 0.6);">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.12em;">The activity history shows</span>
+              <span style="font-size: 17px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.02em;">The relationship with that customer</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">WhatsApp interactions</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Broadcasts</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Campaigns</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Replies</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Calls</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Notes</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Follow-ups</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Tags</span></span>
+            
+              <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;"><span class="sc-interp">Customer updates</span></span>
+            
+          </div>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 74ch;">All of it lands in one chronological view, but not at the same weight. Communication needs enough context to recognize a conversation; record changes stay compact. Making every event visually equal would have produced a log rather than a relationship.</p>
+          <div style="display: flex; flex-direction: column; border-top: 1px solid rgb(229, 231, 235);">
+            
+              <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 180px) minmax(0px, 1fr); gap: 20px; padding: 16px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+                <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">Communication</span></span>
+                <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7;"><span class="sc-interp">Broadcast and campaign entries carry the most context: the campaign, the template used and enough of the message to recognize it.</span></p>
+              </div>
+            
+              <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 180px) minmax(0px, 1fr); gap: 20px; padding: 16px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+                <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">Follow-up · Note</span></span>
+                <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7;"><span class="sc-interp">Enough detail to understand what was planned or written, and when, without competing with the messages around it.</span></p>
+              </div>
+            
+              <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 180px) minmax(0px, 1fr); gap: 20px; padding: 16px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+                <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">Tags · Updates</span></span>
+                <p style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.7;"><span class="sc-interp">Compact single lines. Record changes belong in the history, but they are not what the reader is scanning for.</span></p>
+              </div>
+            
+          </div>
+          <figure style="margin: 0px; display: flex; flex-direction: column; gap: 12px;">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/act-activity.webp" alt="The Quick CRM Activity tab: upcoming scheduled items above a dated timeline of calls, notes and WhatsApp messages" style="width: 100%; border-radius: 16px; border: 1px solid rgb(229, 231, 235); box-shadow: rgba(0, 0, 0, 0.08) 0px 20px 50px;">
+            <figcaption style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65; max-width: 66ch;">Upcoming items sit above the timeline; past activity is grouped by date with the channel and outcome for each entry.</figcaption>
+          </figure>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px;">
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); letter-spacing: 0.1em;">6.5</span>
+            <h3 style="font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; color: rgb(24, 24, 27);">Connect customer context to action</h3>
+          </div>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 74ch;">Customer context is useful when it helps the business decide what to do next. I structured each activity around the type of interaction, while keeping follow-ups connected to the same customer context.</p>
+
+          <div style="position: relative; margin-top: 6px;">
+            <div style="overflow: hidden;">
+              <div style="display: flex; gap: 20px; padding-bottom: 8px; transform: translateX(calc(0% + 0px)); transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);">
+                
+                  <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                    <span style="font-size: 14px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(24, 24, 27); text-transform: uppercase; letter-spacing: 0em;"><span class="sc-interp">Call</span></span>
+                    <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;"><span class="sc-interp">Understand conversations, outcomes, and recordings.</span></p>
+                    <img loading="lazy" decoding="async" src="assets/qcrm-cs/act-call.webp" alt="The Call tab of a customer record, showing dated calls with direction, outcome and a recording" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+                  </div>
+                
+                  <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                    <span style="font-size: 14px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(24, 24, 27); text-transform: uppercase; letter-spacing: 0em;"><span class="sc-interp">Email</span></span>
+                    <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;"><span class="sc-interp">See campaigns, scheduled emails, received emails, and individual messages.</span></p>
+                    <img loading="lazy" decoding="async" src="assets/qcrm-cs/act-email.webp" alt="The Email tab of a customer record, showing campaigns, scheduled sends, received mail and individual messages" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+                  </div>
+                
+                  <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                    <span style="font-size: 14px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(24, 24, 27); text-transform: uppercase; letter-spacing: 0em;"><span class="sc-interp">Notes</span></span>
+                    <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;"><span class="sc-interp">Capture internal customer context that may influence the next action.</span></p>
+                    <img loading="lazy" decoding="async" src="assets/qcrm-cs/act-notes.webp" alt="The Notes tab of a customer record, showing dated internal notes with their author" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+                  </div>
+                
+              </div>
+            </div>
+            <button type="button" aria-label="Previous" style="position: absolute; top: 50%; left: 8px; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 999px; background: rgb(255, 255, 255); color: rgb(63, 63, 70); border: 1px solid rgb(212, 212, 216); display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; z-index: 10; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px;">←</button>
+            <button type="button" aria-label="Next" style="position: absolute; top: 50%; right: 8px; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 999px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; z-index: 10; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px;">→</button>
+            <div style="margin-top: 12px; text-align: center;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(113, 113, 122);"><span class="sc-interp">1 / 3</span></span>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 26px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+            <h4 style="font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; color: rgb(24, 24, 27); margin: 0px;">From context to action</h4>
+            <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 74ch;">Customer interactions provide the context needed to decide what happens next. Follow-ups turn that context into scheduled, assigned work without separating the action from the customer record.</p>
+            <figure style="margin: 0px; display: flex; flex-direction: column; gap: 14px;">
+              <img loading="lazy" decoding="async" src="assets/qcrm-cs/act-followups.webp" alt="The Follow-ups tab: upcoming scheduled follow-ups with description, date, time, assignee and Complete or Edit actions, above quieter completed items" style="width: 100%; border-radius: 16px; border: 1px solid rgb(229, 231, 235); box-shadow: rgba(0, 0, 0, 0.09) 0px 24px 60px;">
+              <figcaption style="font-size: 14px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 70ch;">Scheduled follow-ups stay open with the details needed to act. Completed follow-ups become quieter history, while remaining available when the business needs to inspect what was done.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section data-sid="sec-migration" data-screen-label="07 Data migration" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">07 · Data Migration</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">Making customer data ready for CRM</h2>
+          <p style="font-size: 16px; color: rgb(113, 113, 122); line-height: 1.6; margin-top: 10px; max-width: 60ch;">How do we bring existing customer data into a structured CRM?</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: rgb(24, 24, 27); line-height: 1.3;">A centralized CRM still needs existing customers</h3>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">Businesses already had customer information before Quick CRM existed.</p>
+          <p style="font-size: 17px; color: rgb(24, 24, 27); line-height: 1.7; max-width: 66ch; font-weight: 600;">Moving to a centralized CRM meant giving them a practical way to bring that existing data with them.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: rgb(24, 24, 27); line-height: 1.3;">Bring existing customer data into CRM</h3>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">Businesses can bring their existing customer list into CRM using a CSV file. The import begins in Contacts, where the customer base already lives.</p>
+          <p style="font-size: 17px; color: rgb(24, 24, 27); line-height: 1.7; max-width: 66ch; font-weight: 600;">Because spreadsheets don't share one structure, each CSV column has to be connected to the right CRM field, and the data has to be checked before any customer records are created.</p>
+          <div style="position: relative;">
+            <div style="overflow: hidden;">
+              <div style="display: flex; gap: 20px; padding-bottom: 8px; transform: translateX(calc(0% + 0px)); transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);">
+              
+                <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                  <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">01</span></span>
+                  <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;"><span class="sc-interp">Upload</span></h5>
+                  <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;"><span class="sc-interp">Select the spreadsheet. The import starts from Contacts, where the customer base already lives.</span></p>
+                  <img loading="lazy" decoding="async" src="assets/qcrm-cs/img14.webp" alt="The Upload CSV File dialog with a drag-and-drop area over the contacts list" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+                </div>
+              
+                <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                  <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">02</span></span>
+                  <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;"><span class="sc-interp">Map</span></h5>
+                  <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;"><span class="sc-interp">Map spreadsheet columns to CRM fields, with a default mapping proposed and the required fields marked.</span></p>
+                  <img loading="lazy" decoding="async" src="assets/qcrm-cs/img13.webp" alt="Mapping Properties: CSV columns matched to CRM properties, each marked as mapped, with an assign-tag field" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+                </div>
+              
+                <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                  <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">03</span></span>
+                  <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;"><span class="sc-interp">Review</span></h5>
+                  <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;"><span class="sc-interp">Identify incorrect or duplicate records before importing. They are named, and offered as a CSV to fix outside the product.</span></p>
+                  <img loading="lazy" decoding="async" src="assets/qcrm-cs/img15.webp" alt="The Import Contact review step with Incorrect Contacts and Duplicate Contacts tabs and a list of detected duplicates" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+                </div>
+              
+                <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                  <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">04</span></span>
+                  <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;"><span class="sc-interp">Import</span></h5>
+                  <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;"><span class="sc-interp">Create the customer records only after review, with the progress state showing how many are being added.</span></p>
+                  <img loading="lazy" decoding="async" src="assets/qcrm-cs/img12.webp" alt="The import running, showing how many contacts are being imported and the progress" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+                </div>
+              
+              </div>
+            </div>
+            <button type="button" aria-label="Previous" style="position: absolute; top: 50%; left: 8px; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 999px; background: rgb(255, 255, 255); color: rgb(63, 63, 70); border: 1px solid rgb(212, 212, 216); display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; z-index: 10; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px;">←</button>
+            <button type="button" aria-label="Next" style="position: absolute; top: 50%; right: 8px; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 999px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; z-index: 10; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px;">→</button>
+            <div style="margin-top: 12px; text-align: center;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(113, 113, 122);"><span class="sc-interp">1 / 4</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.4; max-width: 40ch; color: rgb(24, 24, 27); text-wrap: pretty;">The result is a safer path from an existing customer spreadsheet to a centralized CRM database.</p>
+        </div>
+      </section>
+
+      <section data-sid="sec-newproblem" data-screen-label="08 A new problem" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">08 · A New Problem</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">Finding customers wasn't enough</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 70ch; padding: 0px;">
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7;">Once customer data was centralized, businesses could search and filter their customers. But they could find a group without being able to keep that group for later.</p>
+          <p style="font-size: 17px; color: rgb(24, 24, 27); line-height: 1.7; font-weight: 600;">A filter answered a question right now. It didn't create a reusable audience for later.</p>
+        </div>
+      </section>
+
+      <section data-sid="sec-segmentation" data-screen-label="09 Segmentation" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">09 · Segmentation</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">Having all customers in one place wasn't enough</h2>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">Once customer data was centralized, businesses could manage their customers from one place.</p>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">But when running a campaign or broadcast, they often needed to include or exclude a specific group of customers.</p>
+          <div style="border-left: 2px solid rgb(6, 112, 64); padding: 6px 0px 6px 24px; max-width: 52ch;">
+            <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(113, 113, 122); display: block; margin-bottom: 10px;">For example</span>
+            <span style="font-size: 20px; font-weight: 600; color: rgb(24, 24, 27); line-height: 1.5; letter-spacing: -0.015em; text-wrap: pretty;">Send this campaign to customers who came from WhatsApp, but exclude customers already tagged as VIP.</span>
+          </div>
+          <p style="font-size: 17px; color: rgb(24, 24, 27); line-height: 1.7; max-width: 66ch; font-weight: 600;">The existing way of building this audience involved repeatedly filtering and working through customer lists, making the process lengthy and difficult to reuse.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: rgb(24, 24, 27); line-height: 1.3;">Finding a simpler way to define audiences</h3>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">I looked at how CRM and marketing products handle audience selection and segmentation and compared those patterns with the workflow businesses were trying to accomplish in Quick Hub.</p>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">The existing filtering approach could help find customers, but it was not an efficient way to repeatedly build and manage the same audience.</p>
+          <p style="font-size: 17px; color: rgb(24, 24, 27); line-height: 1.7; max-width: 66ch; font-weight: 600;">I introduced Segments to turn audience selection into a reusable system.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: rgb(24, 24, 27); line-height: 1.3;">From filtering customers to defining an audience</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+            <div style="padding: 24px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 12px;">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(113, 113, 122);">Filter</span>
+              <span style="font-size: 18px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.015em;">Find customers</span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(82, 82, 91); line-height: 1.7;"><span style="color: rgb(161, 161, 170);">—</span><span>Narrows the customer list for the current task</span></span>
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(82, 82, 91); line-height: 1.7;"><span style="color: rgb(161, 161, 170);">—</span><span>Useful when you need to find customers right now</span></span>
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(82, 82, 91); line-height: 1.7;"><span style="color: rgb(161, 161, 170);">—</span><span>The criteria are applied to the current view</span></span>
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(82, 82, 91); line-height: 1.7;"><span style="color: rgb(161, 161, 170);">—</span><span>You need to repeat the filtering when you need the same audience again</span></span>
+              </div>
+            </div>
+            <div style="padding: 24px; border-radius: 16px; background: rgb(244, 252, 248); border: 1px solid rgb(183, 239, 211); display: flex; flex-direction: column; gap: 12px;">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(6, 112, 64);">Segment</span>
+              <span style="font-size: 18px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.015em;">Define an audience</span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(63, 63, 70); line-height: 1.7;"><span style="color: rgb(11, 168, 97);">—</span><span>Stores the rules that define the audience</span></span>
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(63, 63, 70); line-height: 1.7;"><span style="color: rgb(11, 168, 97);">—</span><span>Can be reused across Quick Hub workflows</span></span>
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(63, 63, 70); line-height: 1.7;"><span style="color: rgb(11, 168, 97);">—</span><span>Does not require manually maintaining a separate customer list</span></span>
+                <span style="display: flex; gap: 10px; font-size: 15px; color: rgb(63, 63, 70); line-height: 1.7;"><span style="color: rgb(11, 168, 97);">—</span><span>Membership changes as customer data changes</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 22px; padding: 26px; border-radius: 16px; border: 1px solid rgb(229, 231, 235); margin-top: 6px;">
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px; justify-content: space-between;">
+              <span style="font-size: 17px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.015em;">Segment · VIP Customers</span>
+              <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(6, 112, 64);">Tag = VIP</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; border-top: 1px solid rgb(229, 231, 235); padding-top: 20px;">
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(113, 113, 122);">Today</span>
+                <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(24, 24, 27);">Customer A</span>
+                <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(24, 24, 27);">Customer B</span>
+                <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(24, 24, 27);">Customer C</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(6, 112, 64);">Later</span>
+                <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(113, 113, 122);">Customer A</span>
+                <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(113, 113, 122);">Customer B</span>
+                <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(113, 113, 122);">Customer C</span>
+                <span style="font-size: 15px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(24, 24, 27); font-weight: 700;">Customer D <span style="color: rgb(6, 112, 64);">receives the VIP tag</span></span>
+                <p style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.7; margin-top: 4px;">Customer D automatically becomes part of the Segment. If a customer no longer matches the rule, they can automatically leave it.</p>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.4; max-width: 34ch; color: rgb(24, 24, 27); text-wrap: pretty; padding: 8px 0px 8px 24px; border-left: 2px solid rgb(6, 112, 64); margin-top: 6px;">The business defines the rules. CRM keeps the audience updated.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: rgb(24, 24, 27); line-height: 1.3;">Building the audience</h3>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">With Segments, businesses can define an audience using information already stored in CRM. The process starts with an empty audience, and as conditions are added the matching customer count shows how large that audience is before it is saved.</p>
+          <div style="position: relative;">
+            <div style="overflow: hidden;">
+              <div style="display: flex; gap: 20px; padding-bottom: 8px; transform: translateX(calc(0% + 0px)); transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);">
+              <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;">01</span>
+                <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;">Choose the first rule</h5>
+                <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;">Pick the customer information that defines membership.</p>
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img01.webp" alt="Create New Segment with a name field and the customer information available for the first condition" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+              </div>
+              <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;">02</span>
+                <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;">Narrow the audience</h5>
+                <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;">Add a second condition to reach a smaller group.</p>
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img11.webp" alt="Two conditions combined in one segment, including an import date range" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+              </div>
+              <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;">03</span>
+                <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;">Combine conditions</h5>
+                <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;">A second group gives a different set of conditions a way into the same audience.</p>
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img06.webp" alt="A segment with several conditions in one group and a second group joined by OR" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+              </div>
+              <div style="flex: 0 0 80%; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+                <span style="width: 24px; height: 24px; border-radius: 8px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;">04</span>
+                <h5 style="font-size: 14px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.01em;">Verify the audience</h5>
+                <p style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65;">Check the customers the rules currently match before saving.</p>
+                <img loading="lazy" decoding="async" src="assets/qcrm-cs/img03.webp" alt="The contacts matching the segment conditions, listed for review before saving" style="width: 100%; border-radius: 12px; border: 1px solid rgb(229, 231, 235);">
+              </div>
+              </div>
+            </div>
+            <button type="button" aria-label="Previous" style="position: absolute; top: 50%; left: 8px; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 999px; background: rgb(255, 255, 255); color: rgb(63, 63, 70); border: 1px solid rgb(212, 212, 216); display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; z-index: 10; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px;">←</button>
+            <button type="button" aria-label="Next" style="position: absolute; top: 50%; right: 8px; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 999px; background: rgb(24, 24, 27); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; z-index: 10; box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px;">→</button>
+            <div style="margin-top: 12px; text-align: center;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(113, 113, 122);"><span class="sc-interp">1 / 4</span></span>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 6px;">
+            <div style="padding: 20px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(6, 112, 64);">AND</span>
+              <p style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.7;">Both conditions must be true for a customer to belong to this group.</p>
+            </div>
+            <div style="padding: 20px; border-radius: 16px; background: rgb(249, 250, 251); border: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(6, 112, 64);">OR</span>
+              <p style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.7;">OR lets businesses create alternative ways for a customer to qualify.</p>
+            </div>
+          </div>
+          <div style="max-width: 420px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgb(24, 24, 27); padding-top: 18px;">
+            <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(113, 113, 122);">One audience, built up across the flow</span>
+            <span style="font-size: 16px; font-family: &quot;JetBrains Mono&quot;, monospace; color: rgb(24, 24, 27); line-height: 1.9;">Tag = Sales Lead<br><span style="color: rgb(6, 112, 64); font-weight: 700; font-size: 12px; letter-spacing: 0.14em;">AND</span><br>Import Date = Jun 03 – Jul 21, 2026<br><span style="color: rgb(6, 112, 64); font-weight: 700; font-size: 12px; letter-spacing: 0.14em;">AND</span><br>Source = WhatsApp</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: rgb(24, 24, 27); line-height: 1.3;">Save it once, use it again</h3>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">Once the audience is defined, the business can save it as a Segment instead of rebuilding the same customer group each time.</p>
+          <figure style="margin: 0px; display: flex; flex-direction: column; gap: 12px;">
+            <img loading="lazy" decoding="async" src="assets/qcrm-cs/img02.webp" alt="The saved segments list with segment name, total number of contacts, created date and last updated" style="width: 100%; border-radius: 16px; border: 1px solid rgb(229, 231, 235);">
+            <figcaption style="font-size: 12px; color: rgb(82, 82, 91); line-height: 1.65; max-width: 66ch;">The audience now exists as a reusable object.</figcaption>
+          </figure>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;">Segment name</span>
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;">Total no. of contacts</span>
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;">Created date</span>
+            <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgb(249, 250, 251); color: rgb(63, 63, 70); border: 1px solid rgb(229, 231, 235); text-transform: uppercase; letter-spacing: 0.08em;">Last updated</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 28px; border-top: 1px solid rgb(229, 231, 235);">
+          <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: rgb(24, 24, 27); line-height: 1.3;">One audience, multiple uses</h3>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7; max-width: 70ch;">Once created, the same Segment can be reused wherever a specific customer audience is needed.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); border-top: 1px solid rgb(229, 231, 235); border-bottom: 1px solid rgb(229, 231, 235);">
+            <div style="padding: 24px 40px 24px 0px; border-right: 1px solid rgb(229, 231, 235); display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(6, 112, 64);">Campaigns</span>
+              <span style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7;">Target a specific group of customers without rebuilding the audience.</span>
+            </div>
+            <div style="padding: 24px 0px 24px 40px; display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgb(6, 112, 64);">Broadcasts</span>
+              <span style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.7;">Use the same audience when sending a message to a defined group.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sid="sec-outcome" data-screen-label="10 Outcome" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">10 · Outcome</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">From scattered contact records to a reusable customer system</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0px; border-top: 1px solid rgb(229, 231, 235); border-bottom: 1px solid rgb(229, 231, 235);">
+          <div style="padding: 32px 32px 32px 0px; display: flex; flex-direction: column; gap: 16px;">
+            <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(113, 113, 122); text-transform: uppercase; letter-spacing: 0.12em;">Before</span>
+            <ul style="display: flex; flex-direction: column; gap: 10px;">
+              
+                <li style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.6;"><span class="sc-interp">Separate contact tables in Quick Chat, Campaign and Ads</span></li>
+              
+                <li style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.6;"><span class="sc-interp">Basic contact information</span></li>
+              
+                <li style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.6;"><span class="sc-interp">Duplicate records</span></li>
+              
+                <li style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.6;"><span class="sc-interp">Export and import between products</span></li>
+              
+                <li style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.6;"><span class="sc-interp">No shared customer context</span></li>
+              
+                <li style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.6;"><span class="sc-interp">Limited organization</span></li>
+              
+            </ul>
+          </div>
+          <div style="padding: 32px; display: flex; flex-direction: column; gap: 16px; background: rgba(234, 251, 243, 0.6);">
+            <span style="font-size: 10px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.12em;">After</span>
+            <ul style="display: flex; flex-direction: column; gap: 10px;">
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Centralized customer records</span></li>
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Reusable across Quick Hub</span></li>
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Customer profile and context</span></li>
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Interaction history</span></li>
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Follow-ups</span></li>
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Tags and filtering</span></li>
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Dynamic segmentation</span></li>
+              
+                <li style="font-size: 15px; color: rgb(63, 63, 70); line-height: 1.6;"><span class="sc-interp">Reusable audiences in Campaigns and Broadcasts</span></li>
+              
+            </ul>
+          </div>
+        </div>
+        <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.45; max-width: 50ch; color: rgb(24, 24, 27); text-wrap: pretty;">Quick CRM gave businesses one place to manage customers, understand their relationship with the business, and turn customer data into reusable audiences across Quick Hub.</p>
+      </section>
+
+      <section data-sid="sec-role" data-screen-label="11 My role" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">11 · My Role</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">What I owned</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; border-top: 1px solid rgb(229, 231, 235);">
+          
+            <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 200px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">Product thinking</span></span>
+              <p style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">Defined the role of CRM within the Quick Hub ecosystem and considered cross-product customer data.</span></p>
+            </div>
+          
+            <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 200px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">Information architecture</span></span>
+              <p style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">Structured the customer experience around information, context, activity and action.</span></p>
+            </div>
+          
+            <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 200px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">UX</span></span>
+              <p style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">Worked across contact management, customer profiles, history, follow-ups, bulk import, filtering and segmentation.</span></p>
+            </div>
+          
+            <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 200px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">UI</span></span>
+              <p style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">Designed interface hierarchy, interactions, states, components and detailed product UI.</span></p>
+            </div>
+          
+            <div data-r="row" style="display: grid; grid-template-columns: minmax(0px, 200px) minmax(0px, 1fr); gap: 24px; padding: 20px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em;"><span class="sc-interp">Prototyping</span></span>
+              <p style="font-size: 15px; color: rgb(82, 82, 91); line-height: 1.75;"><span class="sc-interp">Used prototypes to explore and communicate the product experience.</span></p>
+            </div>
+          
+        </div>
+      </section>
+
+      <section data-sid="sec-reflection" data-screen-label="12 Reflection" style="display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 112px;">
+        <div style="border-bottom: 1px solid rgb(229, 231, 235); padding-bottom: 12px;">
+          <span style="font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(6, 112, 64); text-transform: uppercase; letter-spacing: 0.1em; display: block;">12 · Reflection</span>
+          <h2 style="font-size: 30px; font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; line-height: 1.2;">The problem changed as the product became more useful</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; border-top: 1px solid rgb(229, 231, 235);">
+          
+            <div style="display: grid; grid-template-columns: minmax(0px, 32px) minmax(0px, 1fr); gap: 16px; padding: 22px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">01</span></span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 16px; color: rgb(113, 113, 122); line-height: 1.5;"><span class="sc-interp">Fragmented contacts</span></span>
+                <span style="font-size: 18px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.015em; line-height: 1.45;"><span class="sc-interp">Centralized customer system</span></span>
+              </div>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: minmax(0px, 32px) minmax(0px, 1fr); gap: 16px; padding: 22px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">02</span></span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 16px; color: rgb(113, 113, 122); line-height: 1.5;"><span class="sc-interp">Customer records lacked relationship context</span></span>
+                <span style="font-size: 18px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.015em; line-height: 1.45;"><span class="sc-interp">Customer history, follow-up and action</span></span>
+              </div>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: minmax(0px, 32px) minmax(0px, 1fr); gap: 16px; padding: 22px 0px; border-bottom: 1px solid rgb(229, 231, 235); align-items: baseline;">
+              <span style="width: 24px; height: 24px; flex: 0 0 24px; border-radius: 999px; background: rgb(221, 247, 234); color: rgb(6, 112, 64); display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700;"><span class="sc-interp">03</span></span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 16px; color: rgb(113, 113, 122); line-height: 1.5;"><span class="sc-interp">Finding customers wasn't enough</span></span>
+                <span style="font-size: 18px; font-weight: 700; color: rgb(24, 24, 27); letter-spacing: -0.015em; line-height: 1.45;"><span class="sc-interp">Dynamic segmentation and reusable audiences</span></span>
+              </div>
+            </div>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 12px;">
+          <p style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.45; max-width: 48ch; color: rgb(24, 24, 27); text-wrap: pretty;">The important question wasn't only what information should appear on the screen. It was what information needed to become reusable system behavior.</p>
+          <p style="font-size: 16px; color: rgb(82, 82, 91); line-height: 1.75; max-width: 74ch;">That changed how I approached CRM design: not as a collection of screens, but as a system that connects customer information, relationships and actions across the product.</p>
+        </div>
+      </section>
+
+      <div style="border-top: 1px solid rgb(229, 231, 235); padding-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-size: 11px; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(161, 161, 170); text-transform: uppercase; letter-spacing: 0.12em;">Quick CRM · Quick Hub</span>
+          <span style="font-size: 16px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">Product Designer</span></span>
+        </div>
+        <a href="#top" style="padding: 10px 24px; border-radius: 999px; background: rgb(243, 244, 246); color: rgb(63, 63, 70); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid rgb(229, 231, 235);">Back to Top</a>
+      </div>
+
+    </main>
+  </div></div></div></div>
+<script>(function(){var s=document.getElementById("cs-static");if(!s)return;var mo=new MutationObserver(function(){var r=document.getElementById("dc-root");if(r&&r.querySelector("h1")){s.remove();mo.disconnect();}});mo.observe(document.documentElement,{childList:true,subtree:true});})();</script>
+<!-- prerender:end -->
 <x-dc>
 <helmet>
 <title>Quick CRM — From scattered contact tables to a reusable customer system</title>
@@ -46,9 +900,6 @@ mo.observe(document.documentElement,{childList:true,subtree:true});setTimeout(hi
 <meta property="og:title" content="Quick CRM — From scattered contact tables to a reusable customer system">
 <meta property="og:description" content="Case study: turning scattered contact tables into a reusable customer system for Quick CRM.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
   html { scroll-behavior: smooth; }
 

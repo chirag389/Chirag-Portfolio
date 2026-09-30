@@ -15,10 +15,11 @@
 <link rel="preload" as="font" type="font/woff2" href="vendor/fonts/geist-latin.woff2" crossorigin>
 <style>@font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url(vendor/fonts/outfit-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Geist';font-style:normal;font-weight:700;font-display:swap;src:url(vendor/fonts/geist-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Geist';font-style:normal;font-weight:700;font-display:swap;src:url(vendor/fonts/geist-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url(vendor/fonts/outfit-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Doto';font-style:normal;font-weight:400 900;font-display:swap;src:url(vendor/fonts/doto-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Doto';font-style:normal;font-weight:400 900;font-display:swap;src:url(vendor/fonts/doto-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}</style>
 <link rel="dns-prefetch" href="https://mir-s3-cdn-cf.behance.net">
-<script src="./support.js"></script>
+<!-- hero-field first: deferred scripts run in order, so the tiles start on the first-paint hero without waiting for support.js -->
+<script src="./hero-field.js?v=30" defer></script>
+<script src="./support.js" defer></script>
 <script src="./analytics.js?v=2" defer></script>
 <script src="./motion.js?v=9" defer></script>
-<script src="./hero-field.js?v=29" defer></script>
 <!-- page stylesheet (moved out of <helmet> so it applies before the runtime renders) -->
 <style>
   /* Light = "cool dawn over product canvas": snow canvas, lavender wash, midnight ink, one royal-blue accent */
@@ -591,6 +592,7 @@
   </div></header></div>
 <main><section class="hero-section" style="position: relative; padding: clamp(130px,15vw,180px) 0 clamp(90px,11vw,124px); overflow: hidden;">
     <div class="hero-wash" aria-hidden="true"></div>
+    <canvas class="hex-field" aria-hidden="true"></canvas>
     <div class="hero-vignette" aria-hidden="true"></div>
     <div style="position: relative; z-index: 2; max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px,6vw,48px); display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center;">
       <div style="animation: heroRise .7s cubic-bezier(.2,.7,.2,1) both .05s; display: inline-flex; align-items: center; gap: 9px; padding: 6px 15px; border-radius: 999px; background: var(--hero-badge-bg); border: 1px solid var(--hero-badge-line); color: var(--hero-badge-text); font-size: 13px; letter-spacing: .02em; white-space: nowrap;">
@@ -720,7 +722,7 @@
             <div class="tone-laptop"><div class="tone-lid">
             <div class="tone-window">
               <div class="tone-bar" aria-hidden="true"><i></i><i></i><i></i><span>Quick Chat · Inbox</span><b class="tone-steps"><i class="on"></i><i></i><i></i><i></i><i></i></b></div>
-              <div class="tone-view"><div class="tone-strip"><div class="tone-slide"><img src="assets/qc-cs/handoff-live-chat.webp" alt="Quick Chat inbox: a conversation handed from the bot to an agent" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/wa-01-window.webp" alt="WhatsApp chat after the 24-hour window has closed" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img21.webp" alt="Choosing an approved message template to reconnect" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img16.webp" alt="Editing template variables with a live phone preview" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img12.webp" alt="Published WhatsApp workflows list" decoding="async"></div></div></div>
+              <div class="tone-view"><div class="tone-strip"><div class="tone-slide"><img loading="lazy" decoding="async" src="assets/qc-cs/handoff-live-chat.webp" alt="Quick Chat inbox: a conversation handed from the bot to an agent" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/wa-01-window.webp" alt="WhatsApp chat after the 24-hour window has closed" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img21.webp" alt="Choosing an approved message template to reconnect" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img16.webp" alt="Editing template variables with a live phone preview" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img12.webp" alt="Published WhatsApp workflows list" decoding="async"></div></div></div>
             </div>
             </div><div class="tone-base" aria-hidden="true"></div></div>
           </div>
@@ -739,7 +741,7 @@
             <div class="tone-laptop"><div class="tone-lid">
             <div class="tone-window">
               <div class="tone-bar" aria-hidden="true"><i></i><i></i><i></i><span>Quick CRM · Dashboard</span><b class="tone-steps"><i class="on"></i><i></i><i></i><i></i><i></i></b></div>
-              <div class="tone-view"><div class="tone-strip"><div class="tone-slide"><img src="assets/qcrm-cs/img09.webp" alt="Quick CRM dashboard with totals, follow-ups and lead sources" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/img10.webp" alt="Contacts list with status, source and tags" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/act-activity.webp" alt="Customer record with its activity timeline" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/img14.webp" alt="Uploading a CSV of existing customers" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/img13.webp" alt="Mapping CSV columns to CRM fields" decoding="async"></div></div></div>
+              <div class="tone-view"><div class="tone-strip"><div class="tone-slide"><img loading="lazy" decoding="async" src="assets/qcrm-cs/img09.webp" alt="Quick CRM dashboard with totals, follow-ups and lead sources" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/img10.webp" alt="Contacts list with status, source and tags" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/act-activity.webp" alt="Customer record with its activity timeline" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/img14.webp" alt="Uploading a CSV of existing customers" decoding="async"></div><div class="tone-slide"><img data-src="assets/qcrm-cs/img13.webp" alt="Mapping CSV columns to CRM fields" decoding="async"></div></div></div>
             </div>
             </div><div class="tone-base" aria-hidden="true"></div></div>
           </div>
