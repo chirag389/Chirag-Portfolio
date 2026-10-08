@@ -34,10 +34,19 @@
 (function () {
   "use strict";
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
-  var live = fine;   // a mouse-driven field is user-initiated, so it stays on with reduced motion (only the self-moving touch drift is off)
-  var touchMode = !fine && !reduce;   // phones/tablets: ambient drift + finger
+  var mq = function (q) { return !!(window.matchMedia && window.matchMedia(q).matches); };
+  var reduce = mq("(prefers-reduced-motion: reduce)");
+  /* Input capability, not device class. A machine can have BOTH a mouse and a touchscreen
+     (Windows touch laptops, Surface, Chromebooks, Android with a mouse, DeX). Testing only
+     "(pointer: fine)" left every one of those with no touch handlers AND a pointermove
+     handler that rejects touch — i.e. a hero that never moved. Each input is now wired
+     independently, so hybrids get both. */
+  var fine = mq("(pointer: fine)") && mq("(hover: hover)");   // a real mouse or trackpad
+  var canTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints || 0) > 0;
+  var live = fine;   // a mouse-driven field is user-initiated, so it stays on with reduced motion (only the self-moving drift is off)
+  var touchMode = canTouch && !reduce;   // a finger drives the field wherever there is a touchscreen
+  var driftMode = !fine && !reduce;   // ambient self-motion wherever there is no mouse to drive it
+  var coarse = !fine;         // no mouse: budget the grid, the shader and the pixel ratio for a phone GPU
   var PAINT_COPY = false;     // false: text + CTAs stay as the real, still DOM copy; only the background tiles lift
   var textOn = false;         // the copy is painted into the tiles only once the web fonts have arrived
 
@@ -54,15 +63,25 @@
   var FADE = 0.912;           // presence kept per frame (60 fps); lower = shorter trail
   var FEED = 10;              // presence added per second under the cursor
   var FIELD_W = 96;           // presence grid width (height follows the hero's aspect)
+  /* The grid height used to follow the hero's aspect with no ceiling. A phone hero is roughly
+     390x840, so it asked for 96x207 = ~20k cells, each taking a Math.exp() every frame --
+     about 4x the desktop cost on a fraction of the hardware. A phone gets a coarser grid and
+     a hard row cap instead; LINEAR texture filtering smooths the difference away. */
+  var FIELD_W_T = 64;         // touch/no-mouse: coarser grid
+  var FIELD_H_MAX = 96;       // hard row cap, both modes
   var T_RADIUS = 560;         // touch: smaller presence so the ring reads on a narrow hero
   var T_LAP = 16;             // touch: seconds for the unseen cursor to go once around the edges
-  var T_FRAME = 30;           // touch: ms between frames (~30 fps, easier on the battery)
+  var T_FRAME = 30;           // no mouse: ms between frames (~30 fps, easier on the battery)
+  var STEPS = coarse ? 30 : 48;    // raymarch steps through the hex columns
+  var SAMPLES = coarse ? 1 : 2;    // supersamples per pixel (2 was being paid on phones too)
 
   var hero, copy, canvas, gl, prog, U = {}, texPage, texFlow, paint, pctx;
   var w = 0, h = 0, scale = 1, gw = FIELD_W, gh = 32, field = null;
   var clear = [0, 0, 1e-3, 1e-3], cam = null, bg = [0, 0, 0], tintRgb = [1, 1, 1], links = [], hoverIdx = -1;
   var pointerOn = false, px = 0, py = 0, raf = 0, lastT = 0, activeUntil = 0;
   var heroSeen = true, fingerUntil = 0, lastDraw = 0;
+  var flowW = 0, flowH = 0;   // size the flow texture was last allocated at (0 = needs allocating)
+  var lost = false;           // WebGL context is gone; stop touching gl until it is restored
 
   /* ---------------------------------------------------------------- shader */
   var VS = "#version 300 es\nlayout(location=0) in vec2 aPos; out vec2 vUv;\n" +
@@ -70,6 +89,8 @@
 
   var FS = [
     "#version 300 es",
+    "#define STEPS " + STEPS,
+    "#define SAMPLES " + SAMPLES,
     "precision highp float;",
     "in vec2 vUv; out vec4 outColor;",
     "uniform sampler2D uPage, uFlow;",
@@ -117,7 +138,7 @@
     "  float tStart = (top - uEye.z) / rd.z;",
     "  vec2 c = tileOf(uEye.xy + rd.xy * tStart);",
     "  bool hit = false, onTop = false; float tHit = 0.0, f = 0.0, z = 0.0; vec3 n = vec3(0.0, 0.0, 1.0);",
-    "  for (int i = 0; i < 48; i++) {",
+    "  for (int i = 0; i < STEPS; i++) {",
     "    f = presence(c); z = rise(f) * (1.0 - clearAt(c));",
     "    // span of the ray inside this hex column",
     "    float tIn = -1e9, tOut = 1e9; vec2 nIn = vec2(0.0);",
@@ -184,9 +205,13 @@
     "",
     "void main(){",
     "  vec2 frag = vec2(vUv.x, vUv.y) * uRes;",
+    "#if SAMPLES > 1",
     "  vec3 a = render(frag + vec2(0.25, -0.25));",
     "  vec3 b = render(frag + vec2(-0.25, 0.25));",
     "  outColor = vec4((a + b) * 0.5, 1.0);",
+    "#else",
+    "  outColor = vec4(render(frag), 1.0);",
+    "#endif",
     "}"
   ].join("\n");
 
@@ -330,6 +355,7 @@
     uploadPage();
   }
   function uploadPage() {
+    if (lost) return;
     gl.bindTexture(gl.TEXTURE_2D, texPage);
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, paint);
@@ -363,7 +389,7 @@
 
   /* ---------------------------------------------------------------- presence field */
   function stepField(dt, drift) {
-    if (!field) return 0;
+    if (!field || lost) return 0;
     var keep = Math.pow(FADE, dt * 60), n = gw * gh, max = 0, i;
     for (i = 0; i < n; i++) field[i] *= keep;
     if (pointerOn || drift) {
@@ -383,14 +409,21 @@
       }
     }
     for (i = 0; i < n; i++) if (field[i] > max) max = field[i];
+    /* texImage2D re-allocates the texture every call; once the size is settled only the
+       pixels change, so hand the driver a sub-image instead. */
     gl.bindTexture(gl.TEXTURE_2D, texFlow);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, gw, gh, 0, gl.RED, gl.FLOAT, field);
+    if (flowW !== gw || flowH !== gh) {
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, gw, gh, 0, gl.RED, gl.FLOAT, field);
+      flowW = gw; flowH = gh;
+    } else {
+      gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gw, gh, gl.RED, gl.FLOAT, field);
+    }
     return max;
   }
 
   /* ---------------------------------------------------------------- render */
   function draw() {
-    if (!cam || !w) return;
+    if (!cam || !w || lost) return;
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.useProgram(prog);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, texPage); gl.uniform1i(U.uPage, 0);
@@ -421,11 +454,16 @@
     var ex = (c < 0 ? -1 : 1) * Math.pow(Math.abs(c), 0.45), ey = (s < 0 ? -1 : 1) * Math.pow(Math.abs(s), 0.45);
     return [w * (0.5 + 0.44 * ex), h * (0.5 + 0.44 * ey)];
   }
-  function drifting(now) { return touchMode && heroSeen && !document.hidden && !pointerOn && now > fingerUntil; }
+  function drifting(now) { return driftMode && heroSeen && !document.hidden && !pointerOn && now > fingerUntil; }
 
   function loop(now) {
     raf = 0;
-    if (touchMode && now - lastDraw < T_FRAME) { raf = requestAnimationFrame(loop); return; }
+    if (lost) return;
+    /* hero scrolled out of view: park until the observer or a pointer wakes us.
+       This used to be checked only for the drift path, so a desktop pointer left inside the
+       hero kept the whole shader running while the visitor read the rest of the page. */
+    if (!heroSeen) { lastT = 0; return; }
+    if (coarse && now - lastDraw < T_FRAME) { raf = requestAnimationFrame(loop); return; }
     lastDraw = now;
     var dt = Math.min(Math.max((now - (lastT || now - 16)) / 1000, 0), 1 / 30);
     lastT = now;
@@ -436,16 +474,17 @@
     if (pointerOn || drift || now < activeUntil || max > 0.002) raf = requestAnimationFrame(loop);
     else lastT = 0;
   }
-  function wake() { if (!raf) raf = requestAnimationFrame(loop); }
+  function wake() { if (!raf && !lost) raf = requestAnimationFrame(loop); }
 
   /* ---------------------------------------------------------------- setup */
   function layout() {
     var r = hero.getBoundingClientRect();
     w = Math.round(r.width); h = Math.round(r.height);
     if (!w || !h) return false;
-    scale = Math.min(window.devicePixelRatio || 1, 1.5);
+    scale = Math.min(window.devicePixelRatio || 1, coarse ? 1.25 : 1.5);
     canvas.width = Math.round(w * scale); canvas.height = Math.round(h * scale);
-    gw = FIELD_W; gh = Math.max(16, Math.round(FIELD_W * h / w));
+    gw = coarse ? FIELD_W_T : FIELD_W;
+    gh = Math.max(16, Math.min(FIELD_H_MAX, Math.round(gw * h / w)));
     /* tiles fade in only toward the edges: a soft oval around the copy stays plain */
     var copy = hero.lastElementChild;
     if (copy && copy !== canvas) {
@@ -488,6 +527,8 @@
       return t;
     };
     texPage = tex(); texFlow = tex();
+    flowW = flowH = 0;   // fresh textures: the flow texture needs a full allocation again
+    lost = false;
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);  // rows stay top-down: texture v = 0 is the top of the hero, like page y
     return true;
   }
@@ -532,16 +573,24 @@
       window.addEventListener("load", function () { setTimeout(relayout, 300); });
       new MutationObserver(function () { setTimeout(function () { paintPage(); draw(); }, 30); })
         .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-      canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); hero.classList.remove("hexgl-on", "hexgl-live"); });
+      canvas.addEventListener("webglcontextlost", function (e) {
+        e.preventDefault();
+        /* Park the loop. Without this it kept running the whole CPU grid pass and issuing
+           draw calls into a dead context -- invisible, but a real battery drain on the
+           mobile GPUs that drop contexts in the first place. */
+        lost = true;
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0; lastT = 0;
+        hero.classList.remove("hexgl-on", "hexgl-live", "hexgl-link");
+      });
       canvas.addEventListener("webglcontextrestored", function () {   // Safari/mobile drop the GPU context under load: rebuild instead of staying blank
         if (!initGL()) return;
         hero.classList.add("hexgl-on"); if (live) hero.classList.add("hexgl-live");
         field = null; relayout();
+        wake();
       });
-      if (touchMode) {
-        document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
-        setTimeout(wake, 600);
-      }
+      document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
+      if (driftMode) setTimeout(wake, 600);
     } else {
       /* handover to the live hero: its classes first (so the canvas is already visible there), then the move */
       section.classList.add("hexgl-on");
@@ -564,10 +613,20 @@
     hero.classList.add("hexgl-on"); relayout();
     if ("ResizeObserver" in window) new ResizeObserver(function () { if (hero === h0) relayout(); }).observe(hero);
 
+    /* only animate while the hero is on screen and the tab is visible (an old, removed hero is ignored) */
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (en) {
+      if (hero !== h0) return;
+      heroSeen = en[0].isIntersecting; if (heroSeen) wake();
+    }, { threshold: 0.05 }).observe(hero);
+
+    /* Touch and mouse are bound separately and can both be live on the same machine.
+       Previously this was an either/or, so a touchscreen laptop got the mouse branch
+       only -- and that branch rejects touch pointers, leaving the hero frozen. */
     if (touchMode) {
       /* a finger drives the field while it touches the hero (passive: scrolling is never blocked) */
       var at = function (t) {
         var r = canvas.getBoundingClientRect();
+        if (!r.width || !r.height) return;
         px = (t.clientX - r.left) * (w / r.width); py = (t.clientY - r.top) * (h / r.height);
       };
       var down = function (e) { if (e.touches && e.touches[0]) { at(e.touches[0]); pointerOn = true; wake(); } };
@@ -576,18 +635,13 @@
       hero.addEventListener("touchmove", down, { passive: true });
       hero.addEventListener("touchend", up, { passive: true });
       hero.addEventListener("touchcancel", up, { passive: true });
-      /* only animate while the hero is on screen and the tab is visible (an old, removed hero is ignored) */
-      if ("IntersectionObserver" in window) new IntersectionObserver(function (en) {
-        if (hero !== h0) return;
-        heroSeen = en[0].isIntersecting; if (heroSeen) wake();
-      }, { threshold: 0.05 }).observe(hero);
-      return;
     }
 
     if (!live) return;
     hero.addEventListener("pointermove", function (e) {
-      if (e.pointerType && e.pointerType !== "mouse") return;
+      if (e.pointerType && e.pointerType !== "mouse") return;   // a finger is handled by the touch listeners above
       var r = canvas.getBoundingClientRect();
+      if (!r.width || !r.height) return;
       px = (e.clientX - r.left) * (w / r.width); py = (e.clientY - r.top) * (h / r.height);
       pointerOn = true; activeUntil = performance.now() + 4000;
       var k = linkAt(e);
@@ -606,20 +660,35 @@
     });
   }
 
+  /* true once the LIVE hero (not the first-paint shell) has been handled: nothing left to watch for */
   function find() {
     var all = document.querySelectorAll(".hero-section"), early = null;   // skip the raw template
     for (var i = 0; i < all.length; i++) {
       if (all[i].closest("x-dc")) continue;
       if (all[i].closest("#boot-shell")) { early = early || all[i]; continue; }
-      attach(all[i]); return;                                               // the live hero (start or handover)
+      attach(all[i]);                                                       // the live hero (start or handover)
+      return !!all[i].querySelector("canvas.hex-field");
     }
     if (early && !started) attach(early);                                   // first-paint hero, before React
+    return false;
   }
+  /* The observer used to re-run find() on EVERY mutation for 15s -- a querySelectorAll per
+     DOM change right through the runtime's first render. It is now coalesced to one run per
+     frame and shuts off the moment the live hero is wired. The window is also longer, because
+     a slow connection could render past the old 15s cutoff and lose the handover entirely,
+     leaving the canvas stranded in the removed first-paint shell. */
   function boot() {
-    find();
-    var mo = new MutationObserver(find);
+    if (find()) return;
+    var pending = 0, mo = null, stop = 0;
+    var run = function () {
+      pending = 0;
+      if (find() && mo) { mo.disconnect(); clearTimeout(stop); }
+    };
+    mo = new MutationObserver(function () {
+      if (!pending) pending = requestAnimationFrame(run);
+    });
     mo.observe(document.documentElement, { childList: true, subtree: true });
-    setTimeout(function () { mo.disconnect(); }, 15000);
+    stop = setTimeout(function () { mo.disconnect(); }, 30000);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();

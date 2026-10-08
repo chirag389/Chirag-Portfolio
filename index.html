@@ -15,10 +15,10 @@
 <style>@font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url(vendor/fonts/outfit-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Geist';font-style:normal;font-weight:700;font-display:swap;src:url(vendor/fonts/geist-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Geist';font-style:normal;font-weight:700;font-display:swap;src:url(vendor/fonts/geist-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url(vendor/fonts/outfit-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Doto';font-style:normal;font-weight:400 900;font-display:swap;src:url(vendor/fonts/doto-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Doto';font-style:normal;font-weight:400 900;font-display:swap;src:url(vendor/fonts/doto-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}</style>
 <link rel="dns-prefetch" href="https://mir-s3-cdn-cf.behance.net">
 <!-- hero-field first: deferred scripts run in order, so the tiles start on the first-paint hero without waiting for support.js -->
-<script src="./hero-field.js?v=32" defer></script>
+<script src="./hero-field.js?v=33" defer></script>
 <script src="./support.js" defer></script>
 <script src="./analytics.js?v=2" defer></script>
-<script src="./motion.js?v=11" defer></script>
+<script src="./motion.js?v=12" defer></script>
 <!-- page stylesheet (moved out of <helmet> so it applies before the runtime renders) -->
 <style>
   /* Light = "cool dawn over product canvas": snow canvas, lavender wash, midnight ink, one royal-blue accent */
@@ -1382,194 +1382,82 @@ class Component extends DCLogic {
   orb2Ref = React.createRef();
   orb3Ref = React.createRef();
 
+  /* The whole result used to be memoised on first call, viewport width included, so rotating
+     a tablet or resizing a window never re-evaluated it. Only the CPU/memory probe is cached
+     now -- that genuinely cannot change. A machine with both a touchscreen and a mouse is not
+     "lite": it is tested for the absence of hover, not merely the presence of touch. */
   isLite() {
-    if (this._lite !== undefined) return this._lite;
     const mq = window.matchMedia;
-    const coarse = mq && mq('(pointer: coarse)').matches;
-    const small = window.innerWidth < 900;
-    const weak = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
-    this._lite = !!(coarse || small || weak);
-    return this._lite;
+    const noHover = !!(mq && mq('(pointer: coarse)').matches && !mq('(hover: hover)').matches);
+    if (this._weak === undefined) {
+      this._weak = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+    }
+    return !!(noHover || window.innerWidth < 900 || this._weak);
   }
 
-  startConstellation() {
-    const canvas = this.heroCanvasRef.current;
-    if (!canvas) return;
-    if (this.isLite()) { canvas.style.display = 'none'; return; }
+  /* The hero's particle constellation used to live here. Its canvas is taken out of the page
+     by `.hero-section canvas:not(.hex-field) { display:none !important }` -- and that rule is
+     ungated, so the particles were never visible on ANY device, while still paying for a 2D
+     context, a ResizeObserver, an IntersectionObserver and an O(n^2) link pass every frame.
+     What is kept is the part people actually see: the soft cursor glow and the click ripple.
+     Those matter as the fallback for devices without WebGL2, where hero-field.js never adds
+     .hexgl-on and therefore never hides the glow.
+     Coordinates now come from the hero element. They used to be read off the hidden canvas,
+     whose rect is 0x0, so the glow sat at the wrong offset as soon as the page scrolled. */
+  startHeroGlow() {
+    const hero = this.heroRef.current;
+    if (!hero || this.isLite()) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const ctx = canvas.getContext('2d', { alpha: true });
-    if (!ctx) return;
-    const host = canvas.parentElement;
-    let w = 0, h = 0, parts = [], raf = 0, visible = true;
-    const mouse = { x: -9999, y: -9999, inside: false };
-
-    const init = () => {
-      const count = Math.floor(Math.min((w * h) / 16000, 55));
-      parts = [];
-      for (let i = 0; i < count; i++) {
-        const r = Math.random();
-        parts.push({
-          x: Math.random() * w, y: Math.random() * h,
-          vx: (Math.random() - .5) * .45, vy: (Math.random() - .5) * .45,
-          radius: Math.random() * 1.5 + 1, alpha: Math.random() * .4 + .2,
-          type: r < .5 ? 'indigo' : r < .8 ? 'teal' : 'zinc'
-        });
-      }
-    };
-    const size = () => {
-      const rect = canvas.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      w = rect.width; h = rect.height;
-      canvas.width = w * dpr; canvas.height = h * dpr;
-      if (ctx.resetTransform) ctx.resetTransform();
-      ctx.scale(dpr, dpr);
-      init();
-    };
-    const glowEl = () => this.heroGlowRef.current || host.querySelector('[data-hero-glow]');
-    let gx = 0, gy = 0, tx = 0, ty = 0, gRaf = 0, gShown = false, gLast = 0;
-    const glowLoop = (now) => {
+    const glowEl = () => this.heroGlowRef.current || hero.querySelector('[data-hero-glow]');
+    const tilesOn = () => hero.classList.contains('hexgl-on');   // the WebGL hero owns the cursor instead
+    let gx = 0, gy = 0, tx = 0, ty = 0, gRaf = 0, shown = false, last = 0;
+    const loop = (now) => {
       const g = glowEl();
-      if (!g) { gRaf = requestAnimationFrame(glowLoop); return; }
+      if (!g) { gRaf = 0; last = 0; return; }
       const t = now || performance.now();
-      const dt = gLast ? Math.min((t - gLast) / 16.667, 3) : 1;
-      gLast = t;
+      const dt = last ? Math.min((t - last) / 16.667, 3) : 1;
+      last = t;
       const k = 1 - Math.pow(1 - .075, dt);
       gx += (tx - gx) * k; gy += (ty - gy) * k;
       g.style.transform = 'translate3d(' + gx.toFixed(2) + 'px,' + gy.toFixed(2) + 'px,0)';
       // park the loop once the glow has settled on the cursor; onMove wakes it
-      if (Math.abs(tx - gx) < .1 && Math.abs(ty - gy) < .1) { gRaf = 0; gLast = 0; return; }
-      gRaf = requestAnimationFrame(glowLoop);
+      if (Math.abs(tx - gx) < .1 && Math.abs(ty - gy) < .1) { gRaf = 0; last = 0; return; }
+      gRaf = requestAnimationFrame(loop);
     };
-    const wakeGlow = () => { if (!gRaf) { gLast = 0; gRaf = requestAnimationFrame(glowLoop); } };
-    glowLoop();
+    const wake = () => { if (!gRaf) { last = 0; gRaf = requestAnimationFrame(loop); } };
     const onMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top; mouse.inside = true;
-      tx = mouse.x; ty = mouse.y;
-      wakeGlow();
-      if (!gShown) {
-        const g = glowEl();
-        if (g) { gShown = true; gx = tx; gy = ty; g.style.opacity = '1'; }
-      }
+      if (tilesOn()) return;
+      const r = hero.getBoundingClientRect();
+      tx = e.clientX - r.left; ty = e.clientY - r.top;
+      if (!shown) { const g = glowEl(); if (g) { shown = true; gx = tx; gy = ty; g.style.opacity = '1'; } }
+      wake();
     };
-    const onLeave = () => {
-      mouse.inside = false; mouse.x = -9999; mouse.y = -9999;
-      const g = glowEl();
-      if (g) g.style.opacity = '0';
-      gShown = false;
-    };
+    const onLeave = () => { const g = glowEl(); if (g) g.style.opacity = '0'; shown = false; };
     const onDown = (e) => {
-      if (e.target.closest('a,button,input,textarea,select')) return;
-      const rect = host.getBoundingClientRect();
-      const r = document.createElement('span');
-      r.setAttribute('aria-hidden', 'true');
-      r.style.cssText = 'position:absolute;left:' + (e.clientX - rect.left) + 'px;top:' + (e.clientY - rect.top) + 'px;width:280px;height:280px;border-radius:999px;border:1px solid var(--c-accent);pointer-events:none;z-index:0;animation:heroRipple 1s cubic-bezier(.16,.84,.24,1) forwards';
-      host.appendChild(r);
-      setTimeout(() => { if (r.parentNode) r.parentNode.removeChild(r); }, 900);
+      if (tilesOn()) return;
+      if (e.target && e.target.closest && e.target.closest('a,button,input,textarea,select')) return;
+      const r = hero.getBoundingClientRect();
+      const s = document.createElement('span');
+      s.setAttribute('aria-hidden', 'true');
+      s.style.cssText = 'position:absolute;left:' + (e.clientX - r.left) + 'px;top:' + (e.clientY - r.top) + 'px;width:280px;height:280px;border-radius:999px;border:1px solid var(--c-accent);pointer-events:none;z-index:0;animation:heroRipple 1s cubic-bezier(.16,.84,.24,1) forwards';
+      hero.appendChild(s);
+      setTimeout(() => { if (s.parentNode) s.parentNode.removeChild(s); }, 900);
     };
-    host.addEventListener('mousemove', onMove);
-    host.addEventListener('mouseleave', onLeave);
-    host.addEventListener('mousedown', onDown);
-
-    // stop the frame loop outright when the hero scrolls away, restart on re-entry
-    const io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      if (visible) { if (!raf) raf = requestAnimationFrame(render); }
-      else if (raf) { cancelAnimationFrame(raf); raf = 0; }
-    }, { threshold: .02 });
-    io.observe(canvas);
-    size();
-    const ro = new ResizeObserver(() => size());
-    ro.observe(canvas);
-
-    const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
-    const fillFor = (t, a, dark) => dark
-      ? (t === 'indigo' ? 'rgba(244,244,245,' + (a * .8) + ')' : t === 'teal' ? 'rgba(212,212,216,' + (a * .7) + ')' : 'rgba(161,161,170,' + (a * .6) + ')')
-      : (t === 'indigo' ? 'rgba(20,90,255,' + (a * .75) + ')' : t === 'teal' ? 'rgba(59,130,246,' + (a * .6) + ')' : 'rgba(107,114,128,' + (a * .45) + ')');
-
-    const LINK2 = 95 * 95, PULL2 = 140 * 140, WAKE2 = 200 * 200;
-    const render = () => {
-      raf = requestAnimationFrame(render);
-      if (!visible || !w) return;
-      ctx.clearRect(0, 0, w, h);
-      const dark = isDark();
-      const lineRGB = dark ? '228,228,231' : '20,90,255';
-      const linkA = dark ? .18 : .12, pullA = dark ? .35 : .25;
-      const n = parts.length;
-      for (let i = 0; i < n; i++) {
-        const p = parts[i];
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0) { p.x = 0; p.vx *= -1; } else if (p.x > w) { p.x = w; p.vx *= -1; }
-        if (p.y < 0) { p.y = 0; p.vy *= -1; } else if (p.y > h) { p.y = h; p.vy *= -1; }
-        let wake = 0;
-        if (mouse.inside) {
-          const dx = mouse.x - p.x, dy = mouse.y - p.y, d2 = dx * dx + dy * dy;
-          if (d2 < PULL2 && d2 > 0) {
-            const d = Math.sqrt(d2), f = (1 - d / 140) * 1.5;
-            p.x -= (dx / d) * f; p.y -= (dy / d) * f;
-            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - d / 140) * pullA) + ')';
-            ctx.lineWidth = .8; ctx.stroke();
-          }
-          if (d2 < WAKE2) wake = 1 - Math.sqrt(d2) / 200;
-        }
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.radius * (1 + wake * 1.1), 0, Math.PI * 2);
-        ctx.fillStyle = fillFor(p.type, Math.min(1, p.alpha + wake * .55), dark); ctx.fill();
-        for (let j = i + 1; j < n; j++) {
-          const q = parts[j], dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
-          if (d2 < LINK2) {
-            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = 'rgba(' + lineRGB + ',' + ((1 - Math.sqrt(d2) / 95) * linkA) + ')';
-            ctx.lineWidth = .6; ctx.stroke();
-          }
-        }
-      }
-    };
-    render();
-    this.stopConstellation = () => {
-      cancelAnimationFrame(raf); cancelAnimationFrame(gRaf); io.disconnect(); ro.disconnect();
-      host.removeEventListener('mousemove', onMove);
-      host.removeEventListener('mouseleave', onLeave);
-      host.removeEventListener('mousedown', onDown);
+    hero.addEventListener('mousemove', onMove, { passive: true });
+    hero.addEventListener('mouseleave', onLeave, { passive: true });
+    hero.addEventListener('mousedown', onDown, { passive: true });
+    this.stopHeroGlow = () => {
+      cancelAnimationFrame(gRaf);
+      hero.removeEventListener('mousemove', onMove);
+      hero.removeEventListener('mouseleave', onLeave);
+      hero.removeEventListener('mousedown', onDown);
     };
   }
 
-  startHeroParallax() {
-    if (this.isLite()) return;
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let raf = 0, queued = false;
-    const apply = () => {
-      queued = false;
-      const hero = this.heroRef.current;
-      if (!hero) return;
-      const rect = hero.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height)));
-      const set = (ref, y, sc) => {
-        const el = ref.current; if (!el) return;
-        el.style.translate = '0 ' + y + 'px';
-        el.style.scale = String(sc);
-      };
-      const content = this.heroContentRef.current;
-      if (content) {
-        content.style.transform = 'translate3d(0,' + (-55 * p) + 'px,0) scale(' + (1 - .035 * p) + ')';
-        content.style.opacity = String(p < .75 ? 1 - p * .33 : Math.max(0, (1 - p) * 3));
-        content.style.willChange = 'transform,opacity';
-      }
-      set(this.orb1Ref, 110 * p, 1 + .2 * p);
-      set(this.orb2Ref, 80 * p, 1 + .18 * p);
-      set(this.orb3Ref, 60 * p, 1 + .14 * p);
-    };
-    this.onHeroScroll = () => { if (!queued) { queued = true; raf = requestAnimationFrame(apply); } };
-    window.addEventListener('scroll', this.onHeroScroll, { passive: true });
-    document.addEventListener('scroll', this.onHeroScroll, { passive: true, capture: true });
-    apply();
-    this.stopHeroParallax = () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', this.onHeroScroll);
-      document.removeEventListener('scroll', this.onHeroScroll, true);
-    };
-  }
+  /* startHeroParallax() lived here. The stylesheet pins its only target --
+     `.hero-section > div:last-of-type { transform:none !important; opacity:1 !important; }` --
+     so every value it wrote was discarded, while it still ran two scroll listeners and a
+     getBoundingClientRect on the hero every frame. Removed rather than left running blind. */
 
   componentDidMount() {
     // dialog keyboard: Escape closes, Tab stays inside
@@ -1602,8 +1490,7 @@ class Component extends DCLogic {
     this.onNavScroll();
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
     idle(() => {
-      this.startConstellation();
-      this.startHeroParallax();
+      this.startHeroGlow();
       this.startCursor();
     });
     this.startSpotlight();
@@ -1648,17 +1535,21 @@ class Component extends DCLogic {
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onModalKey);
     this.unmountCursorLayer();
-    if (this.stopConstellation) this.stopConstellation();
+    if (this.stopHeroGlow) this.stopHeroGlow();
     clearTimeout(this.cursorRetry);
     clearTimeout(this.caseTimer);
+    clearTimeout(this.resizeTimer);
     if (this.stopCursor) this.stopCursor();
     if (this.stopSpotlight) this.stopSpotlight();
     (this.burnTimers || []).forEach(clearTimeout);
     clearTimeout(this.markTimer); clearTimeout(this.shineTimer); clearTimeout(this.shineOffTimer);
-    if (this.stopHeroParallax) this.stopHeroParallax();
     window.removeEventListener('resize', this.onResize);
     window.removeEventListener('scroll', this.onScroll);
     document.removeEventListener('scroll', this.onScroll, true);
+    /* onNavScroll was registered on both window and document and removed from neither:
+       the pair survived every unmount and kept toggling .nav-scrolled on a dead component. */
+    window.removeEventListener('scroll', this.onNavScroll);
+    document.removeEventListener('scroll', this.onNavScroll, true);
     clearInterval(this.navTimer);
   }
 

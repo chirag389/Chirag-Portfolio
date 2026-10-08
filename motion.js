@@ -16,9 +16,28 @@
   var root = document.documentElement;
   var started = false;
   var ticking = false;
-  var shapeSpeeds = [0.18, 0.32, 0.12, 0.42, 0.26];
+
+  var mq = function (q) { return !!(window.matchMedia && window.matchMedia(q).matches); };
+  /* Input capability, not device class -- see hero-field.js. A machine can have both, and
+     deciding on "(pointer: fine)" alone left touchscreen laptops with hover-only handlers,
+     so a tap on a work card did nothing and the laptop never opened. */
+  var fine = mq("(pointer: fine)") && mq("(hover: hover)");
+  var canTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints || 0) > 0;
 
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+
+  /* On a machine with both a mouse and a touchscreen we cannot know in advance which one the
+     visitor will use, and the hover handlers can never fire for a finger. Tapping a card is no
+     substitute either -- the whole card is a link, so a tap navigates to the case study. So we
+     wait for a real touch to happen and then switch those cards over to the in-view autoplay a
+     phone gets. Cards registered before the first touch are upgraded retroactively. */
+  var touchSeen = false, onFirstTouch = [];
+  document.addEventListener("pointerdown", function (e) {
+    if (touchSeen || e.pointerType === "mouse") return;
+    touchSeen = true;
+    onFirstTouch.forEach(function (fn) { fn(); });
+    onFirstTouch.length = 0;
+  }, { passive: true, capture: true });
 
   /* ---- one-time reveals ---- */
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
@@ -65,31 +84,24 @@
     var y = window.scrollY || (document.scrollingElement && document.scrollingElement.scrollTop) || 0;
 
     /* cards: 0 when the card top reaches the bottom of the screen, 1 by the time it is a quarter of the way up */
+    /* .tone-shot parallax used to run here. There is no .tone-shot in the markup any more
+       (the cards render a .tone-laptop instead), so it was a querySelector per card per
+       scroll frame that always came back null. */
     var cards = document.querySelectorAll(".case .tone");
     for (var i = 0; i < cards.length; i++) {
       var r = cards[i].getBoundingClientRect();
       var p = clamp((vh - r.top) / (vh * 0.75), 0, 1);
       p = 1 - Math.pow(1 - p, 3); // ease-out so cards settle softly
       cards[i].style.setProperty("--p", p.toFixed(4));
-
-      var img = cards[i].querySelector(".tone-shot img");
-      if (img) {
-        /* -1 .. 1 as the card travels through the screen; the image is scaled 1.08,
-           so it has ~4% spare height per side and must not drift further than that */
-        var center = clamp((r.top + r.height / 2 - vh / 2) / vh, -1, 1);
-        var room = img.offsetHeight * 0.035;
-        img.style.setProperty("--iy", (center * -room).toFixed(1));
-      }
     }
 
-    /* the hero has no scroll motion; it only reacts to the cursor (see below) */
+    /* the hero has no scroll motion; it only reacts to the cursor */
   }
 
   /* ---- case study windows: tour through the 5 screens ----
      desktop: while the card is hovered or focused; touch: while the card is on screen */
   var STEP_MS = 1800;
   function bindTours() {
-    var fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
     Array.prototype.forEach.call(document.querySelectorAll(".case"), function (card) {
       var strip = card.querySelector(".tone-strip");
       if (!strip || card.__tour) return;
@@ -150,7 +162,7 @@
       }
       /* once the card has opened into the laptop, the laptop follows the cursor a few degrees (eased, desktop only) */
       var lid = card.querySelector(".tone-lid");
-      if (fine && lid && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+      if (fine && lid) {
         var tgx = 0, tgy = 0, cux = 0, cuy = 0, tIn = 0, hovering = false, lraf = 0;
         var ltick = function (now) {
           cux += (tgx - cux) * 0.09; cuy += (tgy - cuy) * 0.09;
@@ -171,49 +183,32 @@
         card.addEventListener("mouseleave", stop);
         card.addEventListener("focusin", play);
         card.addEventListener("focusout", function (e) { if (!card.contains(e.relatedTarget)) stop(); });
-      } else if ("IntersectionObserver" in window) {
+      }
+      /* Touch: the card plays itself while it is on screen.
+         The observed element is the .tone card rather than the whole .case, and the threshold
+         is 0.35 rather than 0.6. .case includes the tall heading above the card, so on a phone
+         in landscape it measured only ~0.56 of itself in the viewport -- it could never reach
+         0.6, so the card never got .is-live and simply never animated. */
+      var autoplayInView = function () {
+        if (card.__inView || !("IntersectionObserver" in window)) return;
+        card.__inView = true;
         new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) { card.classList.toggle("is-live", e.isIntersecting); if (e.isIntersecting) play(); else stop(); });
-        }, { threshold: 0.6 }).observe(card);
+          entries.forEach(function (e) {
+            card.classList.toggle("is-live", e.isIntersecting);
+            if (e.isIntersecting) play(); else stop();
+          });
+        }, { threshold: 0.35 }).observe(card.querySelector(".tone") || card);
+      };
+      if (!fine) autoplayInView();                      // no mouse at all: straight to autoplay
+      else if (canTouch) {                              // both inputs: decide on the first real touch
+        if (touchSeen) autoplayInView(); else onFirstTouch.push(autoplayInView);
       }
     });
   }
 
-  /* ---- pointer depth on the hero (desktop, fine pointer only) ---- */
-  var mx = 0, my = 0, tx = 0, ty = 0, pRaf = 0;
-  function depthLoop() {
-    mx += (tx - mx) * 0.08;
-    my += (ty - my) * 0.08;
-    var shapes = document.querySelectorAll(".hero-shapes .eshape");
-    for (var s = 0; s < shapes.length; s++) {
-      var d = shapeSpeeds[s % shapeSpeeds.length] * 70;          // nearer shapes move more
-      shapes[s].style.setProperty("--mx", (mx * -d).toFixed(1));
-      shapes[s].style.setProperty("--my", (my * -d * 0.6).toFixed(1));
-    }
-    var title = document.querySelector(".hero-section h1");
-    if (title) {
-      title.style.setProperty("--tx", (mx * 6).toFixed(2));
-      title.style.setProperty("--ty", (my * 4).toFixed(2));
-    }
-    if (Math.abs(tx - mx) > 0.001 || Math.abs(ty - my) > 0.001) pRaf = requestAnimationFrame(depthLoop);
-    else pRaf = 0;
-  }
-  function bindPointer() {
-    if (!window.matchMedia || !window.matchMedia("(pointer: fine)").matches) return;
-    var hero = document.querySelector(".hero-section");
-    if (!hero || hero.__moDepth) return;
-    hero.__moDepth = true;
-    hero.addEventListener("mousemove", function (e) {
-      var r = hero.getBoundingClientRect();
-      tx = clamp((e.clientX - r.left) / r.width * 2 - 1, -1, 1);
-      ty = clamp((e.clientY - r.top) / r.height * 2 - 1, -1, 1);
-      if (!pRaf) pRaf = requestAnimationFrame(depthLoop);
-    });
-    hero.addEventListener("mouseleave", function () {
-      tx = 0; ty = 0;
-      if (!pRaf) pRaf = requestAnimationFrame(depthLoop);
-    });
-  }
+  /* The hero's pointer-depth pass (bindPointer / depthLoop, feeding --mx/--my/--tx/--ty)
+     lived here. It was never called from anywhere -- the hero is driven by hero-field.js
+     instead -- so it has been removed rather than left to look live. */
 
   function onScroll() {
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
@@ -232,7 +227,11 @@
     var first = document.querySelector(".case");
     if (!first || first.closest("x-dc")) return;
     /* hero pointer depth (title/shapes following the cursor) is off: the hero only glows under the cursor */
-    if (started) { markReveals(); bindTours(); update(); return; }
+    /* On a re-run only the idempotent wiring repeats. update() is deliberately not called
+       here any more: it reads getBoundingClientRect for every card, and this used to fire on
+       every DOM mutation during the runtime's first render -- forced synchronous layout, over
+       and over, at the worst possible moment. Scroll and resize already drive it. */
+    if (started) { markReveals(); bindTours(); return; }
     started = true;
     bindTours();
     setTimeout(revealVisible, 2500);
@@ -245,11 +244,17 @@
   }
 
   /* the page is rendered by a runtime after load, so wait for the work section to exist */
+  /* Coalesced to one run per frame instead of one per mutation, and given a longer window so
+     a slow first render is still picked up. */
   function boot() {
     start();
-    var mo = new MutationObserver(function () { start(); });
+    var pending = 0;
+    var mo = new MutationObserver(function () {
+      if (pending) return;
+      pending = requestAnimationFrame(function () { pending = 0; start(); });
+    });
     mo.observe(document.documentElement, { childList: true, subtree: true });
-    setTimeout(function () { mo.disconnect(); }, 15000);
+    setTimeout(function () { mo.disconnect(); }, 30000);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
