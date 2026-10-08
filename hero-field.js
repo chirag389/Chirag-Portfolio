@@ -36,7 +36,7 @@
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
-  var live = fine && !reduce;
+  var live = fine;   // a mouse-driven field is user-initiated, so it stays on with reduced motion (only the self-moving touch drift is off)
   var touchMode = !fine && !reduce;   // phones/tablets: ambient drift + finger
   var PAINT_COPY = false;     // false: text + CTAs stay as the real, still DOM copy; only the background tiles lift
   var textOn = false;         // the copy is painted into the tiles only once the web fonts have arrived
