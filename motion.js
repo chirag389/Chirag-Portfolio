@@ -37,6 +37,17 @@
       document.querySelectorAll('#about [style*="minmax(220px"] > div'),
       document.querySelectorAll("#contact > div > div")
     ];
+    /* work cards: when a card comes into view its contents rise in one after another (.tone-in) */
+    Array.prototype.forEach.call(document.querySelectorAll(".case .tone"), function (t) {
+      if (t.__tin) return;
+      t.__tin = true;
+      if (!window.__toneIO && "IntersectionObserver" in window) {
+        window.__toneIO = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("tone-in"); window.__toneIO.unobserve(e.target); } });
+        }, { threshold: 0.2 });
+      }
+      if (window.__toneIO) window.__toneIO.observe(t); else t.classList.add("tone-in");
+    });
     groups.forEach(function (list) {
       Array.prototype.forEach.call(list, function (el, i) {
         if (el.classList.contains("mo-rise")) return;
@@ -85,12 +96,25 @@
       card.__tour = true;
       var n = strip.children.length, dots = card.querySelectorAll(".tone-steps i");
       var idx = 0, timer = 0, lead = 0, steps = 0;
+      /* story cards (Quick Chat): chips + a title-bar caption per screen (data-cap); screens crossfade via .on */
+      var chips = card.querySelectorAll(".qc-story b"), label = card.querySelector(".tone-bar span");
+      var restLabel = label ? label.textContent : "", capTimer = 0;
+      function caption(text) {
+        if (!label || label.textContent === text) return;
+        clearTimeout(capTimer);
+        label.style.opacity = "0";
+        capTimer = setTimeout(function () { label.textContent = text; label.style.opacity = "1"; }, 200);
+      }
       /* touch screens play it by themselves, so keep that run under 5s (WCAG 2.2.2) and then rest */
-      var stepMs = fine ? STEP_MS : 1300, maxSteps = fine ? Infinity : 3;
-      function go(k) {
+      var stepMs = fine ? STEP_MS : 1300, maxSteps = fine ? Infinity : Math.min(3, n - 1);
+      function go(k, resting) {
         idx = k;
         strip.style.transform = "translateY(" + (-100 * k) + "%)";
         for (var d = 0; d < dots.length; d++) dots[d].classList.toggle("on", d === k);
+        for (var j = 0; j < n; j++) strip.children[j].classList.toggle("on", j === k);
+        for (var c = 0; c < chips.length; c++) chips[c].classList.toggle("on", c === k);
+        var cap = strip.children[k].getAttribute("data-cap");
+        if (cap) caption(resting ? restLabel : cap);
       }
       function loadShots() {
         if (card.__shots) return;
@@ -108,6 +132,7 @@
       function play() {
         loadShots();
         if (timer || lead) return;
+        go(idx);                                     // show the first step's caption as soon as the card is hovered
         lead = setTimeout(function () {             // short pause so a passing cursor doesn't trigger it
           lead = 0;
           go((idx + 1) % n);
@@ -121,7 +146,25 @@
       function stop() {
         clearTimeout(lead); lead = 0;
         clearInterval(timer); timer = 0;
-        go(0);
+        go(0, true);
+      }
+      /* once the card has opened into the laptop, the laptop follows the cursor a few degrees (eased, desktop only) */
+      var lid = card.querySelector(".tone-lid");
+      if (fine && lid && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+        var tgx = 0, tgy = 0, cux = 0, cuy = 0, tIn = 0, hovering = false, lraf = 0;
+        var ltick = function (now) {
+          cux += (tgx - cux) * 0.09; cuy += (tgy - cuy) * 0.09;
+          lid.style.transform = "perspective(1400px) rotateX(" + cuy.toFixed(2) + "deg) rotateY(" + cux.toFixed(2) + "deg)";
+          if (hovering || Math.abs(cux) + Math.abs(cuy) > 0.02) lraf = requestAnimationFrame(ltick);
+          else { lraf = 0; lid.style.transform = ""; }
+        };
+        card.addEventListener("mouseenter", function () { hovering = true; tIn = performance.now(); if (!lraf) lraf = requestAnimationFrame(ltick); });
+        card.addEventListener("mousemove", function (e) {
+          var r = card.getBoundingClientRect(), ramp = clamp((performance.now() - tIn - 600) / 700, 0, 1);
+          tgx = ((e.clientX - r.left) / r.width - 0.5) * 2 * 4 * ramp;
+          tgy = -((e.clientY - r.top) / r.height - 0.5) * 2 * 3 * ramp;
+        }, { passive: true });
+        card.addEventListener("mouseleave", function () { hovering = false; tgx = tgy = 0; });
       }
       if (fine) {
         card.addEventListener("mouseenter", play);

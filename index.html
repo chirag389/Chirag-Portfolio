@@ -5,21 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <script>/* dark by default; only a visitor's own toggle (cm-theme) switches it */try{document.documentElement.setAttribute("data-theme",sessionStorage.getItem("cm-theme")==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
-<style>html[data-theme="dark"]{background:#151419;color-scheme:dark}</style>
+<style>html[data-theme="dark"]{background:#0B0B0C;color-scheme:dark}</style>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <!-- React and fonts are served from this site (vendor/) instead of unpkg + Google: fewer connections on a first visit. support.js swaps its CDN URLs for these via window.__resources. -->
 <script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js"};</script>
 <link rel="preload" as="script" href="vendor/react.production.min.js">
 <link rel="preload" as="script" href="vendor/react-dom.production.min.js">
-<link rel="preload" as="font" type="font/woff2" href="vendor/fonts/outfit-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="vendor/fonts/geist-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="vendor/fonts/inter-latin.woff2" crossorigin>
 <style>@font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url(vendor/fonts/outfit-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Geist';font-style:normal;font-weight:700;font-display:swap;src:url(vendor/fonts/geist-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Geist';font-style:normal;font-weight:700;font-display:swap;src:url(vendor/fonts/geist-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url(vendor/fonts/outfit-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Doto';font-style:normal;font-weight:400 900;font-display:swap;src:url(vendor/fonts/doto-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Doto';font-style:normal;font-weight:400 900;font-display:swap;src:url(vendor/fonts/doto-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}</style>
 <link rel="dns-prefetch" href="https://mir-s3-cdn-cf.behance.net">
 <!-- hero-field first: deferred scripts run in order, so the tiles start on the first-paint hero without waiting for support.js -->
-<script src="./hero-field.js?v=30" defer></script>
+<script src="./hero-field.js?v=31" defer></script>
 <script src="./support.js" defer></script>
 <script src="./analytics.js?v=2" defer></script>
-<script src="./motion.js?v=9" defer></script>
+<script src="./motion.js?v=11" defer></script>
 <!-- page stylesheet (moved out of <helmet> so it applies before the runtime renders) -->
 <style>
   /* Light = "cool dawn over product canvas": snow canvas, lavender wash, midnight ink, one royal-blue accent */
@@ -299,6 +298,26 @@
   .tone-strip { height:100%; transition:transform 1s cubic-bezier(.65,0,.35,1); will-change:transform; }
   .tone-slide { height:100%; overflow:hidden; background:#fff; }
   .tone-slide img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
+  /* Quick Chat card glimpse: story chips + captions appear on hover; screens crossfade with a soft zoom; 16:9 screen */
+  .tone-chat .tone-head > div { position:relative; }
+  /* the chips take the subtitle's place on hover (no layout shift, never under the laptop) */
+  .qc-story { position:absolute; left:0; bottom:-5px; display:flex; align-items:center; gap:5px; white-space:nowrap; z-index:6;
+    opacity:0; transform:translateY(6px); transition:opacity .45s ease, transform .6s cubic-bezier(.16,1,.3,1); pointer-events:none; }
+  .qc-story b { font-size:11.5px; font-weight:600; line-height:1; padding:5px 10px; border-radius:999px; background:rgba(10,11,16,.12); color:rgba(10,11,16,.72); transition:background-color .35s ease, color .35s ease; }
+  .tone-chat .tone-sub { transition:opacity .3s ease; }
+  article:hover .tone-chat .tone-sub, article:focus-within .tone-chat .tone-sub, article.is-live .tone-chat .tone-sub { opacity:0; }
+  .qc-story b.on { background:#0A0B10; color:#fff; }
+  .qc-story i { font-style:normal; font-size:12px; color:rgba(10,11,16,.45); }
+  article:hover .qc-story, article:focus-within .qc-story, article.is-live .qc-story { opacity:1; transform:none; transition-delay:.15s; }
+  .tone-chat .tone-laptop .tone-view { aspect-ratio:16 / 9; }
+  .tone-chat .tone-strip { position:relative; transform:none !important; }
+  .tone-chat .tone-slide { position:absolute; inset:0; height:auto; background:#F4F5F7; opacity:0; transform:scale(1.035); transition:opacity .8s ease, transform 1.4s cubic-bezier(.16,1,.3,1); }
+  .tone-chat .tone-slide.on { opacity:1; transform:none; }
+  .tone-chat .tone-slide img { object-position:top center; }
+  .tone-chat .tone-slide img.fit-contain { object-fit:contain; }
+  .tone-chat .tone-bar span { transition:opacity .25s ease; }
+  @media (max-width:640px) { .qc-story { gap:4px; } .qc-story b { font-size:10.5px; padding:5px 7px; } .qc-story i { display:none; } }
+  @media (prefers-reduced-motion:reduce) { .tone-chat .tone-slide { transform:none; transition:opacity .01ms; } }
   .tone-steps { margin-left:auto; display:flex; align-items:center; gap:5px; }
   .tone-steps i { width:6px; height:6px; border-radius:3px; background:#CBD1DA; transition:width .35s ease, background-color .35s ease; }
   .tone-steps i.on { width:16px; background:#111827; }
@@ -548,6 +567,103 @@
   .hero-section h1 { font-weight:700 !important; font-size:clamp(46px,6.6vw,86px) !important; line-height:1.04 !important; letter-spacing:-.045em !important; }
   main h2, main h2[style] { letter-spacing:-.035em !important; }
   article.case { cursor:pointer; }
+
+  /* ===== Direction C (2026-10-02, Chirag picked it from the 3-way test): graphite, white ink, ONE blue accent.
+     No violet / purple / rose anywhere. Overrides only — the older rules above stay as they were. ===== */
+  @font-face { font-family:'Inter'; font-style:normal; font-weight:400 800; font-display:swap; src:url(vendor/fonts/inter-latin-ext.woff2) format('woff2'); unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family:'Inter'; font-style:normal; font-weight:400 800; font-display:swap; src:url(vendor/fonts/inter-latin.woff2) format('woff2'); unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  :root, html[data-theme="dark"] { --f-body:'Inter', system-ui, sans-serif; --f-display:'Inter', system-ui, sans-serif; --f-label:'Inter', system-ui, sans-serif; }
+  html[data-theme="dark"] {
+    --c-bg:#0B0B0C; --c-surface:#131315; --c-subtle:#1A1A1D; --c-nav:rgba(11,11,12,.72);
+    --c-line:rgba(255,255,255,.08); --c-line-2:rgba(255,255,255,.14);
+    --c-ink:#EDEDED; --c-ink-1:#E2E2E4; --c-ink-2:#C4C4C8; --c-ink-3:#A1A1A6; --c-ink-4:#8C8C90; --c-ink-5:#6A6A6F;
+    --c-accent:#4D8DFF; --c-accent-text:#8AB4FF; --c-accent-soft:rgba(255,255,255,.04); --c-accent-line:rgba(255,255,255,.14);
+    --hero-base:#0B0B0C; --hero-bg:#0B0B0C; --hero-wash:none; --hero-vignette:none; --hero-title-glow:transparent;
+    --hero-dot:#4D8DFF; --hero-dot-glow:rgba(77,141,255,.45);
+    --hero-ink-from:#EDEDED; --hero-ink-to:#EDEDED; --hero-muted:#8C8C90; --hero-faint:#8C8C90;
+    --hero-badge-bg:transparent; --hero-badge-line:rgba(255,255,255,.14); --hero-badge-text:#8C8C90;
+    --hero-cta-bg:#4D8DFF; --hero-cta-text:#FFFFFF; --hero-ghost-text:#EDEDED; --hero-ghost-line:rgba(255,255,255,.18);
+    --hex-rgb:237,237,237; --hex-tint:#6FA3FF; --hex-dot-a:.09;
+    --card-hover:#161618;
+    --spot-shadow-hover:rgba(0,0,0,.5) 0 1.37px 6.87px -2.8px, rgba(0,0,0,.45) 0 30px 60px -30px;
+  }
+  /* light = the same idea turned around: warm paper, near-black ink, the one blue accent, no tint washes */
+  html:not([data-theme="dark"]) {
+    --c-bg:#F6F6F3; --c-surface:#FFFFFF; --c-subtle:#EEEEEA; --c-nav:rgba(246,246,243,.78);
+    --c-line:rgba(18,18,18,.09); --c-line-2:rgba(18,18,18,.16); --c-grid:rgba(18,18,18,.035);
+    --c-ink:#121212; --c-ink-1:#1C1C1C; --c-ink-2:#2B2B2B; --c-ink-3:#4A4A47; --c-ink-4:#6B6B66; --c-ink-5:#9A9A94;
+    --c-accent:#145AFF; --c-accent-text:#145AFF; --c-accent-soft:rgba(18,18,18,.04); --c-accent-line:rgba(18,18,18,.14);
+    --hero-wash:none; --hero-bg:var(--c-bg); --hero-base:#F6F6F3; --hero-vignette:none; --hero-glow:rgba(18,18,18,.05);
+    --hero-ink-from:#121212; --hero-ink-to:#121212; --hero-muted:#6B6B66; --hero-faint:#6B6B66;
+    --hero-badge-bg:transparent; --hero-badge-line:rgba(18,18,18,.16); --hero-badge-text:#4A4A47;
+    --hero-cta-bg:#145AFF; --hero-cta-text:#FFFFFF; --hero-ghost-text:#121212; --hero-ghost-line:rgba(18,18,18,.22);
+    --ghost-hover:rgba(18,18,18,.05); --card-hover:#EEEEEA;
+    --hex-rgb:20,20,20; --hex-dot-a:.12; --hex-light-rgb:20,90,255; --hex-light-a:.07; --hex-tint:#145AFF;
+    --hex-face-rgb:240,240,236; --hex-hot-rgb:20,20,20; --hex-hot-k:.10; --hex-wall1-rgb:216,216,210; --hex-wall2-rgb:196,196,189;
+    --hex-edge-rgb:20,20,20; --hex-edge-a:.04; --hex-seam-rgb:204,204,197; --hex-seam-a:.5; --hero-sweep:rgba(255,255,255,.6);
+    --nav-active-bg:#121212; --nav-active-fg:#FFFFFF;
+    --vibe-hex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='69.28' height='120' viewBox='0 0 69.28 120'%3E%3Cpath d='M34.64 0L69.28 20V60L34.64 80L0 60V20ZM34.64 80V120' fill='none' stroke='black' stroke-opacity='.06' stroke-width='1'/%3E%3C/svg%3E");
+  }
+  html:not([data-theme="dark"]) #work, html:not([data-theme="dark"]) #behance, html:not([data-theme="dark"]) #about,
+  html:not([data-theme="dark"]) #contact, html:not([data-theme="dark"]) footer { background:var(--c-bg) !important; }
+  html:not([data-theme="dark"]) #behance, html:not([data-theme="dark"]) #about, html:not([data-theme="dark"]) #contact, html:not([data-theme="dark"]) footer {
+    border-image:linear-gradient(90deg, transparent, rgba(18,18,18,.12), transparent) 1; }
+  html:not([data-theme="dark"]) main section:not(.hero-section) [style*="--c-accent-soft"][style*="999px"]::before { background:var(--c-accent); }
+  /* light headings: plain ink (the old navy gradient is gone), accent words stay blue */
+  html:not([data-theme="dark"]) main section:not(.hero-section) h2, html:not([data-theme="dark"]) .case > h3, html:not([data-theme="dark"]) main h3 {
+    background:none !important; color:var(--c-ink) !important; }
+  html:not([data-theme="dark"]) main section:not(.hero-section) h2 .hl { color:var(--c-accent) !important; }
+  /* light work cards: product colour stays, but the edge is crisp and the card sits on the paper with a soft shadow */
+  html:not([data-theme="dark"]) [data-spot].tone { box-shadow:inset 0 0 0 1px rgba(0,0,0,.06), 0 30px 60px -36px rgba(18,18,18,.35) !important; }
+  html:not([data-theme="dark"]) article:hover [data-spot].tone, html:not([data-theme="dark"]) article:focus-within [data-spot].tone {
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 40px 70px -36px rgba(18,18,18,.4) !important; }  /* sections: one flat graphite page, no coloured glows (the faint hex texture stays) */
+  html[data-theme="dark"] #work, html[data-theme="dark"] #behance, html[data-theme="dark"] #about,
+  html[data-theme="dark"] #contact, html[data-theme="dark"] footer { background:var(--c-bg) !important; }
+  html #work::before, html #behance::before, html #about::before, html #contact::before { background:none !important; }
+  /* section labels: the dot is the one accent */
+  html[data-theme="dark"] main section:not(.hero-section) [style*="--c-accent-soft"][style*="999px"]::before { background:var(--c-accent) !important; box-shadow:none !important; }
+  /* headings: solid ink, accent words in plain blue (no gradient text) */
+  html[data-theme="dark"] main section:not(.hero-section) h2, html[data-theme="dark"] .case > h3 { background:none !important; color:var(--c-ink) !important; }
+  .hl, html[data-theme="dark"] main section:not(.hero-section) h2 .hl, html:not([data-theme="dark"]) main section:not(.hero-section) h2 .hl {
+    background:none !important; -webkit-background-clip:border-box !important; background-clip:border-box !important; color:var(--c-accent) !important; }
+  /* glass cards: neutral lift, no violet glow */
+  html[data-theme="dark"] [data-bcard]:hover, html[data-theme="dark"] #about [style*="minmax(220px"] > div:hover,
+  html[data-theme="dark"] #contact [style*="--c-subtle"][style*="16px"]:hover {
+    border-color:rgba(255,255,255,.18) !important; box-shadow:0 30px 60px -30px rgba(0,0,0,.6) !important; }
+  .also-campaign { --also-c:#A1A1A6; }
+
+  /* hero: Inter 600, three lines that rise in one after another, "complexity" in the accent, "feel simple." muted */
+  .hero-section h1 { font-family:'Inter', system-ui, sans-serif !important; font-weight:600 !important; font-size:clamp(42px,6.4vw,90px) !important;
+    line-height:.98 !important; letter-spacing:-.045em !important; max-width:none !important; animation:none !important; filter:none !important;
+    background:none !important; -webkit-background-clip:border-box !important; background-clip:border-box !important; color:var(--hero-ink-from) !important; }
+  .hero-section h1 .h-line { display:block; overflow:hidden; padding-bottom:.06em; }
+  .hero-section h1 .h-line > span { display:inline-block; transform:translateY(105%); animation:hLine 1.1s cubic-bezier(.16,1,.3,1) forwards .1s; }
+  .hero-section h1 .h-line:nth-child(2) > span { animation-delay:.18s; }
+  .hero-section h1 .h-line:nth-child(3) > span { animation-delay:.26s; }
+  .hero-section h1 .h-acc { color:var(--c-accent); }
+  .hero-section h1 .h-soft { color:var(--hero-muted); }
+  @media (min-width:640px) { .hero-section h1 .h-line { white-space:nowrap; } }
+  @keyframes hLine { to { transform:none; } }
+
+  /* ===== work cards (2026-10-03): staggered entrance + softer, springier hover ===== */
+  html.mo-ready .case .tone .tone-head > div, html.mo-ready .case .tone .tone-pill, html.mo-ready .case .tone .tone-shot, html.mo-ready .case .tone .tone-soon {
+    transition:opacity 1s cubic-bezier(.16,1,.3,1) var(--d,0ms), translate 1.3s cubic-bezier(.16,1,.3,1) var(--d,0ms), background-color .2s ease; }
+  html.mo-ready .case .tone .tone-laptop {
+    transition:transform 1.05s cubic-bezier(.22,1,.36,1), opacity 1.1s cubic-bezier(.16,1,.3,1) var(--d,0ms), translate 1.4s cubic-bezier(.16,1,.3,1) var(--d,0ms); }
+  .case .tone .tone-head > div { --d:140ms; } .case .tone .tone-pill { --d:240ms; }
+  .case .tone .tone-laptop, .case .tone .tone-shot, .case .tone .tone-soon { --d:340ms; }
+  html.mo-ready .case .tone:not(.tone-in) .tone-head > div, html.mo-ready .case .tone:not(.tone-in) .tone-pill { opacity:0; translate:0 22px; }
+  html.mo-ready .case .tone:not(.tone-in) .tone-laptop, html.mo-ready .case .tone:not(.tone-in) .tone-shot, html.mo-ready .case .tone:not(.tone-in) .tone-soon { opacity:0; translate:0 80px; }
+  /* hover: the card rises a touch, gets a hairline edge, the pill opens up and its arrow pops */
+  [data-spot].tone { transition:filter .25s ease, transform .9s cubic-bezier(.22,1,.36,1), box-shadow .6s ease !important; }
+  article:hover [data-spot].tone, article:focus-within [data-spot].tone { transform:translateY(-6px); box-shadow:inset 0 0 0 1px rgba(255,255,255,.22) !important; }
+  .tone-pill { transition:padding .5s cubic-bezier(.22,1,.36,1), gap .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease; }
+  article:hover .tone-pill, .tone-pill:focus-visible { padding-left:22px; gap:14px; box-shadow:0 10px 30px -10px rgba(0,0,0,.45); }
+  .tone-arrow { transition:transform .5s cubic-bezier(.22,1,.36,1); }
+  article:hover .tone-arrow, .tone-pill:focus-visible .tone-arrow { transform:scale(1.14); }
+  .tone-lid { will-change:transform; }
+  @media (prefers-reduced-motion:reduce) { [data-spot].tone { transform:none !important; } }
+  @media (prefers-reduced-motion:reduce) { .hero-section h1 .h-line > span { transform:none; animation:none; } }
 </style>
 </head>
 <body>
@@ -599,7 +715,7 @@
         <span style="width: 7px; height: 7px; border-radius: 999px; background: var(--hero-dot); box-shadow: 0 0 10px var(--hero-dot-glow);"></span>
         Product Designer
       </div>
-      <h1 style="animation: heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s; font-size: clamp(40px,6.6vw,80px); font-weight: 800; letter-spacing: -.03em; line-height: 1.02; margin: 0; max-width: 15ch; text-wrap: balance; background: linear-gradient(180deg,var(--hero-ink-from) 0%,var(--hero-ink-to) 100%); -webkit-background-clip: text; background-clip: text; color: transparent;">I design products that make <span style="background: var(--hero-accent); -webkit-background-clip: text; background-clip: text; color: transparent;">complexity feel simple.</span></h1>
+      <h1 style="animation: heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s; font-size: clamp(40px,6.6vw,80px); font-weight: 800; letter-spacing: -.03em; line-height: 1.02; margin: 0; max-width: 15ch; text-wrap: balance; background: linear-gradient(180deg,var(--hero-ink-from) 0%,var(--hero-ink-to) 100%); -webkit-background-clip: text; background-clip: text; color: transparent;"><span class="h-line"><span>I design products</span></span><span class="h-line"><span>that make <span class="h-acc">complexity</span></span></span><span class="h-line"><span class="h-soft">feel simple.</span></span></h1>
       <p style="animation: heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s; font-size: clamp(16px,1.6vw,20px); color: var(--hero-muted); line-height: 1.7; margin: -2px 0 0; max-width: 58ch; font-weight: 300;">I’m Chirag Mahajan, a product designer with 3+ years of experience. I work end to end: from understanding the problem and shaping the experience to designing the interface, building the design system, and prototyping or coding it into something real.</p>
       <div style="animation: heroRise .8s cubic-bezier(.2,.7,.2,1) both .44s; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-top: 6px;">
         <a href="#work" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: var(--hero-cta-bg); color: var(--hero-cta-text); border: 1px solid var(--hero-cta-line); font-size: var(--hero-cta-size); font-weight: 700; text-transform: var(--hero-caps); letter-spacing: var(--hero-caps-track); box-shadow: var(--hero-cta-shadow); text-decoration: none;">View my work ↓</a>
@@ -609,12 +725,15 @@
   </section></main>
 </div>
 <style>#boot-shell .boot-m{display:none}@media (max-width:1023.98px){#boot-shell .boot-d{display:none}#boot-shell .boot-m{display:block}}</style>
-<script>(function(){var s=document.getElementById("boot-shell");if(!s)return;var mo=new MutationObserver(function(){var h=document.querySelectorAll(".hero-section");for(var i=0;i<h.length;i++){if(!h[i].closest("#boot-shell")&&!h[i].closest("x-dc")){s.remove();mo.disconnect();return;}}});mo.observe(document.documentElement,{childList:true,subtree:true});})();</script>
+<script>(function(){var s=document.getElementById("boot-shell");if(!s)return;var T0=performance.now();var mo=new MutationObserver(function(){var h=document.querySelectorAll(".hero-section");for(var i=0;i<h.length;i++){if(!h[i].closest("#boot-shell")&&!h[i].closest("x-dc")){
+/* the live hero continues the first-paint hero's entrance instead of replaying it */
+try{var el=performance.now()-T0;h[i].getAnimations({subtree:true}).forEach(function(a){a.currentTime=el;});}catch(e){}
+s.remove();mo.disconnect();return;}}});mo.observe(document.documentElement,{childList:true,subtree:true});})();</script>
 <x-dc>
 <helmet>
 <title>Chirag Mahajan — Product Designer</title>
 <meta name="description" content="Product designer working across SaaS, CRM and AI tools. I design products that make complexity feel simple, with design and code.">
-<meta name="theme-color" content="#151419">
+<meta name="theme-color" content="#0B0B0C">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Chirag Mahajan — Product Designer">
 <meta property="og:description" content="Product designer working across SaaS, CRM and AI tools. I design products that make complexity feel simple, with design and code.">
@@ -692,7 +811,7 @@
         <span style="width:7px;height:7px;border-radius:999px;background:var(--hero-dot);box-shadow:0 0 10px var(--hero-dot-glow)"></span>
         Product Designer
       </div>
-      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(40px,6.6vw,80px);font-weight:800;letter-spacing:-.03em;line-height:1.02;margin:0;max-width:15ch;text-wrap:balance;background:linear-gradient(180deg,var(--hero-ink-from) 0%,var(--hero-ink-to) 100%);-webkit-background-clip:text;background-clip:text;color:transparent">I design products that make <span style="background:var(--hero-accent);-webkit-background-clip:text;background-clip:text;color:transparent">complexity feel simple.</span></h1>
+      <h1 style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .16s;font-size:clamp(40px,6.6vw,80px);font-weight:800;letter-spacing:-.03em;line-height:1.02;margin:0;max-width:15ch;text-wrap:balance;background:linear-gradient(180deg,var(--hero-ink-from) 0%,var(--hero-ink-to) 100%);-webkit-background-clip:text;background-clip:text;color:transparent"><span class="h-line"><span>I design products</span></span><span class="h-line"><span>that make <span class="h-acc">complexity</span></span></span><span class="h-line"><span class="h-soft">feel simple.</span></span></h1>
       <p style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .3s;font-size:clamp(16px,1.6vw,20px);color:var(--hero-muted);line-height:1.7;margin:-2px 0 0;max-width:58ch;font-weight:300">I’m Chirag Mahajan, a product designer with 3+ years of experience. I work end to end: from understanding the problem and shaping the experience to designing the interface, building the design system, and prototyping or coding it into something real.</p>
       <div style="animation:heroRise .8s cubic-bezier(.2,.7,.2,1) both .44s;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding-top:6px">
         <a href="#work" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;background:var(--hero-cta-bg);color:var(--hero-cta-text);border:1px solid var(--hero-cta-line);font-size:var(--hero-cta-size);font-weight:700;text-transform:var(--hero-caps);letter-spacing:var(--hero-caps-track);box-shadow:var(--hero-cta-shadow);text-decoration:none">View my work ↓</a>
@@ -715,14 +834,14 @@
             <div class="tone-head">
               <div>
                 <span class="tone-title"><span class="tone-name">Quick Chat</span><span class="tone-ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Shipped</span></span>
-                <span class="tone-sub">Unified inbox · Automation</span>
+                <span class="tone-sub">Unified inbox · Automation</span><span class="qc-story" aria-hidden="true"><b class="on">Chatbot</b><i>→</i><b>Conversation</b><i>→</i><b>WhatsApp</b><i>→</i><b>Workflow</b></span>
               </div>
               <a class="tone-pill" href="quick-chat.html" onClick="{{ openChatCase }}">View case study <span class="tone-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></span></a>
             </div>
             <div class="tone-laptop"><div class="tone-lid">
             <div class="tone-window">
-              <div class="tone-bar" aria-hidden="true"><i></i><i></i><i></i><span>Quick Chat · Inbox</span><b class="tone-steps"><i class="on"></i><i></i><i></i><i></i><i></i></b></div>
-              <div class="tone-view"><div class="tone-strip"><div class="tone-slide"><img loading="lazy" decoding="async" src="assets/qc-cs/handoff-live-chat.webp" alt="Quick Chat inbox: a conversation handed from the bot to an agent" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/wa-01-window.webp" alt="WhatsApp chat after the 24-hour window has closed" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img21.webp" alt="Choosing an approved message template to reconnect" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img16.webp" alt="Editing template variables with a live phone preview" decoding="async"></div><div class="tone-slide"><img data-src="assets/qc-cs/img12.webp" alt="Published WhatsApp workflows list" decoding="async"></div></div></div>
+              <div class="tone-bar" aria-hidden="true"><i></i><i></i><i></i><span>Quick Chat · Inbox</span><b class="tone-steps"><i class="on"></i><i></i><i></i><i></i></b></div>
+              <div class="tone-view"><div class="tone-strip"><div class="tone-slide on" data-cap="The bot answers first, on your website"><img loading="lazy" decoding="async" src="assets/qc-cs/img06.webp" alt="The Quick Chat bot answering a visitor in the test sandbox"></div><div class="tone-slide" data-cap="A person takes over, with the whole chat"><img class="fit-contain" decoding="async" data-src="assets/qc-cs/handoff-live-chat.webp" alt="Quick Chat inbox: a conversation handed from the bot to an agent"></div><div class="tone-slide" data-cap="Reconnect on WhatsApp with a template"><img decoding="async" data-src="assets/qc-cs/wa-04-media.webp" alt="A WhatsApp template with variables filled in and a live phone preview"></div><div class="tone-slide" data-cap="Follow-ups run on their own, step by step"><img decoding="async" data-src="assets/qc-cs/img19.webp" alt="A workflow canvas: keyword trigger, questions, confirmation and a reminder"></div></div></div>
             </div>
             </div><div class="tone-base" aria-hidden="true"></div></div>
           </div>
@@ -944,13 +1063,13 @@
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <a href="assets/Chirag-Mahajan-Resume.pdf" download="Chirag Mahajan - Product Designer - Resume.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-2);background:var(--c-subtle);border-radius:999px;border:1px solid var(--c-line);text-decoration:none"><span style="color:var(--c-accent)">⇩</span><span>Save as PDF</span></a>
+          <a href="assets/Chirag-Mahajan-Resume-g33.pdf" download="Chirag Mahajan - Product Designer - Resume.pdf" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-2);background:var(--c-subtle);border-radius:999px;border:1px solid var(--c-line);text-decoration:none"><span style="color:var(--c-accent)">⇩</span><span>Save as PDF</span></a>
           <button onClick="{{ closeModals }}" aria-label="Close resume" data-modal-close="1" style="padding:6px 10px;color:var(--c-ink-5);background:none;border:none;border-radius:8px;cursor:pointer;font-size:14px">✕</button>
         </div>
       </div>
       <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
         <iframe data-resume="1" title="Chirag Mahajan resume" style="width:100%;height:min(78vh,1000px);border:1px solid var(--c-line);border-radius:12px;background:var(--c-subtle)"></iframe>
-        <p style="font-size:12px;color:var(--c-ink-4);line-height:1.6;margin:0">If the preview does not load, <a href="assets/Chirag-Mahajan-Resume.pdf" target="_blank" rel="noopener" style="color:var(--c-accent-text);font-weight:600">open the resume in a new tab</a>.</p>
+        <p style="font-size:12px;color:var(--c-ink-4);line-height:1.6;margin:0">If the preview does not load, <a href="assets/Chirag-Mahajan-Resume-g33.pdf" target="_blank" rel="noopener" style="color:var(--c-accent-text);font-weight:600">open the resume in a new tab</a>.</p>
       </div>
     </div>
   </div>
@@ -1003,7 +1122,7 @@ class Component extends DCLogic {
     this.setState(Object.assign({ modal: name }, extra || {}), () => {
       // the PDF gets its src only now: a src in the template would be fetched by the raw page on every load
       const f = document.querySelector('iframe[data-resume]');
-      if (f && !f.getAttribute('src')) f.setAttribute('src', 'assets/Chirag-Mahajan-Resume.pdf#view=FitH');
+      if (f && !f.getAttribute('src')) f.setAttribute('src', 'assets/Chirag-Mahajan-Resume-g33.pdf#view=FitH');
       const c = document.querySelector('[data-modal-close]');
       if (c) c.focus();
     });
@@ -1021,7 +1140,7 @@ class Component extends DCLogic {
   applyTheme(theme, remember) {
     document.documentElement.setAttribute('data-theme', theme);
     const tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute('content', theme === 'dark' ? '#151419' : '#FCFCFC');
+    if (tc) tc.setAttribute('content', theme === 'dark' ? '#0B0B0C' : '#FCFCFC');
     // a visitor's switch lasts for this visit only; every new visit opens dark
     if (remember) { try { sessionStorage.setItem('cm-theme', theme); } catch (e) {} }
   }
@@ -1046,7 +1165,7 @@ class Component extends DCLogic {
   mountCursorLayer() {
     if (this.cursorLayer) return;
     const mk = (tag, css) => { const el = document.createElement(tag); el.setAttribute('aria-hidden', 'true'); el.style.cssText = css; document.body.appendChild(el); return el; };
-    const dot = mk('div', 'position:fixed;left:-100px;top:-100px;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:999px;background:var(--c-accent);box-shadow:0 0 8px rgba(99,102,241,.7);pointer-events:none;z-index:9999;opacity:0;transition:transform .15s ease,opacity .2s ease;will-change:transform');
+    const dot = mk('div', 'position:fixed;left:-100px;top:-100px;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:999px;background:var(--c-accent);box-shadow:0 0 8px rgba(77,141,255,.6);pointer-events:none;z-index:9999;opacity:0;transition:transform .15s ease,opacity .2s ease;will-change:transform');
     const cvs = mk('canvas', 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9998');
     const ring = mk('div', 'position:fixed;left:-100px;top:-100px;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:999px;border:1px solid rgba(161,161,170,.45);pointer-events:none;z-index:9999;opacity:0;transition:width .2s ease,height .2s ease,margin .2s ease,border-color .2s ease,background-color .2s ease,opacity .2s ease;will-change:transform');
     this.cursorDotRef.current = dot; this.cursorCanvasRef.current = cvs; this.cursorRingRef.current = ring;
@@ -1069,7 +1188,7 @@ class Component extends DCLogic {
     if (!ring || !dot) { this.cursorRetry = setTimeout(() => this.startCursor(), 120); return; }
     let mx = -100, my = -100, rx = -100, ry = -100, raf = 0, shown = false, hovered = false, down = false;
     const cvs = this.cursorCanvasRef.current, ctx = cvs ? cvs.getContext('2d') : null;
-    const PAL = [['#c7d2fe','#4f46e5'],['#a5b4fc','#4338ca'],['#818cf8','#3730a3'],['#ffffff','#6366f1'],['#e0e7ff','#6366f1']];
+    const PAL = [['#dbe7ff','#4D8DFF'],['#c4d8ff','#2F6FE0'],['#ffffff','#4D8DFF'],['#e6e6e6','#8C8C90'],['#dbe7ff','#4D8DFF']];
     let parts = [], lastSx = -100, lastSy = -100, dpr = 1;
     const sizeCanvas = () => {
       if (!cvs) return;
@@ -1126,8 +1245,8 @@ class Component extends DCLogic {
       const size = hovered ? 52 : 32, s = down ? .85 : 1;
       ring.style.width = size + 'px'; ring.style.height = size + 'px';
       ring.style.margin = (-size / 2 * s) + 'px 0 0 ' + (-size / 2 * s) + 'px';
-      ring.style.borderColor = hovered ? 'rgba(99,102,241,.75)' : 'rgba(161,161,170,.45)';
-      ring.style.background = hovered ? 'rgba(99,102,241,.08)' : 'transparent';
+      ring.style.borderColor = hovered ? 'rgba(77,141,255,.75)' : 'rgba(161,161,170,.45)';
+      ring.style.background = hovered ? 'rgba(77,141,255,.08)' : 'transparent';
       dot.style.transform = 'scale(' + (down ? .6 : hovered ? 1.5 : 1) + ')';
     };
     let cleared = false;
@@ -1658,7 +1777,7 @@ class Component extends DCLogic {
     const btnPad = s.size === 'sm' ? '6px 12px' : s.size === 'md' ? '10px 20px' : '14px 28px';
     const btnFont = s.size === 'sm' ? '12px' : s.size === 'md' ? '14px' : '16px';
     const variantStyle = s.variant === 'primary'
-      ? { background: 'var(--c-accent)', color: 'var(--c-surface)', border: 'none', boxShadow: '0 4px 12px rgba(79,70,229,.25)' }
+      ? { background: 'var(--c-accent)', color: 'var(--c-surface)', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,.35)' }
       : s.variant === 'secondary'
         ? { background: 'var(--c-surface)', color: 'var(--c-ink-1)', border: '1px solid var(--c-line)' }
         : s.variant === 'ghost'
@@ -1772,7 +1891,7 @@ class Component extends DCLogic {
       springBoxStyle: {
         width: '96px', height: '96px', borderRadius: '16px', background: 'var(--c-accent)', color: 'var(--c-surface)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px', cursor: 'pointer',
-        boxShadow: '0 16px 40px rgba(79,70,229,.25)',
+        boxShadow: '0 16px 40px rgba(0,0,0,.45)',
         transform: s.springOn ? 'scale(1) translateY(0) rotate(0deg)' : 'scale(.7) translateY(-20px) rotate(-6deg)',
         transition: 'transform ' + springDur + 'ms cubic-bezier(.34,' + (1 + overshoot * 1.2).toFixed(2) + ',.64,1)'
       },

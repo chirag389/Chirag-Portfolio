@@ -463,7 +463,7 @@
 
   function initGL() {
     gl = canvas.getContext("webgl2", { alpha: false, antialias: false, depth: false, stencil: false, premultipliedAlpha: false });
-    if (!gl) return false;
+    if (!gl) { console.warn("hero-field: WebGL2 not available"); return false; }
     var sh = function (type, src) {
       var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
       if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.warn("hero-field:", gl.getShaderInfoLog(s)); return null; }
@@ -472,7 +472,7 @@
     var v = sh(gl.VERTEX_SHADER, VS), f = sh(gl.FRAGMENT_SHADER, FS);
     if (!v || !f) return false;
     prog = gl.createProgram(); gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return false;
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn("hero-field: link failed", gl.getProgramInfoLog(prog)); return false; }
     ["uPage", "uFlow", "uRes", "uPage2", "uEye", "uFwd", "uUp", "uFocal", "uLift", "uBev", "uShine", "uIrid", "uLight", "uBg", "uSeam", "uTint", "uClear"]
       .forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
     var buf = gl.createBuffer();
@@ -533,6 +533,11 @@
       new MutationObserver(function () { setTimeout(function () { paintPage(); draw(); }, 30); })
         .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
       canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); hero.classList.remove("hexgl-on", "hexgl-live"); });
+      canvas.addEventListener("webglcontextrestored", function () {   // Safari/mobile drop the GPU context under load: rebuild instead of staying blank
+        if (!initGL()) return;
+        hero.classList.add("hexgl-on"); if (live) hero.classList.add("hexgl-live");
+        field = null; relayout();
+      });
       if (touchMode) {
         document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
         setTimeout(wake, 600);
